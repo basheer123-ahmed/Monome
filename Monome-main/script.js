@@ -134,12 +134,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // Toggle mobile drawer
   if (openMenuBtn && mobileMenu) {
     openMenuBtn.addEventListener('click', () => {
-      mobileMenu.classList.remove('translate-x-full');
+      mobileMenu.classList.remove('translate-x-full', 'pointer-events-none', 'invisible');
+      mobileMenu.classList.add('pointer-events-auto', 'visible');
     });
   }
   if (closeMenuBtn && mobileMenu) {
     closeMenuBtn.addEventListener('click', () => {
-      mobileMenu.classList.add('translate-x-full');
+      mobileMenu.classList.add('translate-x-full', 'pointer-events-none', 'invisible');
+      mobileMenu.classList.remove('pointer-events-auto', 'visible');
     });
   }
 
@@ -147,7 +149,8 @@ document.addEventListener('DOMContentLoaded', () => {
   navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
       if (mobileMenu) {
-        mobileMenu.classList.add('translate-x-full');
+        mobileMenu.classList.add('translate-x-full', 'pointer-events-none', 'invisible');
+        mobileMenu.classList.remove('pointer-events-auto', 'visible');
       }
 
       const href = link.getAttribute('href');
