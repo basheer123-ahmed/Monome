@@ -1,0 +1,1350 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  <!-- Immediate theme detection to prevent FOUC -->
+  <script>
+    (function() {
+      var isDark = localStorage.getItem('darkMode') === 'true' || 
+                  (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      if (isDark) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+  </script>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="https://img.icons8.com/color/48/construction.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="MONOME Constructions – Premium Construction, Architecture & Interior Design. Crafting spaces that inspire across India." />
+    <meta name="keywords" content="construction, architecture, interior design, luxury homes, villas, commercial buildings, India" />
+    <meta property="og:title" content="MONOME Constructions – Crafting Spaces That Inspire" />
+    <meta property="og:description" content="Premium Construction, Architecture & Interior Solutions across India." />
+    <meta property="og:type" content="website" />
+    <title>MONOME Constructions – Crafting Spaces That Inspire</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="tailwind.js"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              inter: ['Inter', 'sans-serif'],
+              poppins: ['Poppins', 'sans-serif'],
+            },
+            colors: {
+              brand: {
+                orange: '#F5A623',
+                'orange-light': '#F7B84B',
+                'orange-dark': '#D4891A',
+              },
+              cream: {
+                50: '#FEFDFB',
+                100: '#FAF8F3',
+                200: '#F5F0E8',
+                300: '#EDE4D4',
+                400: '#DDD0BC',
+              },
+              pastel: {
+                blue: '#B8D4E8',
+                mint: '#B8E4D4',
+                lavender: '#D4B8E4',
+                peach: '#E4C8B8',
+                sky: '#D0E8F5',
+              },
+              glass: {
+                white: 'rgba(255,255,255,0.25)',
+                card: 'rgba(255,255,255,0.45)',
+                dark: 'rgba(0,0,0,0.15)',
+              },
+            },
+            boxShadow: {
+              glass: '0 8px 32px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.6)',
+              'glass-hover': '0 20px 60px rgba(0,0,0,0.14), inset 0 1px 0 rgba(255,255,255,0.8)',
+              luxury: '0 4px 24px rgba(245,166,35,0.15), 0 1px 4px rgba(0,0,0,0.06)',
+              'luxury-hover': '0 12px 48px rgba(245,166,35,0.25), 0 4px 12px rgba(0,0,0,0.10)',
+              soft: '0 2px 16px rgba(0,0,0,0.06)',
+              card: '0 8px 40px rgba(0,0,0,0.08)',
+            },
+            animation: {
+              'float': 'float 6s ease-in-out infinite',
+              'float-slow': 'float 9s ease-in-out infinite',
+              'pulse-soft': 'pulseSoft 4s ease-in-out infinite',
+              'shimmer': 'shimmer 2s linear infinite',
+              'spin-slow': 'spin 20s linear infinite',
+              'fade-in': 'fadeIn 0.8s ease-out forwards',
+              'slide-up': 'slideUp 0.7s ease-out forwards',
+              'scale-in': 'scaleIn 0.5s ease-out forwards',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0px)' },
+                '50%': { transform: 'translateY(-16px)' },
+              },
+              pulseSoft: {
+                '0%, 100%': { opacity: '0.7' },
+                '50%': { opacity: '1' },
+              },
+              shimmer: {
+                '0%': { backgroundPosition: '-200% 0' },
+                '100%': { backgroundPosition: '200% 0' },
+              },
+              fadeIn: {
+                from: { opacity: '0' },
+                to: { opacity: '1' },
+              },
+              slideUp: {
+                from: { opacity: '0', transform: 'translateY(40px)' },
+                to: { opacity: '1', transform: 'translateY(0)' },
+              },
+              scaleIn: {
+                from: { opacity: '0', transform: 'scale(0.9)' },
+                to: { opacity: '1', transform: 'scale(1)' },
+              },
+            },
+            borderRadius: {
+              '2xl': '1rem',
+              '3xl': '1.5rem',
+              '4xl': '2rem',
+            },
+            spacing: {
+              '18': '4.5rem',
+              '22': '5.5rem',
+              '30': '7.5rem',
+            },
+          }
+        }
+      }
+    </script>
+    
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" href="style.css?v=2" />
+  </head>
+  <body>
+
+    <script src="components.js"></script>
+    <script>document.write(window.MonomeComponents.top());</script>
+
+    <!-- ??? MAIN CONTENT SECTIONS ??? -->
+    <main class="relative z-10">
+      <section id="home" class="relative w-full h-screen min-h-[700px] overflow-hidden bg-[#0d1017]">
+        <!-- Background video -->
+        <div id="hero-scenes-container" class="absolute inset-0">
+          <video id="home-background-video" class="absolute inset-0 w-full h-full object-cover" src="public/home-background.mp4" autoplay muted loop playsinline></video>
+        </div>
+
+        <!-- Premium cinematic overlays -->
+        <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent z-10"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent z-10"></div>
+
+        <!-- Main content: Left-aligned asymmetric layout wrapper -->
+        <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-8 h-full flex items-center justify-start w-full">
+          <!-- Text and Action Block -->
+          <div class="max-w-2xl text-left flex flex-col items-start animate-fade-in">
+            <!-- Premium Label -->
+            <div class="mb-4">
+              <span class="bg-[#F5A623]/15 border border-[#F5A623]/30 text-[#F5A623] px-4 py-1.5 rounded-full inline-block backdrop-blur-md shadow-sm font-bold uppercase tracking-[0.2em] text-xs">MONOME Constructions</span>
+            </div>
+            <!-- Main Title -->
+            <h1 class="section-title text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight mb-6">
+              <span id="hero-typewriter-line1"></span><br class="hidden lg:inline" /><span class="text-gradient font-black" id="hero-typewriter-line2"></span>
+            </h1>
+            <!-- Description -->
+            <p class="section-subtitle text-sm sm:text-base text-neutral-200/90 max-w-lg mb-10 leading-relaxed">
+              <span id="hero-typewriter-sub"></span><span id="hero-cursor" class="inline-block w-0.5 h-5 bg-white/80 ml-0.5 align-middle" style="animation: cursorBlink 0.75s step-end infinite;"></span>
+            </p>
+            <!-- Call to Actions -->
+            <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+              <a href="projects.html" class="btn-primary cursor-pointer text-center text-sm font-semibold tracking-wide py-3.5 px-8">Explore Projects</a>
+              <a href="contact.html" class="btn-outline cursor-pointer text-center text-sm font-semibold tracking-wide py-3.5 px-8 text-white border-white/30 hover:border-[#F5A623] hover:text-[#F5A623] bg-transparent">Book Consultation</a>
+            </div>
+
+            <!-- Premium Stats Row (Left Aligned and Clean) -->
+            <div class="flex gap-8 mt-12 border-t border-white/10 pt-8 w-full max-w-md justify-start">
+              <div>
+                <p class="text-2xl font-bold font-inter text-white"><span class="stat-counter" data-target="500" data-suffix="+">0+</span></p>
+                <p class="text-[10px] text-neutral-400 font-poppins font-medium uppercase tracking-wider mt-0.5">Projects</p>
+              </div>
+              <div class="border-l border-white/10 pl-8">
+                <p class="text-2xl font-bold font-inter text-white"><span class="stat-counter" data-target="15" data-suffix="+">0+</span></p>
+                <p class="text-[10px] text-neutral-400 font-poppins font-medium uppercase tracking-wider mt-0.5">Years Exp</p>
+              </div>
+              <div class="border-l border-white/10 pl-8">
+                <p class="text-2xl font-bold font-inter text-white"><span class="stat-counter" data-target="98" data-suffix="%">0%</span></p>
+                <p class="text-[10px] text-neutral-400 font-poppins font-medium uppercase tracking-wider mt-0.5">Satisfaction</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <a href="about.html" class="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-1 text-white/70 hover:text-white transition-colors cursor-pointer" aria-label="Scroll down">
+          <span class="text-[10px] tracking-widest uppercase font-poppins">Scroll</span>
+          <div class="animate-bounce">
+            <i data-lucide="chevron-down" class="w-5 h-5 text-white"></i>
+          </div>
+        </a>
+      </section>
+
+      <!-- ─── ABOUT SECTION ─── -->
+
+      <!-- ═══════════════════════════════════════════════
+           SECTION 1: CONSTRUCTION PROCESS EDUCATION
+      ═══════════════════════════════════════════════ -->
+      <section id="construction-process" class="relative py-24 bg-luxury overflow-hidden">
+        <!-- Decorative blobs -->
+        <div class="floating-shape w-96 h-96 bg-brand-orange/10 -left-32 top-0" style="animation: float 12s ease-in-out infinite;"></div>
+        <div class="floating-shape w-64 h-64 bg-pastel-sky/40 right-0 bottom-0" style="animation: float 9s ease-in-out infinite reverse;"></div>
+
+        <div class="relative max-w-6xl mx-auto px-6 sm:px-12">
+          <!-- Section Header -->
+          <div class="text-center mb-16">
+            <p class="section-label mb-3">HOW WE BUILD</p>
+            <h2 class="section-title text-3xl sm:text-4xl lg:text-5xl mb-4">Our Construction Process</h2>
+            <p class="section-subtitle max-w-2xl mx-auto">A transparent, step-by-step journey from your vision to a beautifully handed-over space.</p>
+          </div>
+
+          <!-- Vertical Timeline -->
+          <div class="relative">
+            <!-- Centre line (desktop only) -->
+            <div class="hidden lg:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-brand-orange via-brand-orange/40 to-transparent"></div>
+
+            <!-- Steps -->
+            <div class="space-y-12 lg:space-y-0">
+
+              <!-- Step 1 -->
+              <div class="process-step lg:flex lg:items-center lg:gap-12 lg:mb-16" data-side="left">
+                <div class="lg:w-1/2 lg:text-right lg:pr-12 mb-4 lg:mb-0">
+                  <div class="glass-card rounded-2xl p-6 inline-block w-full">
+                    <div class="flex items-center gap-3 lg:justify-end mb-3">
+                      <div class="w-10 h-10 rounded-full bg-brand-orange/15 flex items-center justify-center text-brand-orange text-lg">📋</div>
+                      <span class="section-label text-xs">Step 01</span>
+                    </div>
+                    <h3 class="font-inter font-bold text-lg text-neutral-800 dark:text-neutral-100 mb-2">Consultation & Brief</h3>
+                    <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">We meet with you to understand your vision, lifestyle, budget, and timeline. We conduct site surveys and prepare a detailed project brief that guides all decisions.</p>
+                  </div>
+                </div>
+                <!-- Dot -->
+                <div class="hidden lg:flex w-10 h-10 rounded-full bg-brand-orange border-4 border-white dark:border-neutral-900 shadow-luxury items-center justify-center text-white font-bold text-sm z-10 flex-shrink-0">1</div>
+                <div class="lg:w-1/2 lg:pl-12"></div>
+              </div>
+
+              <!-- Step 2 -->
+              <div class="process-step lg:flex lg:items-center lg:gap-12 lg:mb-16" data-side="right">
+                <div class="lg:w-1/2 lg:pr-12"></div>
+                <!-- Dot -->
+                <div class="hidden lg:flex w-10 h-10 rounded-full bg-brand-orange border-4 border-white dark:border-neutral-900 shadow-luxury items-center justify-center text-white font-bold text-sm z-10 flex-shrink-0">2</div>
+                <div class="lg:w-1/2 lg:pl-12 mb-4 lg:mb-0">
+                  <div class="glass-card rounded-2xl p-6 inline-block w-full">
+                    <div class="flex items-center gap-3 mb-3">
+                      <div class="w-10 h-10 rounded-full bg-pastel-sky/50 flex items-center justify-center text-lg">📐</div>
+                      <span class="section-label text-xs">Step 02</span>
+                    </div>
+                    <h3 class="font-inter font-bold text-lg text-neutral-800 dark:text-neutral-100 mb-2">Architectural Design & Approvals</h3>
+                    <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">Our architects create floor plans, 3D elevations, and structural drawings. We handle all government building plan approvals, RERA compliance, and municipal clearances on your behalf.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 3 -->
+              <div class="process-step lg:flex lg:items-center lg:gap-12 lg:mb-16" data-side="left">
+                <div class="lg:w-1/2 lg:text-right lg:pr-12 mb-4 lg:mb-0">
+                  <div class="glass-card rounded-2xl p-6 inline-block w-full">
+                    <div class="flex items-center gap-3 lg:justify-end mb-3">
+                      <div class="w-10 h-10 rounded-full bg-pastel-mint/50 flex items-center justify-center text-lg">🏗️</div>
+                      <span class="section-label text-xs">Step 03</span>
+                    </div>
+                    <h3 class="font-inter font-bold text-lg text-neutral-800 dark:text-neutral-100 mb-2">Foundation & Structure</h3>
+                    <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">After soil testing, our engineers choose the optimal foundation type. We build the RCC frame — columns, beams, and slabs — using M25 concrete and Fe-550D TMT steel bars for maximum durability.</p>
+                  </div>
+                </div>
+                <div class="hidden lg:flex w-10 h-10 rounded-full bg-brand-orange border-4 border-white dark:border-neutral-900 shadow-luxury items-center justify-center text-white font-bold text-sm z-10 flex-shrink-0">3</div>
+                <div class="lg:w-1/2 lg:pl-12"></div>
+              </div>
+
+              <!-- Step 4 -->
+              <div class="process-step lg:flex lg:items-center lg:gap-12 lg:mb-16" data-side="right">
+                <div class="lg:w-1/2 lg:pr-12"></div>
+                <div class="hidden lg:flex w-10 h-10 rounded-full bg-brand-orange border-4 border-white dark:border-neutral-900 shadow-luxury items-center justify-center text-white font-bold text-sm z-10 flex-shrink-0">4</div>
+                <div class="lg:w-1/2 lg:pl-12 mb-4 lg:mb-0">
+                  <div class="glass-card rounded-2xl p-6 inline-block w-full">
+                    <div class="flex items-center gap-3 mb-3">
+                      <div class="w-10 h-10 rounded-full bg-pastel-lavender/50 flex items-center justify-center text-lg">🧱</div>
+                      <span class="section-label text-xs">Step 04</span>
+                    </div>
+                    <h3 class="font-inter font-bold text-lg text-neutral-800 dark:text-neutral-100 mb-2">Brickwork, Plastering & MEP</h3>
+                    <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">We complete block/brick masonry, internal/external plastering, and conceal all MEP (Mechanical, Electrical & Plumbing) works within walls for a clean finish and easy maintenance.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 5 -->
+              <div class="process-step lg:flex lg:items-center lg:gap-12 lg:mb-16" data-side="left">
+                <div class="lg:w-1/2 lg:text-right lg:pr-12 mb-4 lg:mb-0">
+                  <div class="glass-card rounded-2xl p-6 inline-block w-full">
+                    <div class="flex items-center gap-3 lg:justify-end mb-3">
+                      <div class="w-10 h-10 rounded-full bg-pastel-peach/50 flex items-center justify-center text-lg">🪟</div>
+                      <span class="section-label text-xs">Step 05</span>
+                    </div>
+                    <h3 class="font-inter font-bold text-lg text-neutral-800 dark:text-neutral-100 mb-2">Doors, Windows & Waterproofing</h3>
+                    <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">Premium solid wood/UPVC doors and soundproof windows are installed. Multi-layer waterproofing is applied to bathrooms, balconies, sumps, and terraces using Dr. Fixit and Fosroc systems.</p>
+                  </div>
+                </div>
+                <div class="hidden lg:flex w-10 h-10 rounded-full bg-brand-orange border-4 border-white dark:border-neutral-900 shadow-luxury items-center justify-center text-white font-bold text-sm z-10 flex-shrink-0">5</div>
+                <div class="lg:w-1/2 lg:pl-12"></div>
+              </div>
+
+              <!-- Step 6 -->
+              <div class="process-step lg:flex lg:items-center lg:gap-12 lg:mb-16" data-side="right">
+                <div class="lg:w-1/2 lg:pr-12"></div>
+                <div class="hidden lg:flex w-10 h-10 rounded-full bg-brand-orange border-4 border-white dark:border-neutral-900 shadow-luxury items-center justify-center text-white font-bold text-sm z-10 flex-shrink-0">6</div>
+                <div class="lg:w-1/2 lg:pl-12 mb-4 lg:mb-0">
+                  <div class="glass-card rounded-2xl p-6 inline-block w-full">
+                    <div class="flex items-center gap-3 mb-3">
+                      <div class="w-10 h-10 rounded-full bg-brand-orange/15 flex items-center justify-center text-lg">🎨</div>
+                      <span class="section-label text-xs">Step 06</span>
+                    </div>
+                    <h3 class="font-inter font-bold text-lg text-neutral-800 dark:text-neutral-100 mb-2">Interior Finishes & Painting</h3>
+                    <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">Premium vitrified tiles (Kajaria/Somany), Italian marble, luxury CP fittings (Jaguar/Kohler), modular kitchens, and Asian Paints Royale interior painting bring your space to life.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 7 -->
+              <div class="process-step lg:flex lg:items-center lg:gap-12" data-side="left">
+                <div class="lg:w-1/2 lg:text-right lg:pr-12 mb-4 lg:mb-0">
+                  <div class="glass-card rounded-2xl p-6 inline-block w-full border-2 border-brand-orange/30">
+                    <div class="flex items-center gap-3 lg:justify-end mb-3">
+                      <div class="w-10 h-10 rounded-full bg-brand-orange/20 flex items-center justify-center text-lg">🏡</div>
+                      <span class="section-label text-xs">Step 07</span>
+                    </div>
+                    <h3 class="font-inter font-bold text-lg text-brand-orange mb-2">Quality Check & Handover</h3>
+                    <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">35+ structural quality checks are conducted. We hand over your home with all occupancy certificates, warranty documents, and a dedicated post-handover support coordinator.</p>
+                  </div>
+                </div>
+                <div class="hidden lg:flex w-10 h-10 rounded-full bg-brand-orange border-4 border-white dark:border-neutral-900 shadow-luxury items-center justify-center text-white font-bold text-sm z-10 flex-shrink-0">✓</div>
+                <div class="lg:w-1/2 lg:pl-12"></div>
+              </div>
+
+            </div><!-- /steps -->
+          </div><!-- /timeline -->
+        </div>
+      </section>
+
+
+      <!-- ═══════════════════════════════════════════════
+           SECTION 2: VASTU KNOWLEDGE CENTER
+      ═══════════════════════════════════════════════ -->
+      <section id="vastu-center" class="py-24 bg-white dark:bg-[#0f1117] relative overflow-hidden">
+        <div class="floating-shape w-80 h-80 bg-pastel-lavender/30 right-0 -top-20"></div>
+        <div class="max-w-6xl mx-auto px-6 sm:px-12">
+          <!-- Header -->
+          <div class="text-center mb-14">
+            <p class="section-label mb-3">ANCIENT WISDOM</p>
+            <h2 class="section-title text-3xl sm:text-4xl lg:text-5xl mb-4">Vastu Knowledge Center</h2>
+            <p class="section-subtitle max-w-2xl mx-auto">Harmonize your home with the five elements. Explore Vastu principles our architects integrate into every project.</p>
+          </div>
+
+          <!-- Accordion Cards -->
+          <div id="vastu-accordion" class="space-y-4 max-w-4xl mx-auto">
+
+            <div class="vastu-item glass-card rounded-2xl overflow-hidden border border-neutral-200/50 dark:border-white/10 transition-all duration-300">
+              <button class="vastu-trigger w-full flex items-center justify-between p-5 text-left cursor-pointer group" data-target="vastu-1">
+                <div class="flex items-center gap-4">
+                  <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-[#F5A623]/10 to-[#F7B84B]/20 border border-[#F5A623]/25 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300 shadow-sm">
+                    <i data-lucide="compass" class="w-5 h-5 text-brand-orange"></i>
+                  </div>
+                  <div>
+                    <h3 class="font-inter font-semibold text-neutral-800 dark:text-neutral-100 text-base group-hover:text-brand-orange transition-colors">Plot Orientation & Entry Direction</h3>
+                    <p class="text-xs text-neutral-400 mt-0.5">North & East-facing plots are most auspicious</p>
+                  </div>
+                </div>
+                <svg class="vastu-icon w-5 h-5 text-brand-orange transition-transform duration-300 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+              <div id="vastu-1" class="vastu-panel max-h-0 overflow-hidden transition-all duration-500">
+                <div class="pr-6 pl-10 pb-6 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed space-y-3 border-l-2 border-brand-orange ml-11">
+                  <p>According to Vastu Shastra, the main entrance should face North, East, or North-East. These directions attract positive energy (Prana) into the home.</p>
+                  <p>South-facing plots require specific Vastu corrections such as extended compound walls on the South side, strategic placement of trees, and shifted main door positions.</p>
+                  <p class="pt-2"><strong class="text-brand-orange">MONOME practice:</strong> We always conduct a compass orientation survey before finalizing the floor plan to ensure compliance with Vastu entry principles.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="vastu-item glass-card rounded-2xl overflow-hidden border border-neutral-200/50 dark:border-white/10 transition-all duration-300">
+              <button class="vastu-trigger w-full flex items-center justify-between p-5 text-left cursor-pointer group" data-target="vastu-2">
+                <div class="flex items-center gap-4">
+                  <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-[#F5A623]/10 to-[#F7B84B]/20 border border-[#F5A623]/25 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300 shadow-sm">
+                    <i data-lucide="flame" class="w-5 h-5 text-brand-orange"></i>
+                  </div>
+                  <div>
+                    <h3 class="font-inter font-semibold text-neutral-800 dark:text-neutral-100 text-base group-hover:text-brand-orange transition-colors">Kitchen Placement (Agni Corner)</h3>
+                    <p class="text-xs text-neutral-400 mt-0.5">Southeast quadrant governed by Agni (fire)</p>
+                  </div>
+                </div>
+                <svg class="vastu-icon w-5 h-5 text-brand-orange transition-transform duration-300 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+              <div id="vastu-2" class="vastu-panel max-h-0 overflow-hidden transition-all duration-500">
+                <div class="pr-6 pl-10 pb-6 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed space-y-3 border-l-2 border-brand-orange ml-11">
+                  <p>The kitchen must be placed in the South-East (Agni corner) of the home. The cook should ideally face East while cooking, harnessing the morning sun's positive energy.</p>
+                  <p>The cooking gas platform (hob) must never be directly under a beam or window. The sink and water source must be on the North-East side of the kitchen.</p>
+                  <p class="pt-2"><strong class="text-brand-orange">MONOME practice:</strong> Our interior designers follow Vastu kitchen triangle principles to optimize workflow while maintaining Vastu compliance.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="vastu-item glass-card rounded-2xl overflow-hidden border border-neutral-200/50 dark:border-white/10 transition-all duration-300">
+              <button class="vastu-trigger w-full flex items-center justify-between p-5 text-left cursor-pointer group" data-target="vastu-3">
+                <div class="flex items-center gap-4">
+                  <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-[#F5A623]/10 to-[#F7B84B]/20 border border-[#F5A623]/25 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300 shadow-sm">
+                    <i data-lucide="bed" class="w-5 h-5 text-brand-orange"></i>
+                  </div>
+                  <div>
+                    <h3 class="font-inter font-semibold text-neutral-800 dark:text-neutral-100 text-base group-hover:text-brand-orange transition-colors">Master Bedroom (Nairutya Corner)</h3>
+                    <p class="text-xs text-neutral-400 mt-0.5">South-West for stability and marital harmony</p>
+                  </div>
+                </div>
+                <svg class="vastu-icon w-5 h-5 text-brand-orange transition-transform duration-300 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+              <div id="vastu-3" class="vastu-panel max-h-0 overflow-hidden transition-all duration-500">
+                <div class="pr-6 pl-10 pb-6 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed space-y-3 border-l-2 border-brand-orange ml-11">
+                  <p>The South-West corner (Nairutya) is associated with stability and strength. This is the ideal position for the master bedroom as it grounds the head of the household.</p>
+                  <p>The head of the bed should point South or West while sleeping. Mirrors must not face the bed directly as they reflect energy back and disturb sleep.</p>
+                  <p class="pt-2"><strong class="text-brand-orange">MONOME practice:</strong> We offer a complimentary Vastu bedroom orientation consultation with every residential project.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="vastu-item glass-card rounded-2xl overflow-hidden border border-neutral-200/50 dark:border-white/10 transition-all duration-300">
+              <button class="vastu-trigger w-full flex items-center justify-between p-5 text-left cursor-pointer group" data-target="vastu-4">
+                <div class="flex items-center gap-4">
+                  <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-[#F5A623]/10 to-[#F7B84B]/20 border border-[#F5A623]/25 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300 shadow-sm">
+                    <i data-lucide="droplet" class="w-5 h-5 text-brand-orange"></i>
+                  </div>
+                  <div>
+                    <h3 class="font-inter font-semibold text-neutral-800 dark:text-neutral-100 text-base group-hover:text-brand-orange transition-colors">Water Sources (Jal Corner)</h3>
+                    <p class="text-xs text-neutral-400 mt-0.5">North-East is the ideal zone for water</p>
+                  </div>
+                </div>
+                <svg class="vastu-icon w-5 h-5 text-brand-orange transition-transform duration-300 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+              <div id="vastu-4" class="vastu-panel max-h-0 overflow-hidden transition-all duration-500">
+                <div class="pr-6 pl-10 pb-6 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed space-y-3 border-l-2 border-brand-orange ml-11">
+                  <p>Underground sumps, borewells, and overhead tanks for open-top storage should be in the North-East quadrant. This direction (Eeshanya) is associated with water and purity.</p>
+                  <p>Overhead tanks should ideally be placed in the South-West or West to maintain the balance of heavy weight in these directions.</p>
+                  <p class="pt-2"><strong class="text-brand-orange">MONOME practice:</strong> Our plumbing engineers design dual-tank systems that comply with Vastu water principles during the MEP planning stage.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="vastu-item glass-card rounded-2xl overflow-hidden border border-neutral-200/50 dark:border-white/10 transition-all duration-300">
+              <button class="vastu-trigger w-full flex items-center justify-between p-5 text-left cursor-pointer group" data-target="vastu-5">
+                <div class="flex items-center gap-4">
+                  <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-[#F5A623]/10 to-[#F7B84B]/20 border border-[#F5A623]/25 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300 shadow-sm">
+                    <i data-lucide="sparkles" class="w-5 h-5 text-brand-orange"></i>
+                  </div>
+                  <div>
+                    <h3 class="font-inter font-semibold text-neutral-800 dark:text-neutral-100 text-base group-hover:text-brand-orange transition-colors">Pooja Room & Spiritual Spaces</h3>
+                    <p class="text-xs text-neutral-400 mt-0.5">North-East or East for sacred spaces</p>
+                  </div>
+                </div>
+                <svg class="vastu-icon w-5 h-5 text-brand-orange transition-transform duration-300 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+              <div id="vastu-5" class="vastu-panel max-h-0 overflow-hidden transition-all duration-500">
+                <div class="pr-6 pl-10 pb-6 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed space-y-3 border-l-2 border-brand-orange ml-11">
+                  <p>The Pooja or prayer room should be placed in the North-East corner (Eeshanya). This is the most spiritually charged direction, bringing clarity and peace.</p>
+                  <p>The idol or deity should face West so the worshiper faces East during prayer. The room should have a pyramidal or flat ceiling — no beams directly above the altar.</p>
+                  <p class="pt-2"><strong class="text-brand-orange">MONOME practice:</strong> We offer a bespoke Pooja room design service with marble platforms, natural lighting, and ventilation for incense.</p>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /accordion -->
+        </div>
+      </section>
+
+
+      <!-- ═══════════════════════════════════════════════
+           SECTION 3: HOUSE DESIGN INSPIRATION LIBRARY
+      ═══════════════════════════════════════════════ -->
+      <section id="design-inspiration" class="py-24 bg-luxury relative overflow-hidden">
+        <div class="floating-shape w-72 h-72 bg-pastel-peach/40 -left-20 bottom-0"></div>
+        <div class="max-w-6xl mx-auto px-6 sm:px-12">
+          <!-- Header -->
+          <div class="text-center mb-12">
+            <p class="section-label mb-3">DESIGN STYLES</p>
+            <h2 class="section-title text-3xl sm:text-4xl lg:text-5xl mb-4">House Design Inspiration</h2>
+            <p class="section-subtitle max-w-2xl mx-auto">Explore architecture styles we master — from contemporary minimalism to traditional grandeur.</p>
+          </div>
+
+          <!-- Category Tabs -->
+          <div class="flex flex-wrap justify-center gap-3 mb-10" id="style-tabs">
+            <button class="style-tab active px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 cursor-pointer border" data-tab="contemporary">Contemporary</button>
+            <button class="style-tab px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 cursor-pointer border" data-tab="traditional">Traditional</button>
+            <button class="style-tab px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 cursor-pointer border" data-tab="modern">Modern Minimal</button>
+            <button class="style-tab px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 cursor-pointer border" data-tab="luxury">Luxury Villa</button>
+          </div>
+
+          <!-- Style Content Panels -->
+          <div id="style-panels">
+
+            <!-- Contemporary -->
+            <div class="style-panel" data-panel="contemporary">
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-card rounded-2xl p-6 col-span-1 md:col-span-2">
+                  <div class="w-12 h-12 rounded-xl bg-brand-orange/15 flex items-center justify-center text-2xl mb-4">🏠</div>
+                  <h3 class="font-inter font-bold text-xl text-neutral-800 dark:text-neutral-100 mb-2">Contemporary Architecture</h3>
+                  <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed mb-4">Clean lines, open floor plans, and a seamless blend of indoor-outdoor living. Contemporary homes celebrate natural light, neutral palettes, and functional design.</p>
+                  <div class="flex flex-wrap gap-2">
+                    <span class="tag">Open Floor Plans</span>
+                    <span class="tag">Large Windows</span>
+                    <span class="tag">Neutral Palettes</span>
+                    <span class="tag">Flat Roofs</span>
+                  </div>
+                </div>
+                <div class="space-y-4">
+                  <div class="glass-card rounded-xl p-4 flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-lg bg-pastel-sky/50 flex items-center justify-center text-lg flex-shrink-0">☀️</div>
+                    <div><p class="font-semibold text-sm text-neutral-800 dark:text-neutral-100">Natural Lighting</p><p class="text-xs text-neutral-400">Floor-to-ceiling glazing, skylights</p></div>
+                  </div>
+                  <div class="glass-card rounded-xl p-4 flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-lg bg-pastel-mint/50 flex items-center justify-center text-lg flex-shrink-0">🌿</div>
+                    <div><p class="font-semibold text-sm text-neutral-800 dark:text-neutral-100">Biophilic Elements</p><p class="text-xs text-neutral-400">Vertical gardens, indoor plants</p></div>
+                  </div>
+                  <div class="glass-card rounded-xl p-4 flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-lg bg-pastel-lavender/50 flex items-center justify-center text-lg flex-shrink-0">⚡</div>
+                    <div><p class="font-semibold text-sm text-neutral-800 dark:text-neutral-100">Smart Integration</p><p class="text-xs text-neutral-400">Automated lighting, climate control</p></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Traditional -->
+            <div class="style-panel hidden" data-panel="traditional">
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-card rounded-2xl p-6 col-span-1 md:col-span-2">
+                  <div class="w-12 h-12 rounded-xl bg-pastel-peach/60 flex items-center justify-center text-2xl mb-4">🏛️</div>
+                  <h3 class="font-inter font-bold text-xl text-neutral-800 dark:text-neutral-100 mb-2">Traditional & Heritage</h3>
+                  <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed mb-4">Inspired by South Indian and classical architecture — intricate woodwork, pillared verandas, sloped terracotta roofs, courtyard layouts (Nalukettu), and Athangudi tile flooring.</p>
+                  <div class="flex flex-wrap gap-2">
+                    <span class="tag">Terracotta Roofs</span>
+                    <span class="tag">Nalukettu Courtyards</span>
+                    <span class="tag">Teak Woodwork</span>
+                    <span class="tag">Granite Pillars</span>
+                  </div>
+                </div>
+                <div class="space-y-4">
+                  <div class="glass-card rounded-xl p-4 flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-lg bg-pastel-peach/50 flex items-center justify-center text-lg flex-shrink-0">🪵</div>
+                    <div><p class="font-semibold text-sm text-neutral-800 dark:text-neutral-100">Heritage Woodwork</p><p class="text-xs text-neutral-400">Teak carved doors, Chettinad pillars</p></div>
+                  </div>
+                  <div class="glass-card rounded-xl p-4 flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-lg bg-brand-orange/15 flex items-center justify-center text-lg flex-shrink-0">🔆</div>
+                    <div><p class="font-semibold text-sm text-neutral-800 dark:text-neutral-100">Vastu Integration</p><p class="text-xs text-neutral-400">Courtyard-centric Vastu compliant</p></div>
+                  </div>
+                  <div class="glass-card rounded-xl p-4 flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-lg bg-pastel-mint/50 flex items-center justify-center text-lg flex-shrink-0">🎨</div>
+                    <div><p class="font-semibold text-sm text-neutral-800 dark:text-neutral-100">Athangudi Tiles</p><p class="text-xs text-neutral-400">Handcrafted Chettinad floor art</p></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Modern Minimal -->
+            <div class="style-panel hidden" data-panel="modern">
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-card rounded-2xl p-6 col-span-1 md:col-span-2">
+                  <div class="w-12 h-12 rounded-xl bg-pastel-sky/50 flex items-center justify-center text-2xl mb-4">◻️</div>
+                  <h3 class="font-inter font-bold text-xl text-neutral-800 dark:text-neutral-100 mb-2">Modern Minimalist</h3>
+                  <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed mb-4">Less is more. Clean surfaces, hidden storage, monochromatic palettes, and precision craftsmanship. Every detail is intentional — nothing is decorative without function.</p>
+                  <div class="flex flex-wrap gap-2">
+                    <span class="tag">Hidden Storage</span>
+                    <span class="tag">Flush Surfaces</span>
+                    <span class="tag">Monochrome</span>
+                    <span class="tag">Precision Joints</span>
+                  </div>
+                </div>
+                <div class="space-y-4">
+                  <div class="glass-card rounded-xl p-4 flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-lg bg-neutral-200 dark:bg-neutral-700 flex items-center justify-center text-lg flex-shrink-0">🗂️</div>
+                    <div><p class="font-semibold text-sm text-neutral-800 dark:text-neutral-100">Integrated Joinery</p><p class="text-xs text-neutral-400">Concealed handles, built-in cabinets</p></div>
+                  </div>
+                  <div class="glass-card rounded-xl p-4 flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-lg bg-pastel-sky/50 flex items-center justify-center text-lg flex-shrink-0">🔲</div>
+                    <div><p class="font-semibold text-sm text-neutral-800 dark:text-neutral-100">Large Format Tiles</p><p class="text-xs text-neutral-400">1200x600mm slab tiles, minimal grout</p></div>
+                  </div>
+                  <div class="glass-card rounded-xl p-4 flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-lg bg-pastel-lavender/50 flex items-center justify-center text-lg flex-shrink-0">💡</div>
+                    <div><p class="font-semibold text-sm text-neutral-800 dark:text-neutral-100">Linear LED Lighting</p><p class="text-xs text-neutral-400">Cove lights, strip lights, no pendants</p></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Luxury Villa -->
+            <div class="style-panel hidden" data-panel="luxury">
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-card rounded-2xl p-6 col-span-1 md:col-span-2" style="border: 1.5px solid rgba(245,166,35,0.3);">
+                  <div class="w-12 h-12 rounded-xl bg-brand-orange/20 flex items-center justify-center text-2xl mb-4">👑</div>
+                  <h3 class="font-inter font-bold text-xl text-neutral-800 dark:text-neutral-100 mb-2">Luxury Villa Design</h3>
+                  <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed mb-4">For those who demand the extraordinary. Italian marble, home theatres, heated pools, wine cellars, smart home automation, and bespoke facades that command attention.</p>
+                  <div class="flex flex-wrap gap-2">
+                    <span class="tag">Italian Marble</span>
+                    <span class="tag">Smart Home</span>
+                    <span class="tag">Infinity Pool</span>
+                    <span class="tag">Home Theatre</span>
+                  </div>
+                </div>
+                <div class="space-y-4">
+                  <div class="glass-card rounded-xl p-4 flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-lg bg-brand-orange/20 flex items-center justify-center text-lg flex-shrink-0">🏊</div>
+                    <div><p class="font-semibold text-sm text-neutral-800 dark:text-neutral-100">Infinity Pools</p><p class="text-xs text-neutral-400">Overflow pools, Jacuzzi, water features</p></div>
+                  </div>
+                  <div class="glass-card rounded-xl p-4 flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-lg bg-pastel-lavender/50 flex items-center justify-center text-lg flex-shrink-0">🎭</div>
+                    <div><p class="font-semibold text-sm text-neutral-800 dark:text-neutral-100">Private Theatre</p><p class="text-xs text-neutral-400">4K projection, acoustic panels</p></div>
+                  </div>
+                  <div class="glass-card rounded-xl p-4 flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-lg bg-pastel-mint/50 flex items-center justify-center text-lg flex-shrink-0">📱</div>
+                    <div><p class="font-semibold text-sm text-neutral-800 dark:text-neutral-100">KNX Smart Home</p><p class="text-xs text-neutral-400">Full automation, voice + app control</p></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /panels -->
+        </div>
+      </section>
+
+
+      <!-- ═══════════════════════════════════════════════
+           SECTION 4: CONSTRUCTION FAQ HUB
+      ═══════════════════════════════════════════════ -->
+      <section id="faq-hub" class="py-24 bg-white dark:bg-[#0f1117] relative overflow-hidden">
+        <div class="floating-shape w-80 h-80 bg-pastel-blue/20 -right-20 top-0"></div>
+        <div class="max-w-4xl mx-auto px-6 sm:px-12">
+          <!-- Header -->
+          <div class="text-center mb-14">
+            <p class="section-label mb-3">QUICK ANSWERS</p>
+            <h2 class="section-title text-3xl sm:text-4xl lg:text-5xl mb-4">Construction FAQ Hub</h2>
+            <p class="section-subtitle max-w-2xl mx-auto">Common questions answered by our construction experts to help you make informed decisions.</p>
+          </div>
+
+          <div id="faq-accordion" class="space-y-3">
+
+            <div class="faq-item">
+              <button class="faq-trigger glass-card w-full flex items-center justify-between p-5 text-left rounded-2xl cursor-pointer transition-all duration-300" data-target="faq-a1">
+                <span class="font-inter font-semibold text-neutral-800 dark:text-neutral-100 text-sm pr-4">How do I calculate the construction cost for my home?</span>
+                <svg class="faq-icon w-5 h-5 text-brand-orange transition-transform duration-300 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+              </button>
+              <div id="faq-a1" class="faq-panel max-h-0 overflow-hidden transition-all duration-500">
+                <div class="px-5 pt-2 pb-4 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                  Multiply the built-up area (sq.ft) by the rate per sq.ft based on your material spec: Standard ≈ ₹1,800/sqft, Premium ≈ ₹2,800/sqft, Luxury ≈ ₹4,500/sqft. Add 8% for design fees and 10% for MEP services. Our Chat Cost Estimator in the chatbot can calculate this for you instantly.
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-trigger glass-card w-full flex items-center justify-between p-5 text-left rounded-2xl cursor-pointer transition-all duration-300" data-target="faq-a2">
+                <span class="font-inter font-semibold text-neutral-800 dark:text-neutral-100 text-sm pr-4">What is the difference between built-up area and carpet area?</span>
+                <svg class="faq-icon w-5 h-5 text-brand-orange transition-transform duration-300 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+              </button>
+              <div id="faq-a2" class="faq-panel max-h-0 overflow-hidden transition-all duration-500">
+                <div class="px-5 pt-2 pb-4 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                  <strong class="text-brand-orange">Carpet Area</strong> is the actual usable floor space within your walls — the area you can literally carpet. <strong class="text-brand-orange">Built-up Area</strong> includes the carpet area plus wall thickness and balcony. <strong class="text-brand-orange">Super Built-up Area</strong> further includes your share of common areas like lobbies and staircases. Construction rates are typically quoted on built-up area.
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-trigger glass-card w-full flex items-center justify-between p-5 text-left rounded-2xl cursor-pointer transition-all duration-300" data-target="faq-a3">
+                <span class="font-inter font-semibold text-neutral-800 dark:text-neutral-100 text-sm pr-4">How long does it take to build a 2,000 sq.ft house?</span>
+                <svg class="faq-icon w-5 h-5 text-brand-orange transition-transform duration-300 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+              </button>
+              <div id="faq-a3" class="faq-panel max-h-0 overflow-hidden transition-all duration-500">
+                <div class="px-5 pt-2 pb-4 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                  A 2,000 sq.ft G+1 house typically takes 10 to 14 months: approvals (1-2 months), foundation (2 months), structure and brickwork (4-5 months), MEP and plastering (2-3 months), and finishes and handover (2-3 months). Monsoon season and material availability can add 1-2 months buffer time.
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-trigger glass-card w-full flex items-center justify-between p-5 text-left rounded-2xl cursor-pointer transition-all duration-300" data-target="faq-a4">
+                <span class="font-inter font-semibold text-neutral-800 dark:text-neutral-100 text-sm pr-4">What is TMT steel and why does its grade matter?</span>
+                <svg class="faq-icon w-5 h-5 text-brand-orange transition-transform duration-300 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+              </button>
+              <div id="faq-a4" class="faq-panel max-h-0 overflow-hidden transition-all duration-500">
+                <div class="px-5 pt-2 pb-4 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                  TMT (Thermo-Mechanically Treated) steel is the backbone of RCC construction. <strong class="text-brand-orange">Fe-500D</strong> is the minimum BIS standard. <strong class="text-brand-orange">Fe-550D</strong> (used by MONOME) offers 10% higher yield strength and better ductility, critical for earthquake-resistant structures. Never compromise on steel grade — it directly affects structural safety and longevity.
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-trigger glass-card w-full flex items-center justify-between p-5 text-left rounded-2xl cursor-pointer transition-all duration-300" data-target="faq-a5">
+                <span class="font-inter font-semibold text-neutral-800 dark:text-neutral-100 text-sm pr-4">Do I need an architect even if I have a basic design idea?</span>
+                <svg class="faq-icon w-5 h-5 text-brand-orange transition-transform duration-300 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+              </button>
+              <div id="faq-a5" class="faq-panel max-h-0 overflow-hidden transition-all duration-500">
+                <div class="px-5 pt-2 pb-4 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                  Yes, absolutely. Architects handle government building plan approvals — without approved structural drawings from a licensed architect, your construction is illegal. They also optimize space utilization, ventilation, natural lighting, and ensure structural safety through working drawings. At MONOME, architectural design is always included in our turnkey packages.
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-trigger glass-card w-full flex items-center justify-between p-5 text-left rounded-2xl cursor-pointer transition-all duration-300" data-target="faq-a6">
+                <span class="font-inter font-semibold text-neutral-800 dark:text-neutral-100 text-sm pr-4">What payment schedule do you follow for construction projects?</span>
+                <svg class="faq-icon w-5 h-5 text-brand-orange transition-transform duration-300 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+              </button>
+              <div id="faq-a6" class="faq-panel max-h-0 overflow-hidden transition-all duration-500">
+                <div class="px-5 pt-2 pb-4 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                  We follow a milestone-based payment schedule: 10% at agreement signing, 15% at foundation completion, 25% at slab casting, 20% at brickwork and plastering, 20% at MEP completion, and 10% at final handover. This ensures payments align with actual construction progress and protects your interests.
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /faq accordion -->
+        </div>
+      </section>
+
+
+      <!-- ═══════════════════════════════════════════════
+           SECTION 5: WHY CHOOSE MONOME
+      ═══════════════════════════════════════════════ -->
+      <section id="why-monome" class="py-24 bg-luxury relative overflow-hidden">
+        <div class="floating-shape w-96 h-96 bg-brand-orange/8 right-0 top-0"></div>
+        <div class="floating-shape w-64 h-64 bg-pastel-mint/30 -left-16 bottom-0"></div>
+        <div class="max-w-6xl mx-auto px-6 sm:px-12">
+          <!-- Header -->
+          <div class="text-center mb-14">
+            <p class="section-label mb-3">OUR EDGE</p>
+            <h2 class="section-title text-3xl sm:text-4xl lg:text-5xl mb-4">Why Choose MONOME?</h2>
+            <p class="section-subtitle max-w-2xl mx-auto">Discover the MONOME difference — a combination of technology, transparency, and timeless craftsmanship.</p>
+          </div>
+
+          <!-- Expandable Reason Cards -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <div class="why-card glass-card rounded-2xl p-6 cursor-pointer group" onclick="this.classList.toggle('why-expanded')">
+              <div class="w-14 h-14 rounded-2xl bg-brand-orange/15 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">🏆</div>
+              <h3 class="font-inter font-bold text-lg text-neutral-800 dark:text-neutral-100 mb-2">15+ Years of Excellence</h3>
+              <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">Over a decade and a half of proven track record across 500+ residential and commercial projects in South India.</p>
+              <div class="why-extra mt-4 text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed border-t border-neutral-200 dark:border-neutral-700 pt-4 hidden">
+                Our founders started MONOME in 2009 with a mission to bring international quality standards to Indian construction. Every year, we re-invest in training, technology, and processes to maintain that edge.
+              </div>
+              <div class="mt-3 flex items-center gap-1 text-brand-orange text-xs font-semibold">
+                <span class="why-toggle-text">Read more</span>
+                <svg class="why-toggle-icon w-4 h-4 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </div>
+            </div>
+
+            <div class="why-card glass-card rounded-2xl p-6 cursor-pointer group" onclick="this.classList.toggle('why-expanded')">
+              <div class="w-14 h-14 rounded-2xl bg-pastel-sky/50 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">📊</div>
+              <h3 class="font-inter font-bold text-lg text-neutral-800 dark:text-neutral-100 mb-2">Complete Transparency</h3>
+              <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">Fixed-price contracts, weekly progress photos, and an online project portal so you always know where your money and project stand.</p>
+              <div class="why-extra mt-4 text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed border-t border-neutral-200 dark:border-neutral-700 pt-4 hidden">
+                We believe in zero hidden charges. All BOQ (Bill of Quantities) items are shared upfront. Payment milestones are linked to construction milestones — you only pay when work is complete.
+              </div>
+              <div class="mt-3 flex items-center gap-1 text-brand-orange text-xs font-semibold">
+                <span class="why-toggle-text">Read more</span>
+                <svg class="why-toggle-icon w-4 h-4 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </div>
+            </div>
+
+            <div class="why-card glass-card rounded-2xl p-6 cursor-pointer group" onclick="this.classList.toggle('why-expanded')">
+              <div class="w-14 h-14 rounded-2xl bg-pastel-mint/50 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">🛡️</div>
+              <h3 class="font-inter font-bold text-lg text-neutral-800 dark:text-neutral-100 mb-2">10-Year Structural Warranty</h3>
+              <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">We stand behind our work with a full decade of structural warranty, 3 years of waterproofing warranty, and dedicated post-handover support.</p>
+              <div class="why-extra mt-4 text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed border-t border-neutral-200 dark:border-neutral-700 pt-4 hidden">
+                Our warranty covers all RCC structural elements including columns, beams, and slabs. Waterproofing warranty covers all treated surfaces. We maintain a dedicated post-handover team to attend to any issues within the warranty period within 48 hours.
+              </div>
+              <div class="mt-3 flex items-center gap-1 text-brand-orange text-xs font-semibold">
+                <span class="why-toggle-text">Read more</span>
+                <svg class="why-toggle-icon w-4 h-4 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </div>
+            </div>
+
+            <div class="why-card glass-card rounded-2xl p-6 cursor-pointer group" onclick="this.classList.toggle('why-expanded')">
+              <div class="w-14 h-14 rounded-2xl bg-pastel-lavender/50 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">🔬</div>
+              <h3 class="font-inter font-bold text-lg text-neutral-800 dark:text-neutral-100 mb-2">35+ Quality Checkpoints</h3>
+              <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">Every project undergoes 35 structured quality checks — from concrete cube tests and plaster alignment to plumbing pressure tests and waterproofing flood tests.</p>
+              <div class="why-extra mt-4 text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed border-t border-neutral-200 dark:border-neutral-700 pt-4 hidden">
+                Our quality control team is separate from the construction team — ensuring independent oversight. We use digital checklists and photographic evidence for each checkpoint, which is shared with clients through the project portal.
+              </div>
+              <div class="mt-3 flex items-center gap-1 text-brand-orange text-xs font-semibold">
+                <span class="why-toggle-text">Read more</span>
+                <svg class="why-toggle-icon w-4 h-4 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </div>
+            </div>
+
+            <div class="why-card glass-card rounded-2xl p-6 cursor-pointer group" onclick="this.classList.toggle('why-expanded')">
+              <div class="w-14 h-14 rounded-2xl bg-pastel-peach/60 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">🌱</div>
+              <h3 class="font-inter font-bold text-lg text-neutral-800 dark:text-neutral-100 mb-2">Green & Sustainable Builds</h3>
+              <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">From fly-ash bricks and rainwater harvesting to solar wiring prep and double-glazed windows — sustainability is built into every MONOME project by default.</p>
+              <div class="why-extra mt-4 text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed border-t border-neutral-200 dark:border-neutral-700 pt-4 hidden">
+                We are GRIHA-registered and can deliver certified green buildings. Standard features include: fly-ash brick walling (25% reduced carbon), 5kW solar panel pre-wiring, rainwater harvesting tanks, and low-VOC paints across all interiors.
+              </div>
+              <div class="mt-3 flex items-center gap-1 text-brand-orange text-xs font-semibold">
+                <span class="why-toggle-text">Read more</span>
+                <svg class="why-toggle-icon w-4 h-4 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </div>
+            </div>
+
+            <div class="why-card glass-card rounded-2xl p-6 cursor-pointer group" onclick="this.classList.toggle('why-expanded')">
+              <div class="w-14 h-14 rounded-2xl bg-brand-orange/15 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">🤝</div>
+              <h3 class="font-inter font-bold text-lg text-neutral-800 dark:text-neutral-100 mb-2">Dedicated Project Manager</h3>
+              <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">Every client gets a dedicated project manager as a single point of contact — ensuring seamless communication from concept to handover.</p>
+              <div class="why-extra mt-4 text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed border-t border-neutral-200 dark:border-neutral-700 pt-4 hidden">
+                Your project manager conducts weekly site visits, sends you Sunday evening progress reports with photos, and is available 6 days a week. Our average project manager tenure is 7+ years, ensuring deep expertise and consistency.
+              </div>
+              <div class="mt-3 flex items-center gap-1 text-brand-orange text-xs font-semibold">
+                <span class="why-toggle-text">Read more</span>
+                <svg class="why-toggle-icon w-4 h-4 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </div>
+            </div>
+
+          </div><!-- /cards -->
+        </div>
+      </section>
+
+
+      <!-- ═══════════════════════════════════════════════
+           SECTION 6: CONSTRUCTION KNOWLEDGE HUB
+      ═══════════════════════════════════════════════ -->
+      <section id="knowledge-hub" class="py-24 bg-white dark:bg-[#0f1117] relative overflow-hidden">
+        <div class="floating-shape w-72 h-72 bg-pastel-lavender/25 right-0 top-20"></div>
+        <div class="max-w-6xl mx-auto px-6 sm:px-12">
+          <!-- Header -->
+          <div class="text-center mb-14">
+            <p class="section-label mb-3">EXPERT INSIGHTS</p>
+            <h2 class="section-title text-3xl sm:text-4xl lg:text-5xl mb-4">Construction Knowledge Hub</h2>
+            <p class="section-subtitle max-w-2xl mx-auto">Guides and insights from our engineers and architects to help you make smarter construction decisions.</p>
+          </div>
+
+          <!-- Article Cards with Modals -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <article class="glass-card rounded-2xl overflow-hidden group cursor-pointer" onclick="document.getElementById('modal-k1').classList.remove('hidden')" role="button" tabindex="0">
+              <div class="h-36 bg-gradient-to-br from-brand-orange/20 to-pastel-peach/40 flex items-center justify-center text-5xl group-hover:scale-105 transition-transform duration-300">🏗️</div>
+              <div class="p-5">
+                <span class="tag text-xs mb-3 inline-block">Foundation</span>
+                <h3 class="font-inter font-bold text-base text-neutral-800 dark:text-neutral-100 mb-2 group-hover:text-brand-orange transition-colors">Choosing the Right Foundation Type for Your Plot</h3>
+                <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">Pile, raft, or isolated? The right foundation depends on your soil bearing capacity and the number of floors you're planning.</p>
+                <p class="text-xs font-semibold text-brand-orange mt-3">Read Article →</p>
+              </div>
+            </article>
+
+            <article class="glass-card rounded-2xl overflow-hidden group cursor-pointer" onclick="document.getElementById('modal-k2').classList.remove('hidden')" role="button" tabindex="0">
+              <div class="h-36 bg-gradient-to-br from-pastel-sky/40 to-pastel-blue/30 flex items-center justify-center text-5xl group-hover:scale-105 transition-transform duration-300">💧</div>
+              <div class="p-5">
+                <span class="tag text-xs mb-3 inline-block">Waterproofing</span>
+                <h3 class="font-inter font-bold text-base text-neutral-800 dark:text-neutral-100 mb-2 group-hover:text-brand-orange transition-colors">The Complete Guide to Waterproofing Your Home</h3>
+                <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">Understand the difference between cementitious, polyurethane, and crystalline waterproofing systems and when to use each.</p>
+                <p class="text-xs font-semibold text-brand-orange mt-3">Read Article →</p>
+              </div>
+            </article>
+
+            <article class="glass-card rounded-2xl overflow-hidden group cursor-pointer" onclick="document.getElementById('modal-k3').classList.remove('hidden')" role="button" tabindex="0">
+              <div class="h-36 bg-gradient-to-br from-pastel-mint/40 to-pastel-sky/20 flex items-center justify-center text-5xl group-hover:scale-105 transition-transform duration-300">⚡</div>
+              <div class="p-5">
+                <span class="tag text-xs mb-3 inline-block">Electrical</span>
+                <h3 class="font-inter font-bold text-base text-neutral-800 dark:text-neutral-100 mb-2 group-hover:text-brand-orange transition-colors">Home Electrical Planning: What Every Owner Must Know</h3>
+                <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">From load calculations to circuit breakers, earthing systems, and EV charging readiness — a complete electrical planning guide.</p>
+                <p class="text-xs font-semibold text-brand-orange mt-3">Read Article →</p>
+              </div>
+            </article>
+
+            <article class="glass-card rounded-2xl overflow-hidden group cursor-pointer" onclick="document.getElementById('modal-k4').classList.remove('hidden')" role="button" tabindex="0">
+              <div class="h-36 bg-gradient-to-br from-pastel-lavender/40 to-pastel-peach/20 flex items-center justify-center text-5xl group-hover:scale-105 transition-transform duration-300">🧱</div>
+              <div class="p-5">
+                <span class="tag text-xs mb-3 inline-block">Materials</span>
+                <h3 class="font-inter font-bold text-base text-neutral-800 dark:text-neutral-100 mb-2 group-hover:text-brand-orange transition-colors">AAC vs Red Brick vs Fly-Ash Brick: Which to Choose?</h3>
+                <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">A detailed comparison of wall construction materials — weight, thermal insulation, cost, and structural suitability.</p>
+                <p class="text-xs font-semibold text-brand-orange mt-3">Read Article →</p>
+              </div>
+            </article>
+
+            <article class="glass-card rounded-2xl overflow-hidden group cursor-pointer" onclick="document.getElementById('modal-k5').classList.remove('hidden')" role="button" tabindex="0">
+              <div class="h-36 bg-gradient-to-br from-brand-orange/15 to-pastel-peach/30 flex items-center justify-center text-5xl group-hover:scale-105 transition-transform duration-300">🪟</div>
+              <div class="p-5">
+                <span class="tag text-xs mb-3 inline-block">Windows</span>
+                <h3 class="font-inter font-bold text-base text-neutral-800 dark:text-neutral-100 mb-2 group-hover:text-brand-orange transition-colors">UPVC vs Aluminium Windows: A Buyer's Guide</h3>
+                <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">Understand noise insulation, UV resistance, hardware quality, and long-term maintenance before choosing your window system.</p>
+                <p class="text-xs font-semibold text-brand-orange mt-3">Read Article →</p>
+              </div>
+            </article>
+
+            <article class="glass-card rounded-2xl overflow-hidden group cursor-pointer" onclick="document.getElementById('modal-k6').classList.remove('hidden')" role="button" tabindex="0">
+              <div class="h-36 bg-gradient-to-br from-pastel-sky/40 to-pastel-mint/30 flex items-center justify-center text-5xl group-hover:scale-105 transition-transform duration-300">🌱</div>
+              <div class="p-5">
+                <span class="tag text-xs mb-3 inline-block">Sustainability</span>
+                <h3 class="font-inter font-bold text-base text-neutral-800 dark:text-neutral-100 mb-2 group-hover:text-brand-orange transition-colors">Building Green: How to Make Your Home Energy Efficient</h3>
+                <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">Solar pre-wiring, rainwater harvesting, low-VOC paints, and passive cooling strategies that reduce your home's carbon footprint.</p>
+                <p class="text-xs font-semibold text-brand-orange mt-3">Read Article →</p>
+              </div>
+            </article>
+
+          </div><!-- /articles -->
+        </div>
+
+        <!-- === MODALS === -->
+        <div id="modal-k1" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4" onclick="if(event.target===this)this.classList.add('hidden')">
+          <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+          <div class="relative glass-card rounded-3xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-8 shadow-2xl">
+            <button onclick="document.getElementById('modal-k1').classList.add('hidden')" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center hover:bg-brand-orange hover:text-white transition-all cursor-pointer">✕</button>
+            <span class="tag mb-4 inline-block">Foundation</span>
+            <h2 class="font-inter font-bold text-2xl text-neutral-800 dark:text-neutral-100 mb-4">Choosing the Right Foundation Type for Your Plot</h2>
+            <div class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed space-y-4">
+              <p>The foundation is the most critical element of any building. Choosing the wrong foundation type can lead to differential settlement, wall cracks, and in severe cases, structural failure. The right choice depends on your soil's bearing capacity (SBC), which is determined by geotechnical testing.</p>
+              <p><strong class="text-brand-orange">Isolated Footings:</strong> Best for plots with SBC above 15 T/m². Used when columns are spaced far apart and loads are moderate. Most economical for G+1 and G+2 residential buildings on firm soil.</p>
+              <p><strong class="text-brand-orange">Raft Foundation:</strong> Used when SBC is low (below 10 T/m²) or when columns are closely spaced. The entire base of the building is a single continuous slab. Provides excellent load distribution and is ideal for apartments and multi-floor structures.</p>
+              <p><strong class="text-brand-orange">Pile Foundation:</strong> Required for very soft soils, marshy land, or high-rise buildings. Steel or concrete piles are driven deep into the ground until they reach a hard stratum. More expensive but essential for challenging soil conditions.</p>
+              <p>At MONOME, we always conduct soil testing before finalizing the foundation type — never skipping this critical step regardless of the project budget.</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="modal-k2" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4" onclick="if(event.target===this)this.classList.add('hidden')">
+          <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+          <div class="relative glass-card rounded-3xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-8 shadow-2xl">
+            <button onclick="document.getElementById('modal-k2').classList.add('hidden')" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center hover:bg-brand-orange hover:text-white transition-all cursor-pointer">✕</button>
+            <span class="tag mb-4 inline-block">Waterproofing</span>
+            <h2 class="font-inter font-bold text-2xl text-neutral-800 dark:text-neutral-100 mb-4">The Complete Guide to Waterproofing Your Home</h2>
+            <div class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed space-y-4">
+              <p>Water ingress is the number one cause of structural damage in Indian homes — ahead of poor concrete quality and substandard steel. A comprehensive waterproofing strategy protects your investment for decades.</p>
+              <p><strong class="text-brand-orange">Cementitious Waterproofing:</strong> A rigid system applied as a slurry coat to basements, bathrooms, and sumps. Easy to apply and bond well to concrete, but cracks when the structure moves. Best for areas with minimal structural movement.</p>
+              <p><strong class="text-brand-orange">Polyurethane (PU) Membrane:</strong> A flexible, seamless membrane applied to terraces and external balconies. Accommodates thermal expansion and contraction. Brands like Dr. Fixit and Fosroc PU systems offer 10-year guarantees. Our preferred choice for terraces.</p>
+              <p><strong class="text-brand-orange">Crystalline Waterproofing:</strong> Penetrates concrete capillaries and crystallizes to block water permanently. Ideal for basements and underground structures where external access for repairs is impossible.</p>
+              <p>MONOME applies a multi-layer waterproofing system on all critical zones — we never rely on a single coat or single system.</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="modal-k3" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4" onclick="if(event.target===this)this.classList.add('hidden')">
+          <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+          <div class="relative glass-card rounded-3xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-8 shadow-2xl">
+            <button onclick="document.getElementById('modal-k3').classList.add('hidden')" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center hover:bg-brand-orange hover:text-white transition-all cursor-pointer">✕</button>
+            <span class="tag mb-4 inline-block">Electrical</span>
+            <h2 class="font-inter font-bold text-2xl text-neutral-800 dark:text-neutral-100 mb-4">Home Electrical Planning: What Every Owner Must Know</h2>
+            <div class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed space-y-4">
+              <p>Poor electrical planning causes up to 40% of residential fire incidents in India. Planning your electrical system correctly from the start saves cost, ensures safety, and future-proofs your home.</p>
+              <p><strong class="text-brand-orange">Load Calculation:</strong> Every home needs a proper load calculation (total watts of all appliances + 20% safety factor). This determines the main circuit breaker size and the number of sub-circuits required. A 2,000 sqft home typically needs a 60-100A main switch.</p>
+              <p><strong class="text-brand-orange">Circuit Zoning:</strong> Separate circuits for AC units, kitchen appliances, and lighting reduce load on any single circuit and make fault isolation easier. MONOME always provides dedicated circuits for each AC, kitchen, and heavy appliance.</p>
+              <p><strong class="text-brand-orange">Earthing System:</strong> A proper 3-pin earthing system with periodic testing is critical. We use copper earth wires and conduct an earth resistance test to verify below 5Ω before handover.</p>
+              <p><strong class="text-brand-orange">EV Charging Readiness:</strong> We recommend installing a 32A dedicated circuit and conduit from the basement or car porch to the meter room during construction, at minimal incremental cost.</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="modal-k4" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4" onclick="if(event.target===this)this.classList.add('hidden')">
+          <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+          <div class="relative glass-card rounded-3xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-8 shadow-2xl">
+            <button onclick="document.getElementById('modal-k4').classList.add('hidden')" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center hover:bg-brand-orange hover:text-white transition-all cursor-pointer">✕</button>
+            <span class="tag mb-4 inline-block">Materials</span>
+            <h2 class="font-inter font-bold text-2xl text-neutral-800 dark:text-neutral-100 mb-4">AAC vs Red Brick vs Fly-Ash Brick: Which to Choose?</h2>
+            <div class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed space-y-4">
+              <p><strong class="text-brand-orange">Red Clay Brick:</strong> Traditional fired brick. Good compressive strength (~3.5 MPa) but high water absorption (~20%) makes it vulnerable to moisture ingress. High carbon footprint due to kiln firing. Weight: ~3 kg/unit.</p>
+              <p><strong class="text-brand-orange">Fly-Ash Brick:</strong> Made from thermal power plant waste + lime + gypsum. Eco-friendly (recycled waste), lower water absorption (~8-12%), good strength (4-5 MPa), and precise dimensions reducing mortar wastage. Cost-effective and MONOME's standard choice.</p>
+              <p><strong class="text-brand-orange">AAC Block (Autoclaved Aerated Concrete):</strong> Lightweight (only 600 kg/m³ vs 1800 kg/m³ for brick), excellent thermal insulation, and soundproofing. Reduces dead load on structure, potentially saving 10-15% on structural steel. Higher material cost but reduces plastering work significantly.</p>
+              <p>MONOME uses fly-ash bricks as standard and recommends AAC blocks for premium projects or top-floor additions where weight reduction matters.</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="modal-k5" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4" onclick="if(event.target===this)this.classList.add('hidden')">
+          <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+          <div class="relative glass-card rounded-3xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-8 shadow-2xl">
+            <button onclick="document.getElementById('modal-k5').classList.add('hidden')" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center hover:bg-brand-orange hover:text-white transition-all cursor-pointer">✕</button>
+            <span class="tag mb-4 inline-block">Windows</span>
+            <h2 class="font-inter font-bold text-2xl text-neutral-800 dark:text-neutral-100 mb-4">UPVC vs Aluminium Windows: A Buyer's Guide</h2>
+            <div class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed space-y-4">
+              <p><strong class="text-brand-orange">UPVC Windows:</strong> Unplasticised PVC with multi-chambered profiles. Excellent thermal and acoustic insulation, no corrosion, no painting required, and 30+ year lifespan. Ideal for bedrooms and living rooms where quietness and energy efficiency matter. Brands: Fenesta, Rehau, Veka.</p>
+              <p><strong class="text-brand-orange">Aluminium Windows:</strong> Slim profiles with large glass spans, modern aesthetics, and slimmer frame sections. Lower insulation than UPVC but handles larger openings (2m+ spans) better. Powder-coated finish is durable but can oxidize in coastal areas. Better for large living room sliding doors.</p>
+              <p><strong class="text-brand-orange">Double Glazing:</strong> Both materials benefit from double-glazed units (6mm-12mm air gap-6mm). Reduces heat gain by 40-50% and noise by 30dB. Recommended for bedrooms facing roads or in hot climates. MONOME makes double glazing standard in premium and luxury packages.</p>
+              <p>Our recommendation: UPVC for bedrooms and bathrooms; aluminium for large living room openings and facade statements.</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="modal-k6" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4" onclick="if(event.target===this)this.classList.add('hidden')">
+          <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+          <div class="relative glass-card rounded-3xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-8 shadow-2xl">
+            <button onclick="document.getElementById('modal-k6').classList.add('hidden')" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center hover:bg-brand-orange hover:text-white transition-all cursor-pointer">✕</button>
+            <span class="tag mb-4 inline-block">Sustainability</span>
+            <h2 class="font-inter font-bold text-2xl text-neutral-800 dark:text-neutral-100 mb-4">Building Green: How to Make Your Home Energy Efficient</h2>
+            <div class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed space-y-4">
+              <p>A green home is not just eco-friendly — it's cost-effective long-term. Energy-efficient homes save 30-50% on electricity and water bills annually. Here are the most impactful green strategies MONOME incorporates:</p>
+              <p><strong class="text-brand-orange">Solar Pre-Wiring:</strong> We install conduit and dedicated wiring from the rooftop to the electrical panel during construction. Adding solar panels later becomes a plug-and-play exercise, saving ₹15,000-25,000 in retrofitting costs.</p>
+              <p><strong class="text-brand-orange">Rainwater Harvesting:</strong> A 10,000-liter underground sump connected to roof drainage reduces municipal water dependency by 30-40%. BBMP-mandated in Bangalore for plots above 2,400 sqft.</p>
+              <p><strong class="text-brand-orange">Passive Cooling:</strong> Oriented windows for cross-ventilation, terrace gardens, and light-colored roof tiles can reduce indoor temperatures by 4-6°C, lowering AC load significantly.</p>
+              <p><strong class="text-brand-orange">Low-VOC Paints:</strong> Asian Paints Royale Aspira and similar low-VOC emulsions reduce indoor air pollution by 80% compared to standard paints. MONOME uses these as standard across all interior surfaces.</p>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+
+      <!-- ═══════════════════════════════════════════════
+           SECTION 7: CONSTRUCTION TERMINOLOGY CENTER
+      ═══════════════════════════════════════════════ -->
+      <section id="terminology-center" class="py-24 bg-luxury relative overflow-hidden">
+        <div class="floating-shape w-80 h-80 bg-pastel-blue/25 -right-24 top-0"></div>
+        <div class="max-w-6xl mx-auto px-6 sm:px-12">
+          <!-- Header -->
+          <div class="text-center mb-12">
+            <p class="section-label mb-3">GLOSSARY</p>
+            <h2 class="section-title text-3xl sm:text-4xl lg:text-5xl mb-4">Construction Terminology Center</h2>
+            <p class="section-subtitle max-w-2xl mx-auto">Decode construction jargon. Your A-to-Z guide to understanding every term your contractor uses.</p>
+          </div>
+
+          <!-- Search Box -->
+          <div class="max-w-lg mx-auto mb-10">
+            <div class="relative">
+              <input type="text" id="glossary-search" placeholder="Search terms... e.g. 'RCC', 'TMT', 'Plinth'" class="w-full px-6 py-4 rounded-full glass border border-neutral-200 dark:border-neutral-700 text-sm text-neutral-800 dark:text-neutral-100 placeholder:text-neutral-400 focus:outline-none focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 transition-all shadow-soft pr-14" />
+              <div class="absolute right-5 top-1/2 -translate-y-1/2 text-neutral-400">🔍</div>
+            </div>
+          </div>
+
+          <!-- Terms Grid -->
+          <div id="glossary-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+            <div class="glossary-term glass-card rounded-xl p-4" data-term="RCC Reinforced Cement Concrete">
+              <p class="font-inter font-bold text-brand-orange text-sm mb-1">RCC</p>
+              <p class="text-xs font-semibold text-neutral-700 dark:text-neutral-200 mb-1.5">Reinforced Cement Concrete</p>
+              <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">Concrete embedded with steel bars (rebar) to resist tensile forces. RCC columns, beams, and slabs form the structural skeleton of a building.</p>
+            </div>
+
+            <div class="glossary-term glass-card rounded-xl p-4" data-term="TMT Thermo Mechanically Treated steel reinforcement">
+              <p class="font-inter font-bold text-brand-orange text-sm mb-1">TMT Steel</p>
+              <p class="text-xs font-semibold text-neutral-700 dark:text-neutral-200 mb-1.5">Thermo-Mechanically Treated Bars</p>
+              <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">High-strength steel bars used as reinforcement in RCC. Fe-500D and Fe-550D are the most common grades, with 'D' denoting improved ductility for earthquake resistance.</p>
+            </div>
+
+            <div class="glossary-term glass-card rounded-xl p-4" data-term="BUA Built Up Area gross floor space">
+              <p class="font-inter font-bold text-brand-orange text-sm mb-1">BUA</p>
+              <p class="text-xs font-semibold text-neutral-700 dark:text-neutral-200 mb-1.5">Built-Up Area</p>
+              <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">The total floor area including carpet area, wall thickness, and balcony area. Construction rates are typically quoted on BUA.</p>
+            </div>
+
+            <div class="glossary-term glass-card rounded-xl p-4" data-term="Plinth Level raised base floor height flooding">
+              <p class="font-inter font-bold text-brand-orange text-sm mb-1">Plinth Level</p>
+              <p class="text-xs font-semibold text-neutral-700 dark:text-neutral-200 mb-1.5">Raised Ground Floor Base Height</p>
+              <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">The height at which the ground floor is raised from natural ground level (typically 300-600mm). Prevents flooding and groundwater ingress.</p>
+            </div>
+
+            <div class="glossary-term glass-card rounded-xl p-4" data-term="SBC Soil Bearing Capacity foundation geotechnical">
+              <p class="font-inter font-bold text-brand-orange text-sm mb-1">SBC</p>
+              <p class="text-xs font-semibold text-neutral-700 dark:text-neutral-200 mb-1.5">Soil Bearing Capacity</p>
+              <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">The maximum load per unit area that soil can support without shear failure. Determined by geotechnical testing. Critical for foundation design.</p>
+            </div>
+
+            <div class="glossary-term glass-card rounded-xl p-4" data-term="BOQ Bill Of Quantities estimation cost breakdown">
+              <p class="font-inter font-bold text-brand-orange text-sm mb-1">BOQ</p>
+              <p class="text-xs font-semibold text-neutral-700 dark:text-neutral-200 mb-1.5">Bill of Quantities</p>
+              <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">A detailed itemized list of materials, quantities, and unit costs for a construction project. Used for cost estimation and contract pricing.</p>
+            </div>
+
+            <div class="glossary-term glass-card rounded-xl p-4" data-term="MEP Mechanical Electrical Plumbing services HVAC">
+              <p class="font-inter font-bold text-brand-orange text-sm mb-1">MEP</p>
+              <p class="text-xs font-semibold text-neutral-700 dark:text-neutral-200 mb-1.5">Mechanical, Electrical & Plumbing</p>
+              <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">The three major building services systems — HVAC, electrical wiring, and plumbing — that make a building functional. Typically 20-25% of construction cost.</p>
+            </div>
+
+            <div class="glossary-term glass-card rounded-xl p-4" data-term="PCC Plain Cement Concrete base leveling bed">
+              <p class="font-inter font-bold text-brand-orange text-sm mb-1">PCC</p>
+              <p class="text-xs font-semibold text-neutral-700 dark:text-neutral-200 mb-1.5">Plain Cement Concrete</p>
+              <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">Concrete without steel reinforcement. Used as a leveling bed below foundations and floors. Typical mix: M10 or M15 grade.</p>
+            </div>
+
+            <div class="glossary-term glass-card rounded-xl p-4" data-term="DPC Damp Proof Course moisture barrier wall rising dampness">
+              <p class="font-inter font-bold text-brand-orange text-sm mb-1">DPC</p>
+              <p class="text-xs font-semibold text-neutral-700 dark:text-neutral-200 mb-1.5">Damp Proof Course</p>
+              <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">A horizontal layer of waterproof material (bituminous felt or rich cement mortar) laid at plinth level to prevent rising dampness from ground to walls.</p>
+            </div>
+
+            <div class="glossary-term glass-card rounded-xl p-4" data-term="FAR FSI Floor Area Ratio Space Index plot coverage">
+              <p class="font-inter font-bold text-brand-orange text-sm mb-1">FAR / FSI</p>
+              <p class="text-xs font-semibold text-neutral-700 dark:text-neutral-200 mb-1.5">Floor Area Ratio / Space Index</p>
+              <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">The ratio of total built-up area to plot area. A FAR of 2 on a 1,200 sqft plot allows 2,400 sqft total construction. Determined by local municipal regulations.</p>
+            </div>
+
+            <div class="glossary-term glass-card rounded-xl p-4" data-term="OPC PPC Ordinary Portland Pozzolana cement grade 53">
+              <p class="font-inter font-bold text-brand-orange text-sm mb-1">OPC / PPC</p>
+              <p class="text-xs font-semibold text-neutral-700 dark:text-neutral-200 mb-1.5">Ordinary / Portland Pozzolana Cement</p>
+              <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">OPC 53 grade is used for structural concrete. PPC (with fly-ash additive) is used for plastering and masonry. Both are IS-certified for quality.</p>
+            </div>
+
+            <div class="glossary-term glass-card rounded-xl p-4" data-term="Curing concrete strength water hydration 28 days">
+              <p class="font-inter font-bold text-brand-orange text-sm mb-1">Curing</p>
+              <p class="text-xs font-semibold text-neutral-700 dark:text-neutral-200 mb-1.5">Concrete Hydration Process</p>
+              <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">The process of maintaining moisture and temperature in freshly poured concrete for 28 days to achieve full design strength. Skipping curing can reduce concrete strength by 40%.</p>
+            </div>
+
+          </div><!-- /glossary grid -->
+
+          <!-- No results message -->
+          <p id="glossary-no-results" class="text-center text-neutral-400 py-8 hidden">No terms found. Try a different keyword.</p>
+
+        </div>
+      </section>
+
+
+      <!-- ─── CALL TO ACTION ─── -->
+      <section class="py-20 bg-gradient-to-r from-[#F5A623] via-[#E09520] to-[#D4891A] relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: url(&quot;data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E&quot;)"></div>
+        <div class="relative max-w-4xl mx-auto px-6 sm:px-12 text-center">
+          <h2 class="font-inter font-extrabold text-3xl sm:text-4xl lg:text-5xl text-white mb-4">Ready to Build Your Dream Space?</h2>
+          <p class="text-white/85 text-lg mb-10 max-w-2xl mx-auto leading-relaxed">Join 500+ satisfied families who trusted MONOME to build their most important investment. Let's start with a free consultation.</p>
+          <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="contact.html" class="inline-block px-10 py-4 rounded-full bg-white text-brand-orange font-bold text-sm tracking-wide shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">Book Free Consultation</a>
+            <a href="projects.html" class="inline-block px-10 py-4 rounded-full border-2 border-white/40 text-white font-bold text-sm tracking-wide backdrop-blur-sm hover:bg-white/10 hover:-translate-y-1 transition-all duration-300">View Our Projects</a>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Section Interactivity Scripts -->
+    <script>
+      // ── Vastu Accordion ──────────────────────────────
+      document.querySelectorAll('.vastu-trigger').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const targetId = btn.getAttribute('data-target');
+          const panel = document.getElementById(targetId);
+          const icon = btn.querySelector('.vastu-icon');
+          const item = btn.closest('.vastu-item');
+          const isOpen = panel.style.maxHeight && panel.style.maxHeight !== '0px';
+          
+          // Close all panels and reset styles
+          document.querySelectorAll('.vastu-panel').forEach(p => { p.style.maxHeight = '0px'; });
+          document.querySelectorAll('.vastu-icon').forEach(i => i.style.transform = '');
+          document.querySelectorAll('.vastu-item').forEach(el => {
+            el.classList.remove('border-brand-orange/40', 'bg-[#F5A623]/[0.02]', 'shadow-[0_4px_20px_rgba(245,166,35,0.06)]');
+          });
+
+          // Open clicked (if it was closed) and apply active styles
+          if (!isOpen) {
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+            icon.style.transform = 'rotate(180deg)';
+            item.classList.add('border-brand-orange/40', 'bg-[#F5A623]/[0.02]', 'shadow-[0_4px_20px_rgba(245,166,35,0.06)]');
+          }
+        });
+      });
+
+      // ── FAQ Accordion ──────────────────────────────
+      document.querySelectorAll('.faq-trigger').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const targetId = btn.getAttribute('data-target');
+          const panel = document.getElementById(targetId);
+          const icon = btn.querySelector('.faq-icon');
+          const isOpen = panel.style.maxHeight && panel.style.maxHeight !== '0px';
+          // Close all
+          document.querySelectorAll('.faq-panel').forEach(p => { p.style.maxHeight = '0px'; });
+          document.querySelectorAll('.faq-icon').forEach(i => { i.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>'; });
+          // Open clicked
+          if (!isOpen) {
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+            icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4"/>';
+          }
+        });
+      });
+
+      // ── Why Choose Expandable Cards ──────────────────
+      document.querySelectorAll('.why-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const extra = card.querySelector('.why-extra');
+          const text = card.querySelector('.why-toggle-text');
+          const icon = card.querySelector('.why-toggle-icon');
+          const isExpanded = card.classList.contains('why-expanded');
+          // Note: onclick on the element already toggles 'why-expanded'
+          if (extra) extra.classList.toggle('hidden');
+          if (text) text.textContent = isExpanded ? 'Read more' : 'Read less';
+          if (icon) icon.style.transform = isExpanded ? '' : 'rotate(180deg)';
+        });
+      });
+
+      // ── Design Style Tabs ──────────────────────────
+      const styleTabs = document.querySelectorAll('.style-tab');
+      const stylePanels = document.querySelectorAll('.style-panel');
+      styleTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const target = tab.getAttribute('data-tab');
+          styleTabs.forEach(t => {
+            t.classList.remove('active', 'bg-brand-orange', 'text-white', 'border-brand-orange');
+            t.classList.add('border-neutral-200', 'dark:border-neutral-700', 'text-neutral-500');
+          });
+          tab.classList.add('active', 'bg-brand-orange', 'text-white', 'border-brand-orange');
+          tab.classList.remove('border-neutral-200', 'dark:border-neutral-700', 'text-neutral-500');
+          stylePanels.forEach(p => {
+            p.classList.toggle('hidden', p.getAttribute('data-panel') !== target);
+          });
+        });
+        // Init first tab style
+        if (tab.classList.contains('active')) {
+          tab.classList.add('bg-brand-orange', 'text-white', 'border-brand-orange');
+        } else {
+          tab.classList.add('border-neutral-200', 'dark:border-neutral-700', 'text-neutral-500');
+        }
+      });
+
+      // ── Glossary Search ────────────────────────────
+      const glossarySearch = document.getElementById('glossary-search');
+      const glossaryTerms = document.querySelectorAll('.glossary-term');
+      const noResults = document.getElementById('glossary-no-results');
+      glossarySearch && glossarySearch.addEventListener('input', () => {
+        const query = glossarySearch.value.toLowerCase();
+        let visibleCount = 0;
+        glossaryTerms.forEach(term => {
+          const termData = (term.getAttribute('data-term') || '').toLowerCase();
+          const text = (term.textContent || '').toLowerCase();
+          const visible = !query || termData.includes(query) || text.includes(query);
+          term.style.display = visible ? '' : 'none';
+          if (visible) visibleCount++;
+        });
+        if (noResults) noResults.classList.toggle('hidden', visibleCount > 0);
+      });
+
+      // ── Intersection Observer for fade-in-on-scroll ─
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.style.opacity = '1';
+            e.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.glass-card, .vastu-item, .faq-item, .why-card, .glossary-term').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(24px)';
+        el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        io.observe(el);
+      });
+
+      // ─── Hero Typewriter + Counter Animations ───────────────────────────────
+      function initHeroAnimations() {
+        /* --- Inject styles for cursor blink and counter pop --- */
+        var s = document.createElement('style');
+        s.textContent = [
+          '@keyframes cursorBlink{0%,100%{opacity:1}50%{opacity:0}}',
+          '#hero-cursor{animation:cursorBlink 0.75s step-end infinite}',
+          '.stat-counter{display:inline-block;transition:transform .12s ease}',
+          '.stat-counter.pop{transform:scale(1.28)}'
+        ].join('');
+        document.head.appendChild(s);
+
+        /* === 1. TYPEWRITER ==================================================== */
+        var L1el = document.getElementById('hero-typewriter-line1');
+        var L2el = document.getElementById('hero-typewriter-line2');
+        var Sel  = document.getElementById('hero-typewriter-sub');
+        var Cel  = document.getElementById('hero-cursor');
+
+        var TXT1 = 'Crafting Spaces ';
+        var TXT2 = 'That Inspire';
+        var TSUB = 'Premium construction, architectural planning, and interior design solutions crafted with absolute precision and elegance.';
+
+        var ti = 0, tPhase = 0;
+
+        function typeNext() {
+          if (!L1el || !L2el || !Sel) return;
+          if (tPhase === 0) {
+            if (ti < TXT1.length) {
+              L1el.textContent += TXT1[ti++];
+              setTimeout(typeNext, 55);
+            } else { ti = 0; tPhase = 1; setTimeout(typeNext, 130); }
+
+          } else if (tPhase === 1) {
+            if (ti < TXT2.length) {
+              L2el.textContent += TXT2[ti++];
+              setTimeout(typeNext, 70);
+            } else { ti = 0; tPhase = 2; setTimeout(typeNext, 350); }
+
+          } else if (tPhase === 2) {
+            if (ti < TSUB.length) {
+              Sel.textContent += TSUB[ti++];
+              var ch = TSUB[ti - 1];
+              setTimeout(typeNext, ch === ' ' ? 16 : (ch === ',' || ch === '.') ? 85 : 26);
+            } else {
+              tPhase = 3;
+              if (Cel) setTimeout(function(){ Cel.style.display='none'; }, 3500);
+            }
+          }
+        }
+
+        // Start typewriter immediately (no loading screen delay)
+        setTimeout(typeNext, 100);
+
+        /* === 2. NUMBER COUNTERS =============================================== */
+        function easeOutQuart(t) { return 1 - Math.pow(1 - t, 4); }
+
+        function animateCounter(el) {
+          if (el._done) return;
+          el._done = true;
+          var target   = parseInt(el.getAttribute('data-target'), 10);
+          var suffix   = el.getAttribute('data-suffix') || '';
+          var duration = target >= 100 ? 2200 : target >= 30 ? 1600 : 1300;
+          var t0 = performance.now();
+          (function tick(now) {
+            var p = Math.min((now - t0) / duration, 1);
+            el.textContent = Math.floor(easeOutQuart(p) * target) + suffix;
+            if (p < 1) {
+              requestAnimationFrame(tick);
+            } else {
+              el.textContent = target + suffix;
+              el.classList.add('pop');
+              setTimeout(function(){ el.classList.remove('pop'); }, 180);
+            }
+          })(t0);
+        }
+
+        // Observe each counter — threshold:0 fires as soon as 1px enters viewport
+        var counters = document.querySelectorAll('.stat-counter');
+        counters.forEach(function(el, i) {
+          var ob = new IntersectionObserver(function(entries) {
+            if (entries[0].isIntersecting) {
+              setTimeout(function(){ animateCounter(el); }, i * 230);
+              ob.disconnect();
+            }
+          }, { threshold: 0 });
+          ob.observe(el);
+        });
+
+        // Fallback: if already visible (no scroll needed), fire after page settles
+        setTimeout(function() {
+          counters.forEach(function(el, i) {
+            var r = el.getBoundingClientRect();
+            if (r.top < window.innerHeight && r.bottom >= 0) {
+              setTimeout(function(){ animateCounter(el); }, i * 230);
+            }
+          });
+        }, 200);
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initHeroAnimations);
+      } else {
+        initHeroAnimations();
+      }
+    </script>
+
+    <script>document.write(window.MonomeComponents.footer());</script>
+
+    <script>document.write(window.MonomeComponents.extras());</script>
+
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      // Initialize Lucide icons on load
+      lucide.createIcons();
+    </script>
+
+    <!-- Custom Script File -->
+    <script src="script.js"></script>
+  </body>
+</html>

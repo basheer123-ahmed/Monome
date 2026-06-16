@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  <!-- Immediate theme detection to prevent FOUC -->
+  <script>
+    (function() {
+      var isDark = localStorage.getItem('darkMode') === 'true' || 
+                  (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      if (isDark) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+  </script>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="https://img.icons8.com/color/48/construction.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="MONOME Constructions – Premium Construction, Architecture & Interior Design. Crafting spaces that inspire across India." />
+    <meta name="keywords" content="construction, architecture, interior design, luxury homes, villas, commercial buildings, India" />
+    <meta property="og:title" content="MONOME Constructions – Crafting Spaces That Inspire" />
+    <meta property="og:description" content="Premium Construction, Architecture & Interior Solutions across India." />
+    <meta property="og:type" content="website" />
+    <title>MONOME Constructions – Crafting Spaces That Inspire</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="tailwind.js"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              inter: ['Inter', 'sans-serif'],
+              poppins: ['Poppins', 'sans-serif'],
+            },
+            colors: {
+              brand: {
+                orange: '#F5A623',
+                'orange-light': '#F7B84B',
+                'orange-dark': '#D4891A',
+              },
+              cream: {
+                50: '#FEFDFB',
+                100: '#FAF8F3',
+                200: '#F5F0E8',
+                300: '#EDE4D4',
+                400: '#DDD0BC',
+              },
+              pastel: {
+                blue: '#B8D4E8',
+                mint: '#B8E4D4',
+                lavender: '#D4B8E4',
+                peach: '#E4C8B8',
+                sky: '#D0E8F5',
+              },
+              glass: {
+                white: 'rgba(255,255,255,0.25)',
+                card: 'rgba(255,255,255,0.45)',
+                dark: 'rgba(0,0,0,0.15)',
+              },
+            },
+            boxShadow: {
+              glass: '0 8px 32px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.6)',
+              'glass-hover': '0 20px 60px rgba(0,0,0,0.14), inset 0 1px 0 rgba(255,255,255,0.8)',
+              luxury: '0 4px 24px rgba(245,166,35,0.15), 0 1px 4px rgba(0,0,0,0.06)',
+              'luxury-hover': '0 12px 48px rgba(245,166,35,0.25), 0 4px 12px rgba(0,0,0,0.10)',
+              soft: '0 2px 16px rgba(0,0,0,0.06)',
+              card: '0 8px 40px rgba(0,0,0,0.08)',
+            },
+            animation: {
+              'float': 'float 6s ease-in-out infinite',
+              'float-slow': 'float 9s ease-in-out infinite',
+              'pulse-soft': 'pulseSoft 4s ease-in-out infinite',
+              'shimmer': 'shimmer 2s linear infinite',
+              'spin-slow': 'spin 20s linear infinite',
+              'fade-in': 'fadeIn 0.8s ease-out forwards',
+              'slide-up': 'slideUp 0.7s ease-out forwards',
+              'scale-in': 'scaleIn 0.5s ease-out forwards',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0px)' },
+                '50%': { transform: 'translateY(-16px)' },
+              },
+              pulseSoft: {
+                '0%, 100%': { opacity: '0.7' },
+                '50%': { opacity: '1' },
+              },
+              shimmer: {
+                '0%': { backgroundPosition: '-200% 0' },
+                '100%': { backgroundPosition: '200% 0' },
+              },
+              fadeIn: {
+                from: { opacity: '0' },
+                to: { opacity: '1' },
+              },
+              slideUp: {
+                from: { opacity: '0', transform: 'translateY(40px)' },
+                to: { opacity: '1', transform: 'translateY(0)' },
+              },
+              scaleIn: {
+                from: { opacity: '0', transform: 'scale(0.9)' },
+                to: { opacity: '1', transform: 'scale(1)' },
+              },
+            },
+            borderRadius: {
+              '2xl': '1rem',
+              '3xl': '1.5rem',
+              '4xl': '2rem',
+            },
+            spacing: {
+              '18': '4.5rem',
+              '22': '5.5rem',
+              '30': '7.5rem',
+            },
+          }
+        }
+      }
+    </script>
+    
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" href="style.css?v=2" />
+  </head>
+  <body>
+
+    <script src="components.js"></script>
+    <script>document.write(window.MonomeComponents.top());</script>
+
+    <!-- ??? MAIN CONTENT SECTIONS ??? -->
+    <main class="relative z-10">
+      <section id="contact" class="py-28 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-cream-100 via-cream-50 to-cream-200 dark:from-neutral-900 dark:to-neutral-950"></div>
+        <div class="absolute top-0 right-0 w-80 h-80 rounded-full bg-pastel-blue/25 blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-72 h-72 rounded-full bg-pastel-mint/25 blur-3xl pointer-events-none"></div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-8">
+          <!-- Header -->
+          <div class="text-center max-w-2xl mx-auto mb-16">
+            <span class="section-label">Get In Touch</span>
+            <h2 class="section-title text-4xl md:text-5xl mt-3 mb-5">
+              Let's Build Something <span class="text-gradient">Great</span>
+            </h2>
+            <p class="section-subtitle">
+              Ready to turn your vision into reality? Reach out for a free consultation and let's begin crafting your dream space together.
+            </p>
+          </div>
+
+          <div class="grid lg:grid-cols-5 gap-10">
+            <!-- Left Column: Info Cards -->
+            <div class="lg:col-span-2 space-y-6">
+              <!-- Booking Card -->
+              <div class="glass-card rounded-3xl p-7">
+                <div class="flex items-center gap-3 mb-5">
+                  <div class="w-11 h-11 rounded-xl flex items-center justify-center bg-gradient-to-br from-[#F5A623] to-[#D4891A]">
+                    <i data-lucide="calendar" class="text-white w-5 h-5"></i>
+                  </div>
+                  <div>
+                    <h3 class="font-inter font-700 text-neutral-800 dark:text-white">Book Consultation</h3>
+                    <p class="text-xs text-neutral-500">Free 45-minute expert session</p>
+                  </div>
+                </div>
+                <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed mb-5">
+                  Schedule a dedicated session with our senior architect or construction consultant — completely free, no commitment required.
+                </p>
+                <button class="btn-primary w-full text-sm" onclick="document.getElementById('contact-name').focus()">
+                  Schedule Now
+                </button>
+              </div>
+
+              <!-- Office HQ -->
+              <div class="glass-card rounded-3xl p-6 space-y-3">
+                <h4 class="font-inter font-700 text-neutral-800 dark:text-white">Bangalore HQ</h4>
+                <div class="flex gap-3 items-start text-sm text-neutral-500">
+                  <i data-lucide="map-pin" class="text-brand-orange mt-0.5 flex-shrink-0 w-4 h-4"></i>
+                  <span>42, Prestige Towers, MG Road, Bangalore – 560001</span>
+                </div>
+                <div class="flex gap-3 items-center text-sm text-neutral-500">
+                  <i data-lucide="phone" class="text-brand-orange flex-shrink-0 w-4 h-4"></i>
+                  <a href="tel:+918041203456" class="hover:text-brand-orange transition-colors">+91 80 4120 3456</a>
+                </div>
+                <div class="flex gap-3 items-center text-sm text-neutral-500">
+                  <i data-lucide="mail" class="text-brand-orange flex-shrink-0 w-4 h-4"></i>
+                  <a href="mailto:hello@monome.in" class="hover:text-brand-orange transition-colors">hello@monome.in</a>
+                </div>
+              </div>
+
+              <!-- Mumbai Office -->
+              <div class="glass-card rounded-3xl p-6 space-y-3">
+                <h4 class="font-inter font-700 text-neutral-800 dark:text-white">Mumbai Office</h4>
+                <div class="flex gap-3 items-start text-sm text-neutral-500">
+                  <i data-lucide="map-pin" class="text-brand-orange mt-0.5 flex-shrink-0 w-4 h-4"></i>
+                  <span>15, BKC Tower, Bandra Kurla Complex, Mumbai – 400051</span>
+                </div>
+                <div class="flex gap-3 items-center text-sm text-neutral-500">
+                  <i data-lucide="phone" class="text-brand-orange flex-shrink-0 w-4 h-4"></i>
+                  <a href="tel:+912268904567" class="hover:text-brand-orange transition-colors">+91 22 6890 4567</a>
+                </div>
+                <div class="flex gap-3 items-center text-sm text-neutral-500">
+                  <i data-lucide="mail" class="text-brand-orange flex-shrink-0 w-4 h-4"></i>
+                  <a href="mailto:mumbai@monome.in" class="hover:text-brand-orange transition-colors">mumbai@monome.in</a>
+                </div>
+              </div>
+
+              <!-- Hours -->
+              <div class="glass-card rounded-3xl p-6">
+                <div class="flex items-center gap-2 mb-3">
+                  <i data-lucide="clock" class="text-brand-orange w-4 h-4"></i>
+                  <h4 class="font-inter font-700 text-neutral-800 dark:text-white">Working Hours</h4>
+                </div>
+                <div class="space-y-1.5 text-sm text-neutral-500">
+                  <div class="flex justify-between"><span>Mon – Fri</span><span class="text-neutral-700 dark:text-neutral-300 font-medium">9:00 AM – 7:00 PM</span></div>
+                  <div class="flex justify-between"><span>Saturday</span><span class="text-neutral-700 dark:text-neutral-300 font-medium">10:00 AM – 4:00 PM</span></div>
+                  <div class="flex justify-between"><span>Sunday</span><span class="text-neutral-400">By Appointment</span></div>
+                </div>
+              </div>
+
+              <!-- Map grid placeholder -->
+              <div class="glass-card rounded-3xl overflow-hidden h-40 relative flex items-center justify-center">
+                <div class="absolute inset-0 bg-gradient-to-br from-[#E8F4E8] via-[#D4E8D4] to-[#C4D8C4]">
+                  <!-- map line visual -->
+                  <div class="absolute border-b border-white/40 top-12 left-0 right-0"></div>
+                  <div class="absolute border-b border-white/40 top-24 left-0 right-0"></div>
+                  <div class="absolute border-r border-white/40 left-12 top-0 bottom-0"></div>
+                  <div class="absolute border-r border-white/40 left-36 top-0 bottom-0"></div>
+                </div>
+                <div class="relative z-10 glass rounded-2xl px-4 py-2.5 flex items-center gap-2">
+                  <i data-lucide="map-pin" class="text-brand-orange w-4 h-4"></i>
+                  <span class="text-sm font-semibold text-neutral-700">View on Maps</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Column: Message Form -->
+            <div class="lg:col-span-3">
+              <div class="glass-card rounded-3xl p-8 md:p-10 h-full">
+                <!-- Success Message -->
+                <div id="form-success" class="hidden flex flex-col items-center justify-center h-full text-center gap-5 py-16">
+                  <div class="w-20 h-20 rounded-full flex items-center justify-center bg-gradient-to-br from-[#F5A623] to-[#D4891A]">
+                    <i data-lucide="check-circle" class="text-white w-9 h-9"></i>
+                  </div>
+                  <h3 class="section-title text-2xl">Message Sent!</h3>
+                  <p class="section-subtitle max-w-sm">
+                    Thank you for reaching out. Our team will get back to you within 24 hours.
+                  </p>
+                </div>
+
+                <!-- Form -->
+                <form id="contact-form" class="space-y-5">
+                  <h3 class="font-inter font-700 text-2xl text-neutral-800 dark:text-white mb-8">Send Us a Message</h3>
+                  
+                  <div class="grid sm:grid-cols-2 gap-5">
+                    <div>
+                      <label for="contact-name" class="block text-xs font-semibold text-neutral-600 dark:text-neutral-400 mb-1.5">Full Name *</label>
+                      <input id="contact-name" name="name" required placeholder="Rajesh Mehta" class="w-full px-4 py-3 rounded-xl glass border border-white/60 dark:border-white/10 text-sm text-neutral-800 dark:text-white placeholder:text-neutral-400 focus:outline-none focus:border-brand-orange/50 focus:ring-2 focus:ring-brand-orange/20 transition-all bg-transparent" />
+                    </div>
+                    <div>
+                      <label for="contact-email" class="block text-xs font-semibold text-neutral-600 dark:text-neutral-400 mb-1.5">Email Address *</label>
+                      <input id="contact-email" type="email" name="email" required placeholder="rajesh@email.com" class="w-full px-4 py-3 rounded-xl glass border border-white/60 dark:border-white/10 text-sm text-neutral-800 dark:text-white placeholder:text-neutral-400 focus:outline-none focus:border-brand-orange/50 focus:ring-2 focus:ring-brand-orange/20 transition-all bg-transparent" />
+                    </div>
+                  </div>
+
+                  <div class="grid sm:grid-cols-2 gap-5">
+                    <div>
+                      <label for="contact-phone" class="block text-xs font-semibold text-neutral-600 dark:text-neutral-400 mb-1.5">Phone Number</label>
+                      <input id="contact-phone" type="tel" name="phone" placeholder="+91 98765 43210" class="w-full px-4 py-3 rounded-xl glass border border-white/60 dark:border-white/10 text-sm text-neutral-800 dark:text-white placeholder:text-neutral-400 focus:outline-none focus:border-brand-orange/50 focus:ring-2 focus:ring-brand-orange/20 transition-all bg-transparent" />
+                    </div>
+                    <div>
+                      <label for="contact-service" class="block text-xs font-semibold text-neutral-600 dark:text-neutral-400 mb-1.5">Service Interested In</label>
+                      <select id="contact-service" name="service" class="w-full px-4 py-3 rounded-xl glass border border-white/60 dark:border-white/10 text-sm text-neutral-800 dark:text-white focus:outline-none focus:border-brand-orange/50 focus:ring-2 focus:ring-brand-orange/20 transition-all bg-white/50 dark:bg-neutral-800/50">
+                        <option value="">Select a service</option>
+                        <option>Residential Construction</option>
+                        <option>Commercial Construction</option>
+                        <option>Architecture Planning</option>
+                        <option>Interior Design</option>
+                        <option>Renovation</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label for="contact-message" class="block text-xs font-semibold text-neutral-600 dark:text-neutral-400 mb-1.5">Your Message *</label>
+                    <textarea id="contact-message" name="message" required rows="5" placeholder="Tell us about your project, location, approximate budget, and timeline..." class="w-full px-4 py-3 rounded-xl glass border border-white/60 dark:border-white/10 text-sm text-neutral-800 dark:text-white placeholder:text-neutral-400 focus:outline-none focus:border-brand-orange/50 focus:ring-2 focus:ring-brand-orange/20 transition-all bg-transparent resize-none"></textarea>
+                  </div>
+
+                  <button type="submit" class="btn-primary w-full flex items-center justify-center gap-2">
+                    <span id="submit-spinner" class="hidden w-5 h-5 border-2 border-white/40 border-t-white rounded-full animate-spin"></span>
+                    <span id="submit-btn-text" class="flex items-center gap-2"><i data-lucide="send" class="w-4 h-4"></i> Send Message</span>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <script>document.write(window.MonomeComponents.footer());</script>
+
+    <script>document.write(window.MonomeComponents.extras());</script>
+
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      // Initialize Lucide icons on load
+      lucide.createIcons();
+    </script>
+
+    <!-- Custom Script File -->
+    <script src="script.js"></script>
+  </body>
+</html>
