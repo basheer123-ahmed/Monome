@@ -1,27 +1,27 @@
 <!doctype html>
 <html lang="en">
   <head>
-  <!-- Immediate theme detection to prevent FOUC -->
-  <script>
-    (function() {
-      var isDark = localStorage.getItem('darkMode') === 'true' || 
-                  (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches);
-      if (isDark) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-    })();
-  </script>
+    <!-- Immediate theme detection to prevent FOUC -->
+    <script>
+      (function() {
+        var isDark = localStorage.getItem('darkMode') === 'true' || 
+                    (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        if (isDark) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      })();
+    </script>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="https://img.icons8.com/color/48/construction.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="MONOME Constructions – Premium Construction, Architecture & Interior Design. Crafting spaces that inspire across India." />
-    <meta name="keywords" content="construction, architecture, interior design, luxury homes, villas, commercial buildings, India" />
-    <meta property="og:title" content="MONOME Constructions – Crafting Spaces That Inspire" />
-    <meta property="og:description" content="Premium Construction, Architecture & Interior Solutions across India." />
+    <meta name="description" content="MONOME Constructions Services – Redefining residential, commercial, architecture, and interior design for premium spaces." />
+    <meta name="keywords" content="construction services, architect planning, interior design, home builder, Bangalore, Karnataka" />
+    <meta property="og:title" content="MONOME Constructions – Premium Services & Project Cost Estimator" />
+    <meta property="og:description" content="Explore luxury residential & commercial construction, architectural planning, and custom interior design services." />
     <meta property="og:type" content="website" />
-    <title>MONOME Constructions – Crafting Spaces That Inspire</title>
+    <title>MONOME Constructions – Premium Services & Cost Estimator</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -125,14 +125,74 @@
     
     <!-- Custom Style Sheet -->
     <link rel="stylesheet" href="style.css?v=2" />
+    <style>
+      /* ── Services Page Custom Styles ── */
+      .service-card {
+        background: rgba(255, 255, 255, 0.45);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 1.5rem;
+        padding: 2rem;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        transition: all 0.35s ease;
+      }
+      .service-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 16px 48px rgba(245,166,35,0.12), inset 0 1px 0 rgba(255,255,255,0.5);
+        border-color: rgba(245, 166, 35, 0.3);
+      }
+      .dark .service-card {
+        background: rgba(13, 16, 23, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .dark .service-card:hover {
+        border-color: rgba(245, 166, 35, 0.25);
+      }
+
+      /* Scroll reveal core */
+      .reveal {
+        opacity: 0;
+        transform: translateY(35px);
+        transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        will-change: transform, opacity;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Accordion Panel */
+      .faq-panel {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      /* Tags */
+      .tag-orange {
+        background: rgba(245, 166, 35, 0.15);
+        border: 1px solid rgba(245, 166, 35, 0.3);
+        color: #F5A623;
+        font-family: 'Poppins', sans-serif;
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        padding: 4px 10px;
+        border-radius: 9999px;
+      }
+    </style>
   </head>
   <body>
 
     <script src="components.js"></script>
     <script>document.write(window.MonomeComponents.top());</script>
 
-    <!-- ??? MAIN CONTENT SECTIONS ??? -->
+    <!-- ─── MAIN CONTENT SECTIONS ─── -->
     <main class="relative z-10">
+      
+      <!-- ─── EXISTING SECTION: SERVICES CARDS ─── -->
       <section id="services" class="relative py-28 overflow-hidden">
         <!-- Decorative blobs -->
         <div class="absolute top-0 left-0 w-72 h-72 rounded-full bg-pastel-mint/40 blur-3xl pointer-events-none -translate-x-1/2 -translate-y-1/2"></div>
@@ -239,7 +299,7 @@
               </p>
               <div class="flex flex-wrap gap-2 mb-6">
                 <span class="text-[11px] px-3 py-1 rounded-full font-medium bg-green-50 text-green-700 dark:bg-green-950/40 dark:text-green-300">Full Renovation</span>
-                <span class="text-[11px] px-3 py-1 rounded-full font-medium bg-green-50 text-green-700 dark:bg-green-950/40 dark:text-green-300">Kitchen & Bath</span>
+                <span class="text-[11px] px-3 py-1 rounded-full font-medium bg-green-50 text-green-700 dark:bg-green-950/40 dark:text-green-300">Kitchen &amp; Bath</span>
                 <span class="text-[11px] px-3 py-1 rounded-full font-medium bg-green-50 text-green-700 dark:bg-green-950/40 dark:text-green-300">Structural Changes</span>
               </div>
               <a href="contact.html" class="inline-flex items-center gap-1.5 text-sm font-semibold transition-all hover:translate-x-1 text-[#82C882]">
@@ -250,7 +310,7 @@
 
           <!-- Bottom CTA -->
           <div class="text-center mt-14">
-            <p class="text-neutral-500 dark:text-neutral-400 mb-4 text-sm">
+            <p class="text-neutral-500 dark:text-neutral-400 mb-4 text-sm font-poppins">
               Not sure what you need? Let our experts guide you.
             </p>
             <a href="contact.html" class="btn-primary inline-flex cursor-pointer text-center">
@@ -260,7 +320,285 @@
         </div>
       </section>
 
-      <!-- ─── COST ESTIMATOR SECTION ─── -->
+      <!-- ─── NEW SECTION 1: THE MONOME PROMISE ─── -->
+      <section id="services-promise" class="py-24 bg-[#FAF8F3] dark:bg-[#0f1117]/40 relative overflow-hidden">
+        <div class="absolute -top-32 right-0 w-[450px] h-[450px] bg-brand-orange/5 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-8">
+          <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+            <span class="section-label">Our Philosophy</span>
+            <h2 class="section-title text-4xl md:text-5xl mt-3 mb-5">
+              The <span class="text-gradient">Monome Promise</span>
+            </h2>
+            <p class="section-subtitle">
+              We don't just construct buildings. We create spaces that deliver value for generations.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Promise Card 1 -->
+            <div class="glass-card rounded-3xl p-8 hover:translate-y-[-8px] hover:shadow-luxury-hover transition-all duration-300 border border-neutral-200/40 dark:border-white/10 flex flex-col justify-between reveal">
+              <div>
+                <div class="w-14 h-14 rounded-2xl bg-brand-orange/10 flex items-center justify-center text-brand-orange mb-6 shadow-sm">
+                  <i data-lucide="layout" class="w-6.5 h-6.5"></i>
+                </div>
+                <h3 class="font-inter font-700 text-lg text-neutral-800 dark:text-white mb-3">Thoughtful Design</h3>
+                <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed font-poppins">
+                  Smart, functional and aesthetically refined spaces tailored to modern lifestyles and business needs.
+                </p>
+              </div>
+            </div>
+
+            <!-- Promise Card 2 -->
+            <div class="glass-card rounded-3xl p-8 hover:translate-y-[-8px] hover:shadow-luxury-hover transition-all duration-300 border border-neutral-200/40 dark:border-white/10 flex flex-col justify-between reveal">
+              <div>
+                <div class="w-14 h-14 rounded-2xl bg-brand-orange/10 flex items-center justify-center text-brand-orange mb-6 shadow-sm">
+                  <i data-lucide="shield-check" class="w-6.5 h-6.5"></i>
+                </div>
+                <h3 class="font-inter font-700 text-lg text-neutral-800 dark:text-white mb-3">Quality Assurance</h3>
+                <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed font-poppins">
+                  Premium materials, expert craftsmanship and rigorous quality control throughout every stage of construction.
+                </p>
+              </div>
+            </div>
+
+            <!-- Promise Card 3 -->
+            <div class="glass-card rounded-3xl p-8 hover:translate-y-[-8px] hover:shadow-luxury-hover transition-all duration-300 border border-neutral-200/40 dark:border-white/10 flex flex-col justify-between reveal">
+              <div>
+                <div class="w-14 h-14 rounded-2xl bg-brand-orange/10 flex items-center justify-center text-brand-orange mb-6 shadow-sm">
+                  <i data-lucide="clock" class="w-6.5 h-6.5"></i>
+                </div>
+                <h3 class="font-inter font-700 text-lg text-neutral-800 dark:text-white mb-3">Cost &amp; Time Efficiency</h3>
+                <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed font-poppins">
+                  Optimized planning and execution that maximize value while minimizing delays and unnecessary expenses.
+                </p>
+              </div>
+            </div>
+
+            <!-- Promise Card 4 -->
+            <div class="glass-card rounded-3xl p-8 hover:translate-y-[-8px] hover:shadow-luxury-hover transition-all duration-300 border border-neutral-200/40 dark:border-white/10 flex flex-col justify-between reveal">
+              <div>
+                <div class="w-14 h-14 rounded-2xl bg-brand-orange/10 flex items-center justify-center text-brand-orange mb-6 shadow-sm">
+                  <i data-lucide="leaf" class="w-6.5 h-6.5"></i>
+                </div>
+                <h3 class="font-inter font-700 text-lg text-neutral-800 dark:text-white mb-3">Sustainable Solutions</h3>
+                <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed font-poppins">
+                  Future-ready buildings designed with environmental responsibility and long-term operational efficiency.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── NEW SECTION 2: OUR CONSTRUCTION PROCESS ─── -->
+      <section id="services-process" class="py-24 bg-[#FAFAF8] dark:bg-[#0d1017] relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-8">
+          <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+            <span class="section-label">Workflow Roadmap</span>
+            <h2 class="section-title text-4xl md:text-5xl mt-3 mb-5">
+              Our Proven <span class="text-gradient">Construction Process</span>
+            </h2>
+          </div>
+
+          <!-- Timeline Container -->
+          <div class="relative mt-12">
+            <!-- Timeline central track line on desktop -->
+            <div class="hidden lg:block absolute top-[60px] left-[5%] right-[5%] h-[2px] bg-gradient-to-r from-brand-orange/10 via-brand-orange/40 to-brand-orange/10 z-0"></div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 relative z-10">
+              <!-- Step 1 -->
+              <div class="text-center reveal flex flex-col items-center">
+                <div class="w-14 h-14 rounded-full bg-[#FAFAF8] dark:bg-[#0d1017] border-2 border-brand-orange flex items-center justify-center mb-5 relative z-10 shadow-md hover:scale-110 transition-all duration-300">
+                  <i data-lucide="phone-call" class="text-brand-orange w-5 h-5"></i>
+                </div>
+                <div class="glass-card rounded-2xl p-5 border border-neutral-200/40 dark:border-white/10 flex-1 flex flex-col justify-between">
+                  <div>
+                    <span class="text-[10px] font-bold text-neutral-400 dark:text-neutral-500 block mb-1">STEP 01</span>
+                    <h4 class="font-inter font-700 text-sm text-neutral-800 dark:text-white mb-2">Consultation</h4>
+                    <p class="text-[11px] text-neutral-500 dark:text-neutral-400 leading-relaxed font-poppins">Initial discussion to understand your vision, requirements, and project scope.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 2 -->
+              <div class="text-center reveal flex flex-col items-center">
+                <div class="w-14 h-14 rounded-full bg-[#FAFAF8] dark:bg-[#0d1017] border-2 border-brand-orange flex items-center justify-center mb-5 relative z-10 shadow-md hover:scale-110 transition-all duration-300">
+                  <i data-lucide="map" class="text-brand-orange w-5 h-5"></i>
+                </div>
+                <div class="glass-card rounded-2xl p-5 border border-neutral-200/40 dark:border-white/10 flex-1 flex flex-col justify-between">
+                  <div>
+                    <span class="text-[10px] font-bold text-neutral-400 dark:text-neutral-500 block mb-1">STEP 02</span>
+                    <h4 class="font-inter font-700 text-sm text-neutral-800 dark:text-white mb-2">Site Assessment</h4>
+                    <p class="text-[11px] text-neutral-500 dark:text-neutral-400 leading-relaxed font-poppins">Comprehensive soil test, layout analysis, and municipal feasibility checks.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 3 -->
+              <div class="text-center reveal flex flex-col items-center">
+                <div class="w-14 h-14 rounded-full bg-[#FAFAF8] dark:bg-[#0d1017] border-2 border-brand-orange flex items-center justify-center mb-5 relative z-10 shadow-md hover:scale-110 transition-all duration-300">
+                  <i data-lucide="pen-tool" class="text-brand-orange w-5 h-5"></i>
+                </div>
+                <div class="glass-card rounded-2xl p-5 border border-neutral-200/40 dark:border-white/10 flex-1 flex flex-col justify-between">
+                  <div>
+                    <span class="text-[10px] font-bold text-neutral-400 dark:text-neutral-500 block mb-1">STEP 03</span>
+                    <h4 class="font-inter font-700 text-sm text-neutral-800 dark:text-white mb-2">Design &amp; Planning</h4>
+                    <p class="text-[11px] text-neutral-500 dark:text-neutral-400 leading-relaxed font-poppins">Architectural modeling, 3D visualizers, and structural engineering layout approvals.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 4 -->
+              <div class="text-center reveal flex flex-col items-center">
+                <div class="w-14 h-14 rounded-full bg-[#FAFAF8] dark:bg-[#0d1017] border-2 border-brand-orange flex items-center justify-center mb-5 relative z-10 shadow-md hover:scale-110 transition-all duration-300">
+                  <i data-lucide="file-text" class="text-brand-orange w-5 h-5"></i>
+                </div>
+                <div class="glass-card rounded-2xl p-5 border border-neutral-200/40 dark:border-white/10 flex-1 flex flex-col justify-between">
+                  <div>
+                    <span class="text-[10px] font-bold text-neutral-400 dark:text-neutral-500 block mb-1">STEP 04</span>
+                    <h4 class="font-inter font-700 text-sm text-neutral-800 dark:text-white mb-2">Estimation &amp; Approval</h4>
+                    <p class="text-[11px] text-neutral-500 dark:text-neutral-400 leading-relaxed font-poppins">Detailed bill of quantities (BOQ) list pricing and contract signoff.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 5 -->
+              <div class="text-center reveal flex flex-col items-center">
+                <div class="w-14 h-14 rounded-full bg-[#FAFAF8] dark:bg-[#0d1017] border-2 border-brand-orange flex items-center justify-center mb-5 relative z-10 shadow-md hover:scale-110 transition-all duration-300">
+                  <i data-lucide="hammer" class="text-brand-orange w-5 h-5"></i>
+                </div>
+                <div class="glass-card rounded-2xl p-5 border border-neutral-200/40 dark:border-white/10 flex-1 flex flex-col justify-between">
+                  <div>
+                    <span class="text-[10px] font-bold text-neutral-400 dark:text-neutral-500 block mb-1">STEP 05</span>
+                    <h4 class="font-inter font-700 text-sm text-neutral-800 dark:text-white mb-2">Construction</h4>
+                    <p class="text-[11px] text-neutral-500 dark:text-neutral-400 leading-relaxed font-poppins">Full scale structural and exterior build managed with daily digital tracking updates.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 6 -->
+              <div class="text-center reveal flex flex-col items-center">
+                <div class="w-14 h-14 rounded-full bg-[#FAFAF8] dark:bg-[#0d1017] border-2 border-brand-orange flex items-center justify-center mb-5 relative z-10 shadow-md hover:scale-110 transition-all duration-300">
+                  <i data-lucide="key" class="text-brand-orange w-5 h-5"></i>
+                </div>
+                <div class="glass-card rounded-2xl p-5 border border-neutral-200/40 dark:border-white/10 flex-1 flex flex-col justify-between">
+                  <div>
+                    <span class="text-[10px] font-bold text-neutral-400 dark:text-neutral-500 block mb-1">STEP 06</span>
+                    <h4 class="font-inter font-700 text-sm text-neutral-800 dark:text-white mb-2">Inspection &amp; Handover</h4>
+                    <p class="text-[11px] text-neutral-500 dark:text-neutral-400 leading-relaxed font-poppins">Rigorous quality passport checklist execution before key transition.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── NEW SECTION 3: INDUSTRIES WE SERVE ─── -->
+      <section id="services-sectors" class="py-24 bg-[#FAF8F3] dark:bg-[#0f1117]/40 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-8">
+          <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+            <span class="section-label">Expertise Areas</span>
+            <h2 class="section-title text-4xl md:text-5xl mt-3 mb-5">
+              Projects Across <span class="text-gradient">Every Sector</span>
+            </h2>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Sector 1 -->
+            <div class="group rounded-3xl overflow-hidden shadow-card border border-neutral-200/40 dark:border-white/10 bg-[#FAFAF8] dark:bg-[#0d1017] transition-all duration-300 hover:translate-y-[-8px] reveal">
+              <div class="relative h-60 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=600&q=80" alt="Residential Developments" class="w-full h-full object-cover group-hover:scale-108 transition-all duration-700" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                <div class="absolute bottom-4 left-5 flex items-center gap-2">
+                  <span class="tag-orange">Residential</span>
+                </div>
+              </div>
+              <div class="p-6">
+                <h3 class="font-inter font-700 text-lg text-neutral-800 dark:text-white mb-2">🏠 Residential Developments</h3>
+                <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed font-poppins">Luxury villas, smart home apartments, and modern gated community projects built to perfection.</p>
+              </div>
+            </div>
+
+            <!-- Sector 2 -->
+            <div class="group rounded-3xl overflow-hidden shadow-card border border-neutral-200/40 dark:border-white/10 bg-[#FAFAF8] dark:bg-[#0d1017] transition-all duration-300 hover:translate-y-[-8px] reveal">
+              <div class="relative h-60 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80" alt="Commercial Buildings" class="w-full h-full object-cover group-hover:scale-108 transition-all duration-700" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                <div class="absolute bottom-4 left-5 flex items-center gap-2">
+                  <span class="tag-orange">Commercial</span>
+                </div>
+              </div>
+              <div class="p-6">
+                <h3 class="font-inter font-700 text-lg text-neutral-800 dark:text-white mb-2">🏢 Commercial Buildings</h3>
+                <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed font-poppins">Corporate headquarters, executive office blocks, retail shopping units, and luxury showrooms.</p>
+              </div>
+            </div>
+
+            <!-- Sector 3 -->
+            <div class="group rounded-3xl overflow-hidden shadow-card border border-neutral-200/40 dark:border-white/10 bg-[#FAFAF8] dark:bg-[#0d1017] transition-all duration-300 hover:translate-y-[-8px] reveal">
+              <div class="relative h-60 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=600&q=80" alt="Mixed-Use Developments" class="w-full h-full object-cover group-hover:scale-108 transition-all duration-700" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                <div class="absolute bottom-4 left-5 flex items-center gap-2">
+                  <span class="tag-orange">Mixed-Use</span>
+                </div>
+              </div>
+              <div class="p-6">
+                <h3 class="font-inter font-700 text-lg text-neutral-800 dark:text-white mb-2">🏬 Mixed-Use Developments</h3>
+                <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed font-poppins">Integrated urban zones combining residential towers, shopping arcades, and public hubs.</p>
+              </div>
+            </div>
+
+            <!-- Sector 4 -->
+            <div class="group rounded-3xl overflow-hidden shadow-card border border-neutral-200/40 dark:border-white/10 bg-[#FAFAF8] dark:bg-[#0d1017] transition-all duration-300 hover:translate-y-[-8px] reveal">
+              <div class="relative h-60 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=600&q=80" alt="Industrial Facilities" class="w-full h-full object-cover group-hover:scale-108 transition-all duration-700" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                <div class="absolute bottom-4 left-5 flex items-center gap-2">
+                  <span class="tag-orange">Industrial</span>
+                </div>
+              </div>
+              <div class="p-6">
+                <h3 class="font-inter font-700 text-lg text-neutral-800 dark:text-white mb-2">🏭 Industrial Facilities</h3>
+                <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed font-poppins">Heavy-duty warehouses, logistic distribution centers, cold storage, and factory infrastructures.</p>
+              </div>
+            </div>
+
+            <!-- Sector 5 -->
+            <div class="group rounded-3xl overflow-hidden shadow-card border border-neutral-200/40 dark:border-white/10 bg-[#FAFAF8] dark:bg-[#0d1017] transition-all duration-300 hover:translate-y-[-8px] reveal">
+              <div class="relative h-60 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=80" alt="Hospitality Projects" class="w-full h-full object-cover group-hover:scale-108 transition-all duration-700" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                <div class="absolute bottom-4 left-5 flex items-center gap-2">
+                  <span class="tag-orange">Hospitality</span>
+                </div>
+              </div>
+              <div class="p-6">
+                <h3 class="font-inter font-700 text-lg text-neutral-800 dark:text-white mb-2">🏨 Hospitality Projects</h3>
+                <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed font-poppins">Luxury resort cottages, wellness spas, premium hotels, and entertainment recreational retreats.</p>
+              </div>
+            </div>
+
+            <!-- Sector 6 -->
+            <div class="group rounded-3xl overflow-hidden shadow-card border border-neutral-200/40 dark:border-white/10 bg-[#FAFAF8] dark:bg-[#0d1017] transition-all duration-300 hover:translate-y-[-8px] reveal">
+              <div class="relative h-60 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=600&q=80" alt="Institutional Buildings" class="w-full h-full object-cover group-hover:scale-108 transition-all duration-700" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                <div class="absolute bottom-4 left-5 flex items-center gap-2">
+                  <span class="tag-orange">Institutional</span>
+                </div>
+              </div>
+              <div class="p-6">
+                <h3 class="font-inter font-700 text-lg text-neutral-800 dark:text-white mb-2">🏫 Institutional Buildings</h3>
+                <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed font-poppins">Modern universities, schools, private laboratories, libraries, and research facilities.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── EXISTING SECTION: COST ESTIMATOR ─── -->
       <section id="cost-estimator" class="py-28 relative overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-br from-cream-100 via-cream-50 to-cream-100 dark:from-neutral-950 dark:to-neutral-900"></div>
         <div class="absolute top-0 right-0 w-80 h-80 rounded-full bg-pastel-peach/25 blur-3xl pointer-events-none"></div>
@@ -268,7 +606,7 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-8 relative">
           <!-- Header -->
           <div class="text-center max-w-2xl mx-auto mb-16">
-            <span class="section-label">Transparency</span>
+            <span class="section-label">Transparency Tool</span>
             <h2 class="section-title text-4xl md:text-5xl mt-3 mb-5">
               Cost <span class="text-gradient">Estimator</span>
             </h2>
@@ -375,7 +713,7 @@
 
                 <div class="bg-brand-orange/10 dark:bg-brand-orange/5 rounded-2xl p-4 flex gap-3 items-start border border-brand-orange/20 mt-4">
                   <i data-lucide="info" class="text-brand-orange w-5 h-5 flex-shrink-0 mt-0.5"></i>
-                  <p class="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                  <p class="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed font-poppins">
                     This is a rough cost estimation based on average regional construction variables. For a detailed customized quote, schedule a consultation call with us.
                   </p>
                 </div>
@@ -389,7 +727,358 @@
         </div>
       </section>
 
-      <!-- ─── PROJECTS SECTION ─── -->
+      <!-- ─── NEW SECTION 4: WHY CLIENTS CHOOSE MONOME ─── -->
+      <section id="services-stats" class="py-24 bg-[#FAFAF8] dark:bg-[#0d1017] relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-8 relative z-10">
+          <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+            <span class="section-label">Proven Track Record</span>
+            <h2 class="section-title text-4xl md:text-5xl mt-3 mb-5">
+              Why Clients <span class="text-gradient">Choose Monome</span>
+            </h2>
+          </div>
+
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+            <!-- Stat 1 -->
+            <div class="text-center rounded-3xl p-6 md:p-8 border border-neutral-200/60 dark:border-white/10 bg-[#FAFAF8]/95 dark:bg-[#0f1117] hover:translate-y-[-4px] hover:shadow-md transition-all duration-300 reveal">
+              <div class="w-12 h-12 rounded-2xl bg-brand-orange/10 flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="building" class="text-brand-orange w-6 h-6"></i>
+              </div>
+              <div class="stat-number text-4xl md:text-5xl font-800 text-brand-orange" data-target="100" data-suffix="+">0</div>
+              <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-2 font-poppins">Projects Delivered</p>
+            </div>
+
+            <!-- Stat 2 -->
+            <div class="text-center rounded-3xl p-6 md:p-8 border border-neutral-200/60 dark:border-white/10 bg-[#FAFAF8]/95 dark:bg-[#0f1117] hover:translate-y-[-4px] hover:shadow-md transition-all duration-300 reveal">
+              <div class="w-12 h-12 rounded-2xl bg-brand-orange/10 flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="maximize" class="text-brand-orange w-6 h-6"></i>
+              </div>
+              <div class="stat-number text-4xl md:text-5xl font-800 text-brand-orange" data-target="500000" data-suffix="+">0</div>
+              <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-2 font-poppins">Square Feet Developed</p>
+            </div>
+
+            <!-- Stat 3 -->
+            <div class="text-center rounded-3xl p-6 md:p-8 border border-neutral-200/60 dark:border-white/10 bg-[#FAFAF8]/95 dark:bg-[#0f1117] hover:translate-y-[-4px] hover:shadow-md transition-all duration-300 reveal">
+              <div class="w-12 h-12 rounded-2xl bg-brand-orange/10 flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="smile" class="text-brand-orange w-6 h-6"></i>
+              </div>
+              <div class="stat-number text-4xl md:text-5xl font-800 text-brand-orange" data-target="98" data-suffix="%">0</div>
+              <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-2 font-poppins">Client Satisfaction</p>
+            </div>
+
+            <!-- Stat 4 -->
+            <div class="text-center rounded-3xl p-6 md:p-8 border border-neutral-200/60 dark:border-white/10 bg-[#FAFAF8]/95 dark:bg-[#0f1117] hover:translate-y-[-4px] hover:shadow-md transition-all duration-300 reveal">
+              <div class="w-12 h-12 rounded-2xl bg-brand-orange/10 flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="shield-check" class="text-brand-orange w-6 h-6"></i>
+              </div>
+              <div class="stat-number text-4xl md:text-5xl font-800 text-brand-orange" data-target="100" data-suffix="%">0</div>
+              <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-2 font-poppins">Commitment To Quality</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── NEW SECTION 5: FEATURED PROJECTS SHOWCASE ─── -->
+      <section id="services-projects" class="py-24 bg-[#FAF8F3] dark:bg-[#0f1117]/40 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-8">
+          <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+            <span class="section-label">Portfolio Gallery</span>
+            <h2 class="section-title text-4xl md:text-5xl mt-3 mb-5">
+              Recent <span class="text-gradient">Projects</span>
+            </h2>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Project 1 -->
+            <div class="group relative rounded-3xl overflow-hidden border border-neutral-200/40 dark:border-white/10 bg-[#FAFAF8] dark:bg-[#0d1017] transition-all duration-500 hover:shadow-luxury-hover hover:border-brand-orange/40 reveal">
+              <div class="relative h-80 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Prestige Vista Villa" class="w-full h-full object-cover group-hover:scale-108 transition-all duration-700" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+                
+                <div class="absolute top-4 right-4 bg-brand-orange text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider font-poppins">
+                  Completed
+                </div>
+
+                <div class="absolute bottom-5 left-6 right-6 flex flex-col justify-end text-white">
+                  <span class="text-[10px] font-bold text-brand-orange uppercase tracking-widest mb-1.5 font-poppins">Luxury Villa</span>
+                  <h3 class="font-inter font-800 text-xl text-white mb-1">Prestige Vista Villa</h3>
+                  <p class="text-xs text-neutral-300 flex items-center gap-1 font-poppins"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-brand-orange"></i> Whitefield, Bangalore</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="group relative rounded-3xl overflow-hidden border border-neutral-200/40 dark:border-white/10 bg-[#FAFAF8] dark:bg-[#0d1017] transition-all duration-500 hover:shadow-luxury-hover hover:border-brand-orange/40 reveal">
+              <div class="relative h-80 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80" alt="Monome Nexus Plaza" class="w-full h-full object-cover group-hover:scale-108 transition-all duration-700" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+                
+                <div class="absolute top-4 right-4 bg-brand-orange text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider font-poppins">
+                  Completed
+                </div>
+
+                <div class="absolute bottom-5 left-6 right-6 flex flex-col justify-end text-white">
+                  <span class="text-[10px] font-bold text-brand-orange uppercase tracking-widest mb-1.5 font-poppins">Commercial Complex</span>
+                  <h3 class="font-inter font-800 text-xl text-white mb-1">Monome Nexus Plaza</h3>
+                  <p class="text-xs text-neutral-300 flex items-center gap-1 font-poppins"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-brand-orange"></i> Indiranagar, Bangalore</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="group relative rounded-3xl overflow-hidden border border-neutral-200/40 dark:border-white/10 bg-[#FAFAF8] dark:bg-[#0d1017] transition-all duration-500 hover:shadow-luxury-hover hover:border-brand-orange/40 reveal">
+              <div class="relative h-80 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80" alt="The Heritage Retreat" class="w-full h-full object-cover group-hover:scale-108 transition-all duration-700" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+                
+                <div class="absolute top-4 right-4 bg-brand-orange text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider font-poppins">
+                  Completed
+                </div>
+
+                <div class="absolute bottom-5 left-6 right-6 flex flex-col justify-end text-white">
+                  <span class="text-[10px] font-bold text-brand-orange uppercase tracking-widest mb-1.5 font-poppins">Resort &amp; Spa</span>
+                  <h3 class="font-inter font-800 text-xl text-white mb-1">The Heritage Retreat</h3>
+                  <p class="text-xs text-neutral-300 flex items-center gap-1 font-poppins"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-brand-orange"></i> Nandi Hills, Bangalore</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="group relative rounded-3xl overflow-hidden border border-neutral-200/40 dark:border-white/10 bg-[#FAFAF8] dark:bg-[#0d1017] transition-all duration-500 hover:shadow-luxury-hover hover:border-brand-orange/40 reveal">
+              <div class="relative h-80 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80" alt="Elysian Residences" class="w-full h-full object-cover group-hover:scale-108 transition-all duration-700" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+                
+                <div class="absolute top-4 right-4 bg-neutral-600 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider font-poppins">
+                  Under Build
+                </div>
+
+                <div class="absolute bottom-5 left-6 right-6 flex flex-col justify-end text-white">
+                  <span class="text-[10px] font-bold text-brand-orange uppercase tracking-widest mb-1.5 font-poppins">Premium Apartments</span>
+                  <h3 class="font-inter font-800 text-xl text-white mb-1">Elysian Residences</h3>
+                  <p class="text-xs text-neutral-300 flex items-center gap-1 font-poppins"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-brand-orange"></i> Koramangala, Bangalore</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── NEW SECTION 6: CLIENT TESTIMONIALS ─── -->
+      <section id="services-testimonials" class="py-24 bg-[#FAFAF8] dark:bg-[#0d1017] relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-8">
+          <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+            <span class="section-label">Endorsements</span>
+            <h2 class="section-title text-4xl md:text-5xl mt-3 mb-5">
+              Trusted By Property <span class="text-gradient">Owners &amp; Investors</span>
+            </h2>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Testimonial 1 -->
+            <div class="glass-card rounded-3xl p-8 border border-neutral-200/40 dark:border-white/10 hover:translate-y-[-4px] hover:shadow-luxury-hover transition-all duration-300 flex flex-col justify-between reveal">
+              <div class="space-y-4">
+                <div class="flex text-amber-400 gap-0.5">
+                  <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                  <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                  <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                  <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                  <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                </div>
+                <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed font-poppins italic">
+                  "MONOME transformed our corporate headquarters vision into reality. Their quality standard and adherence to the budget was exceptional. Truly a ₹100Cr construction quality experience."
+                </p>
+              </div>
+              <div class="flex items-center gap-4 mt-6 pt-6 border-t border-neutral-100 dark:border-white/5">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="Aravind Rao" class="w-12 h-12 rounded-full object-cover border border-brand-orange/20" />
+                <div>
+                  <h4 class="font-inter font-700 text-sm text-neutral-800 dark:text-white">Aravind Rao</h4>
+                  <p class="text-[10px] text-neutral-400 dark:text-neutral-500 font-poppins">Founder, Rao Tech Solutions</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="glass-card rounded-3xl p-8 border border-neutral-200/40 dark:border-white/10 hover:translate-y-[-4px] hover:shadow-luxury-hover transition-all duration-300 flex flex-col justify-between reveal">
+              <div class="space-y-4">
+                <div class="flex text-amber-400 gap-0.5">
+                  <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                  <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                  <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                  <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                  <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                </div>
+                <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed font-poppins italic">
+                  "Building a luxury villa is stressful, but MONOME's complete transparency through their FutureReady live tracking and cost dashboard made it a breeze. Highly recommended."
+                </p>
+              </div>
+              <div class="flex items-center gap-4 mt-6 pt-6 border-t border-neutral-100 dark:border-white/5">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80" alt="Dr. Meera Krishnan" class="w-12 h-12 rounded-full object-cover border border-brand-orange/20" />
+                <div>
+                  <h4 class="font-inter font-700 text-sm text-neutral-800 dark:text-white">Dr. Meera Krishnan</h4>
+                  <p class="text-[10px] text-neutral-400 dark:text-neutral-500 font-poppins">Owner, Prestige Vista Villa</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="glass-card rounded-3xl p-8 border border-neutral-200/40 dark:border-white/10 hover:translate-y-[-4px] hover:shadow-luxury-hover transition-all duration-300 flex flex-col justify-between reveal">
+              <div class="space-y-4">
+                <div class="flex text-amber-400 gap-0.5">
+                  <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                  <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                  <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                  <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                  <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                </div>
+                <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed font-poppins italic">
+                  "As an investor, speed and cost control are everything. MONOME delivered our mixed-use commercial space ahead of schedule and with zero hidden costs. Excellent project management."
+                </p>
+              </div>
+              <div class="flex items-center gap-4 mt-6 pt-6 border-t border-neutral-100 dark:border-white/5">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80" alt="Vikram Malhotra" class="w-12 h-12 rounded-full object-cover border border-brand-orange/20" />
+                <div>
+                  <h4 class="font-inter font-700 text-sm text-neutral-800 dark:text-white">Vikram Malhotra</h4>
+                  <p class="text-[10px] text-neutral-400 dark:text-neutral-500 font-poppins">Real Estate Investor</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── NEW SECTION 7: FAQ SECTION ─── -->
+      <section id="services-faqs" class="py-24 bg-[#FAF8F3] dark:bg-[#0f1117]/40 relative overflow-hidden">
+        <div class="max-w-4xl mx-auto px-4 sm:px-8">
+          <div class="text-center mb-16 reveal">
+            <span class="section-label">Support &amp; Guide</span>
+            <h2 class="section-title text-4xl md:text-5xl mt-3 mb-5">
+              Frequently Asked <span class="text-gradient">Questions</span>
+            </h2>
+          </div>
+
+          <div class="space-y-4">
+            <!-- FAQ 1 -->
+            <div class="rounded-2xl border border-neutral-200/50 dark:border-white/5 bg-[#FAFAF8]/80 dark:bg-[#0d1017]/60 overflow-hidden reveal">
+              <button class="faq-header w-full px-6 py-5 text-left flex justify-between items-center hover:bg-neutral-100/50 dark:hover:bg-white/5 transition-all">
+                <span class="font-inter font-700 text-sm text-neutral-800 dark:text-white">How is construction cost calculated?</span>
+                <i data-lucide="chevron-down" class="faq-icon text-brand-orange w-4 h-4 transition-transform duration-300"></i>
+              </button>
+              <div class="faq-panel">
+                <div class="px-6 pb-6 pt-1 text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed font-poppins">
+                  Construction costs are calculated based on the total built-up area (sq.ft), the number of floor levels, and the standard of materials/finishes selected (Standard, Premium, or Luxury). Our Cost Estimator provides an instant baseline, followed by a detailed bill of quantities (BOQ).
+                </div>
+              </div>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="rounded-2xl border border-neutral-200/50 dark:border-white/5 bg-[#FAFAF8]/80 dark:bg-[#0d1017]/60 overflow-hidden reveal">
+              <button class="faq-header w-full px-6 py-5 text-left flex justify-between items-center hover:bg-neutral-100/50 dark:hover:bg-white/5 transition-all">
+                <span class="font-inter font-700 text-sm text-neutral-800 dark:text-white">How long does a residential project take?</span>
+                <i data-lucide="chevron-down" class="faq-icon text-brand-orange w-4 h-4 transition-transform duration-300"></i>
+              </button>
+              <div class="faq-panel">
+                <div class="px-6 pb-6 pt-1 text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed font-poppins">
+                  A premium residential villa typically takes between 10 to 14 months from the date of design approvals, depending on the scale and complexity of the architectural finishes. We provide structured milestone schedules in our contracts.
+                </div>
+              </div>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div class="rounded-2xl border border-neutral-200/50 dark:border-white/5 bg-[#FAFAF8]/80 dark:bg-[#0d1017]/60 overflow-hidden reveal">
+              <button class="faq-header w-full px-6 py-5 text-left flex justify-between items-center hover:bg-neutral-100/50 dark:hover:bg-white/5 transition-all">
+                <span class="font-inter font-700 text-sm text-neutral-800 dark:text-white">Do you provide architectural design services?</span>
+                <i data-lucide="chevron-down" class="faq-icon text-brand-orange w-4 h-4 transition-transform duration-300"></i>
+              </button>
+              <div class="faq-panel">
+                <div class="px-6 pb-6 pt-1 text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed font-poppins">
+                  Yes, MONOME is a complete design-build firm. We offer integrated services including architectural planning, structural engineering, interior design, and turn-key construction, ensuring seamless execution.
+                </div>
+              </div>
+            </div>
+
+            <!-- FAQ 4 -->
+            <div class="rounded-2xl border border-neutral-200/50 dark:border-white/5 bg-[#FAFAF8]/80 dark:bg-[#0d1017]/60 overflow-hidden reveal">
+              <button class="faq-header w-full px-6 py-5 text-left flex justify-between items-center hover:bg-neutral-100/50 dark:hover:bg-white/5 transition-all">
+                <span class="font-inter font-700 text-sm text-neutral-800 dark:text-white">Can I customize materials and finishes?</span>
+                <i data-lucide="chevron-down" class="faq-icon text-brand-orange w-4 h-4 transition-transform duration-300"></i>
+              </button>
+              <div class="faq-panel">
+                <div class="px-6 pb-6 pt-1 text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed font-poppins">
+                  Absolutely. Every client is provided with a curated material palette selection where you can customize tiles, marbles, sanitary fittings, woodwork, and paint finishes with our senior design consultants.
+                </div>
+              </div>
+            </div>
+
+            <!-- FAQ 5 -->
+            <div class="rounded-2xl border border-neutral-200/50 dark:border-white/5 bg-[#FAFAF8]/80 dark:bg-[#0d1017]/60 overflow-hidden reveal">
+              <button class="faq-header w-full px-6 py-5 text-left flex justify-between items-center hover:bg-neutral-100/50 dark:hover:bg-white/5 transition-all">
+                <span class="font-inter font-700 text-sm text-neutral-800 dark:text-white">Do you offer project management services?</span>
+                <i data-lucide="chevron-down" class="faq-icon text-brand-orange w-4 h-4 transition-transform duration-300"></i>
+              </button>
+              <div class="faq-panel">
+                <div class="px-6 pb-6 pt-1 text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed font-poppins">
+                  Yes, we provide full project management. Our site engineers supervise all activities daily, providing live updates via our client dashboard, managing procurement, quality control, and vendor integrations.
+                </div>
+              </div>
+            </div>
+
+            <!-- FAQ 6 -->
+            <div class="rounded-2xl border border-neutral-200/50 dark:border-white/5 bg-[#FAFAF8]/80 dark:bg-[#0d1017]/60 overflow-hidden reveal">
+              <button class="faq-header w-full px-6 py-5 text-left flex justify-between items-center hover:bg-neutral-100/50 dark:hover:bg-white/5 transition-all">
+                <span class="font-inter font-700 text-sm text-neutral-800 dark:text-white">What makes Monome different?</span>
+                <i data-lucide="chevron-down" class="faq-icon text-brand-orange w-4 h-4 transition-transform duration-300"></i>
+              </button>
+              <div class="faq-panel">
+                <div class="px-6 pb-6 pt-1 text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed font-poppins">
+                  Unlike traditional builders, we integrate advanced technology like Digital Twin Models, transparent live-tracking dashboards, and 50-year structural serviceability design with strict ISO 9001 quality audits.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── NEW SECTION 8: PREMIUM CALL TO ACTION ─── -->
+      <section id="services-cta" class="relative py-28 md:py-36 overflow-hidden">
+        <!-- Parallax Background image with dark overlay -->
+        <div class="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1800&q=80');"></div>
+        <div class="absolute inset-0 z-1 bg-gradient-to-r from-black/85 via-black/75 to-black/90"></div>
+        
+        <!-- Subtle Glow overlay -->
+        <div class="absolute inset-0 z-2 bg-radial-gradient(circle at center, rgba(245,166,35,0.1) 0%, transparent 80%) pointer-events-none"></div>
+
+        <div class="max-w-5xl mx-auto px-4 sm:px-8 text-center relative z-10">
+          <div class="inline-flex w-16 h-16 rounded-2xl items-center justify-center bg-brand-orange/20 border border-brand-orange/30 mb-8 reveal">
+            <i data-lucide="building-2" class="text-brand-orange w-7 h-7"></i>
+          </div>
+
+          <div class="reveal">
+            <span class="section-label" style="color: rgba(245,166,35,0.7)">Request Consultation</span>
+            <h2 class="font-inter font-900 leading-tight mt-3 mb-6 text-white" style="font-size: clamp(2rem, 5vw, 3.8rem); text-shadow: 0 4px 15px rgba(0,0,0,0.6);">
+              Ready To Build<br/>
+              <span style="background:linear-gradient(135deg,#F5A623 0%,#F7B84B 50%,#D4891A 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
+                Something Exceptional?
+              </span>
+            </h2>
+            <p class="text-neutral-300 text-base md:text-lg leading-relaxed max-w-2xl mx-auto font-poppins font-300 mb-10" style="text-shadow: 0 2px 10px rgba(0,0,0,0.8);">
+              Partner with Monome Constructions to transform your vision into a landmark project built with quality, innovation and lasting value.
+            </p>
+          </div>
+
+          <!-- Buttons -->
+          <div class="flex flex-col sm:flex-row gap-4 justify-center items-center reveal">
+            <a href="contact.html" class="btn-primary flex items-center gap-2 px-8 py-4 text-sm shadow-lg">
+              <i data-lucide="phone-call" class="w-4 h-4"></i>
+              Get Free Consultation
+            </a>
+            <a href="#cost-estimator" class="flex items-center gap-2 px-8 py-4 text-sm font-poppins font-600 text-white rounded-full border border-white/25 hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">
+              <i data-lucide="calculator" class="w-4 h-4"></i>
+              Request Detailed Estimate
+            </a>
+          </div>
+        </div>
+      </section>
+
     </main>
 
     <script>document.write(window.MonomeComponents.footer());</script>
@@ -405,5 +1094,80 @@
 
     <!-- Custom Script File -->
     <script src="script.js"></script>
+
+    <!-- ── Services Page Scripts ── -->
+    <script>
+      // ── Scroll Reveal ──────────────────────────────────────────────
+      (function() {
+        const revealEls = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        revealEls.forEach(el => observer.observe(el));
+      })();
+
+      // ── FAQ Accordion Toggle ───────────────────────────────────────
+      document.querySelectorAll('.faq-header').forEach(header => {
+        header.addEventListener('click', () => {
+          const panel = header.nextElementSibling;
+          const icon = header.querySelector('.faq-icon');
+          
+          const isActive = panel.classList.contains('active');
+          
+          // Close all other panels first for accordion behavior
+          document.querySelectorAll('.faq-panel').forEach(p => {
+            p.classList.remove('active');
+            p.style.maxHeight = null;
+            p.previousElementSibling.querySelector('.faq-icon').style.transform = 'rotate(0deg)';
+          });
+          
+          if (!isActive) {
+            panel.classList.add('active');
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+            icon.style.transform = 'rotate(180deg)';
+          }
+        });
+      });
+
+      // ── Stats Count-Up Animation ──────────────────────────────────
+      (function() {
+        let countersStarted = false;
+
+        function animateCounter(el, target, suffix, duration) {
+          let startTime = null;
+          const startVal = 0;
+          function step(timestamp) {
+            if (!startTime) startTime = timestamp;
+            const progress = Math.min((timestamp - startTime) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+            const current = Math.round(startVal + eased * (target - startVal));
+            el.textContent = current.toLocaleString() + (suffix || '');
+            if (progress < 1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+        }
+
+        const statsSection = document.getElementById('services-stats');
+        if (statsSection) {
+          const io = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && !countersStarted) {
+              countersStarted = true;
+              document.querySelectorAll('#services-stats .stat-number[data-target]').forEach(el => {
+                const target = parseInt(el.dataset.target, 10);
+                const suffix = el.dataset.suffix || '';
+                animateCounter(el, target, suffix, 2000);
+              });
+              io.unobserve(statsSection);
+            }
+          }, { threshold: 0.15 });
+          io.observe(statsSection);
+        }
+      })();
+    </script>
   </body>
 </html>

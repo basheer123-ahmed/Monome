@@ -16,16 +16,17 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="https://img.icons8.com/color/48/construction.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="MONOME Constructions – Premium Construction, Architecture & Interior Design. Crafting spaces that inspire across India." />
-    <meta name="keywords" content="construction, architecture, interior design, luxury homes, villas, commercial buildings, India" />
-    <meta property="og:title" content="MONOME Constructions – Crafting Spaces That Inspire" />
-    <meta property="og:description" content="Premium Construction, Architecture & Interior Solutions across India." />
+    <meta name="description" content="About MONOME Constructions – Learn our story, meet our award-winning leadership team, and discover why we are South India's most trusted luxury construction firm." />
+    <meta name="keywords" content="MONOME Constructions about, Rohith Krishna, Yashwanth Krishna, construction firm Bangalore, award winning architecture, interior design Karnataka" />
+    <meta property="og:title" content="About MONOME Constructions – Engineering Legacies. Crafting Future-Ready Homes." />
+    <meta property="og:description" content="Meet the visionary team behind MONOME Constructions and discover our story of excellence, innovation, and award-winning design." />
     <meta property="og:type" content="website" />
-    <title>MONOME Constructions – Crafting Spaces That Inspire</title>
+    <title>About Us – MONOME Constructions | Engineering Legacies</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
     
     <!-- Tailwind CSS via CDN -->
     <script src="tailwind.js"></script>
@@ -81,6 +82,7 @@
               'fade-in': 'fadeIn 0.8s ease-out forwards',
               'slide-up': 'slideUp 0.7s ease-out forwards',
               'scale-in': 'scaleIn 0.5s ease-out forwards',
+              'ken-burns': 'kenBurns 20s ease-in-out infinite alternate',
             },
             keyframes: {
               float: {
@@ -107,6 +109,10 @@
                 from: { opacity: '0', transform: 'scale(0.9)' },
                 to: { opacity: '1', transform: 'scale(1)' },
               },
+              kenBurns: {
+                '0%': { transform: 'scale(1) translate(0,0)' },
+                '100%': { transform: 'scale(1.12) translate(-2%, -2%)' },
+              },
             },
             borderRadius: {
               '2xl': '1rem',
@@ -125,193 +131,1497 @@
     
     <!-- Custom Style Sheet -->
     <link rel="stylesheet" href="style.css?v=2" />
+
+    <style>
+      /* ── About Page Custom Styles ── */
+
+      /* Hero section */
+      .about-hero {
+        position: relative;
+        min-height: 88vh;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+      }
+      .about-hero-bg {
+        position: absolute;
+        inset: 0;
+        background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1800&q=85&auto=format&fit=crop');
+        background-size: cover;
+        background-position: center;
+        animation: kenBurns 20s ease-in-out infinite alternate;
+      }
+      .about-hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(15,12,10,0.78) 0%, rgba(26,26,46,0.65) 50%, rgba(212,137,26,0.18) 100%);
+      }
+      @keyframes kenBurns {
+        0%   { transform: scale(1) translate(0,0); }
+        100% { transform: scale(1.12) translate(-2%, -2%); }
+      }
+
+      /* Scroll reveal */
+      .reveal {
+        opacity: 0;
+        transform: translateY(36px);
+        transition: opacity 0.75s cubic-bezier(.16,1,.3,1), transform 0.75s cubic-bezier(.16,1,.3,1);
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .reveal-left {
+        opacity: 0;
+        transform: translateX(-40px);
+        transition: opacity 0.75s cubic-bezier(.16,1,.3,1), transform 0.75s cubic-bezier(.16,1,.3,1);
+      }
+      .reveal-left.visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      .reveal-right {
+        opacity: 0;
+        transform: translateX(40px);
+        transition: opacity 0.75s cubic-bezier(.16,1,.3,1), transform 0.75s cubic-bezier(.16,1,.3,1);
+      }
+      .reveal-right.visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      /* Director cards */
+      .director-card {
+        position: relative;
+        background: rgba(255,255,255,0.55);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255,255,255,0.7);
+        border-radius: 1.5rem;
+        overflow: hidden;
+        transition: transform 0.4s cubic-bezier(.16,1,.3,1), box-shadow 0.4s ease;
+        box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+      }
+      .dark .director-card {
+        background: rgba(255,255,255,0.07);
+        border-color: rgba(255,255,255,0.12);
+      }
+      .director-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 24px 60px rgba(245,166,35,0.18), 0 8px 20px rgba(0,0,0,0.12);
+      }
+      .director-card .accent-bar {
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #F5A623, #D4891A, #F7B84B);
+      }
+      .director-avatar {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #F5A623;
+        box-shadow: 0 0 0 6px rgba(245,166,35,0.15);
+      }
+
+      /* Award cards */
+      .award-card {
+        position: relative;
+        background: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(245,240,232,0.8) 100%);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(245,166,35,0.25);
+        border-radius: 1.5rem;
+        padding: 2rem;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        box-shadow: 0 4px 24px rgba(245,166,35,0.1);
+      }
+      .dark .award-card {
+        background: linear-gradient(135deg, rgba(255,255,255,0.07) 0%, rgba(245,166,35,0.06) 100%);
+        border-color: rgba(245,166,35,0.2);
+      }
+      .award-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 60px rgba(245,166,35,0.2), 0 4px 12px rgba(0,0,0,0.1);
+      }
+
+      /* Stats section */
+      .stats-section {
+        position: relative;
+        overflow: hidden;
+      }
+      .stats-section::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse at 30% 50%, rgba(245,166,35,0.05) 0%, transparent 60%),
+                    radial-gradient(ellipse at 70% 50%, rgba(245,166,35,0.03) 0%, transparent 60%);
+        pointer-events: none;
+      }
+      .stat-number {
+        font-family: 'Inter', sans-serif;
+        font-weight: 800;
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        background: linear-gradient(135deg, #F5A623, #F7B84B, #D4891A);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1;
+      }
+
+      /* FutureReady feature cards */
+      .feature-card {
+        background: rgba(255,255,255,0.55);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255,255,255,0.65);
+        border-radius: 1.5rem;
+        padding: 2rem 1.5rem;
+        text-align: center;
+        transition: transform 0.4s cubic-bezier(.16,1,.3,1), box-shadow 0.4s ease, background 0.3s ease;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+      }
+      .dark .feature-card {
+        background: rgba(255,255,255,0.06);
+        border-color: rgba(255,255,255,0.1);
+      }
+      .feature-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 60px rgba(245,166,35,0.15);
+        background: rgba(255,255,255,0.75);
+      }
+      .dark .feature-card:hover {
+        background: rgba(245,166,35,0.08);
+      }
+      .feature-icon-wrap {
+        width: 72px;
+        height: 72px;
+        border-radius: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.25rem;
+        transition: transform 0.3s ease;
+      }
+      .feature-card:hover .feature-icon-wrap {
+        transform: scale(1.1) rotate(-4deg);
+      }
+
+      /* Gallery masonry */
+      .gallery-masonry {
+        columns: 1;
+        column-gap: 1.25rem;
+      }
+      @media (min-width: 640px)  { .gallery-masonry { columns: 2; } }
+      @media (min-width: 1024px) { .gallery-masonry { columns: 3; } }
+      .gallery-masonry .gallery-item {
+        break-inside: avoid;
+        margin-bottom: 1.25rem;
+        border-radius: 1rem;
+        overflow: hidden;
+        cursor: pointer;
+        position: relative;
+        display: block;
+      }
+      .gallery-masonry .gallery-item img {
+        width: 100%;
+        display: block;
+        transition: transform 0.5s cubic-bezier(.16,1,.3,1);
+      }
+      .gallery-masonry .gallery-item:hover img {
+        transform: scale(1.07);
+      }
+      .gallery-item-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(15,14,23,0.75) 0%, transparent 60%);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        display: flex;
+        align-items: flex-end;
+        padding: 1.25rem;
+      }
+      .gallery-item:hover .gallery-item-overlay {
+        opacity: 1;
+      }
+
+      /* Value cards */
+      .value-card {
+        background: rgba(255,255,255,0.5);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255,255,255,0.65);
+        border-radius: 1.25rem;
+        padding: 2rem 1.5rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      }
+      .dark .value-card {
+        background: rgba(255,255,255,0.05);
+        border-color: rgba(255,255,255,0.1);
+      }
+      .value-card::after {
+        content: '';
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #F5A623, #D4891A);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.4s ease;
+      }
+      .value-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 16px 48px rgba(245,166,35,0.14);
+      }
+      .value-card:hover::after {
+        transform: scaleX(1);
+      }
+
+      /* CTA section */
+      .cta-section {
+        background: linear-gradient(135deg, #1a1208 0%, #0f0e17 40%, #1a1a2e 100%);
+        position: relative;
+        overflow: hidden;
+      }
+      .cta-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: 50%;
+        width: 600px;
+        height: 600px;
+        transform: translateX(-50%);
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(245,166,35,0.15) 0%, transparent 70%);
+        pointer-events: none;
+        z-index: 2; /* Keep accent glow on top of slides */
+      }
+      
+      /* CTA Slideshow background */
+      .cta-slideshow {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+      }
+      .cta-slide {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        opacity: 0;
+        transition: opacity 2.5s ease-in-out;
+        will-change: transform, opacity;
+      }
+      .cta-slide.active {
+        opacity: 1;
+      }
+      .cta-overlay {
+        position: absolute;
+        inset: 0;
+        /* Increased visibility of background: lower opacity overlay with a dark luxury vignette */
+        background: radial-gradient(circle at center, rgba(15, 14, 23, 0.2) 0%, rgba(13, 16, 23, 0.6) 100%), rgba(0, 0, 0, 0.15);
+        z-index: 1;
+      }
+      
+      /* Ken Burns keyframes for professional camera motion */
+      @keyframes kenburns-0 {
+        0% { transform: scale(1.03) translate(0, 0); }
+        100% { transform: scale(1.15) translate(-1.5%, -1%); }
+      }
+      @keyframes kenburns-1 {
+        0% { transform: scale(1.15) translate(1.5%, 1%); }
+        100% { transform: scale(1.03) translate(0, 0); }
+      }
+      @keyframes kenburns-2 {
+        0% { transform: scale(1.03) translate(-1.5%, 1%); }
+        100% { transform: scale(1.15) translate(1.5%, -1%); }
+      }
+      @keyframes kenburns-3 {
+        0% { transform: scale(1.15) translate(0, -1.5%); }
+        100% { transform: scale(1.03) translate(0, 1.5%); }
+      }
+      @keyframes kenburns-4 {
+        0% { transform: scale(1.03) translate(1.5%, 0); }
+        100% { transform: scale(1.15) translate(-1.5%, 0); }
+      }
+
+      /* Timeline */
+      .timeline-line {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(to bottom, #F5A623, rgba(245,166,35,0.2), transparent);
+        transform: translateX(-50%);
+      }
+      @media (max-width: 768px) { .timeline-line { display: none; } }
+      .timeline-dot {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.5);
+        backdrop-filter: blur(12px);
+        border: 2px solid rgba(245,166,35,0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        z-index: 10;
+        box-shadow: 0 0 0 6px rgba(245,166,35,0.08);
+      }
+      .dark .timeline-dot {
+        background: rgba(255,255,255,0.08);
+      }
+
+      /* Pulse ring animation on hero badge */
+      @keyframes pulseRing {
+        0%   { transform: scale(0.8); opacity: 0.8; }
+        80%  { transform: scale(1.5); opacity: 0; }
+        100% { transform: scale(1.5); opacity: 0; }
+      }
+      .pulse-ring::before {
+        content: '';
+        position: absolute;
+        inset: -6px;
+        border-radius: 50%;
+        border: 2px solid #F5A623;
+        animation: pulseRing 2s cubic-bezier(.4,0,.6,1) infinite;
+      }
+
+      /* No custom section-alt needed — uses bg-luxury from style.css for consistency */
+    </style>
   </head>
   <body>
 
     <script src="components.js"></script>
     <script>document.write(window.MonomeComponents.top());</script>
 
-    <!-- ??? MAIN CONTENT SECTIONS ??? -->
+    <!-- ══════════════════════════════════════════ -->
+    <!--  MAIN CONTENT                              -->
+    <!-- ══════════════════════════════════════════ -->
     <main class="relative z-10">
-      <section id="about" class="relative py-28 bg-luxury overflow-hidden">
-        <!-- Decorative circle -->
-        <div class="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-pastel-blue/30 blur-3xl pointer-events-none"></div>
+
+      <!-- ─────────────────────────────────────── -->
+      <!-- SECTION 1: HERO BANNER                  -->
+      <!-- ─────────────────────────────────────── -->
+      <section id="about-hero" class="about-hero pt-20">
+        <div class="about-hero-bg"></div>
+        <div class="about-hero-overlay"></div>
+
+        <!-- Decorative gold particles -->
+        <div class="pointer-events-none absolute inset-0 overflow-hidden">
+          <div class="absolute top-1/4 left-[8%] w-1.5 h-1.5 rounded-full bg-brand-orange opacity-60 animate-float" style="animation-delay:0s"></div>
+          <div class="absolute top-1/3 right-[12%] w-2 h-2 rounded-full bg-brand-orange-light opacity-40 animate-float-slow" style="animation-delay:1.5s"></div>
+          <div class="absolute bottom-1/3 left-[18%] w-1 h-1 rounded-full bg-brand-orange opacity-50 animate-float" style="animation-delay:3s"></div>
+          <div class="absolute bottom-1/4 right-[20%] w-1.5 h-1.5 rounded-full bg-brand-orange-light opacity-35 animate-float-slow" style="animation-delay:2s"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 py-20 md:py-28 text-white">
+          <div class="max-w-3xl">
+            <!-- Label badge -->
+            <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-brand-orange/20 border border-brand-orange/40 backdrop-blur-sm mb-6">
+              <div class="w-2 h-2 rounded-full bg-brand-orange relative pulse-ring"></div>
+              <span class="text-brand-orange text-xs font-poppins font-600 tracking-[0.18em] uppercase">Est. 2009 · Bangalore, India</span>
+            </div>
+
+            <!-- Main headline -->
+            <h1 class="font-inter font-900 leading-[1.05] mb-6" style="font-size: clamp(2.5rem, 6vw, 5rem);">
+              Engineering Legacies.<br/>
+              <span style="background: linear-gradient(135deg, #F5A623 0%, #F7B84B 50%, #D4891A 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                Crafting Future-Ready Homes.
+              </span>
+            </h1>
+
+            <p class="text-neutral-300 text-lg md:text-xl leading-relaxed mb-10 max-w-2xl font-poppins font-300">
+              For over 15 years, MONOME Constructions has been transforming bold architectural visions into extraordinary spaces — where precision meets artistry, and every structure tells a story.
+            </p>
+
+            <!-- CTA buttons -->
+            <div class="flex flex-wrap gap-4">
+              <a href="#about-story" class="btn-primary flex items-center gap-2 px-7 py-3.5 text-sm">
+                <i data-lucide="book-open" class="w-4 h-4"></i>
+                Our Story
+              </a>
+              <a href="contact.html" class="flex items-center gap-2 px-7 py-3.5 text-sm font-poppins font-600 text-white rounded-full border border-white/30 backdrop-blur-sm hover:bg-white/10 transition-all duration-300">
+                <i data-lucide="phone" class="w-4 h-4"></i>
+                Get In Touch
+              </a>
+            </div>
+          </div>
+
+          <!-- Floating stat badges -->
+          <div class="absolute bottom-10 right-8 hidden lg:flex flex-col gap-4">
+            <div class="glass rounded-2xl px-5 py-4 flex items-center gap-3 animate-float">
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br from-brand-orange to-brand-orange-dark">
+                <i data-lucide="award" class="text-white w-4.5 h-4.5"></i>
+              </div>
+              <div>
+                <p class="font-inter font-800 text-sm text-white">Award Winning</p>
+                <p class="text-[11px] text-neutral-300">National Excellence 2022</p>
+              </div>
+            </div>
+            <div class="glass rounded-2xl px-5 py-4 animate-float-slow" style="animation-delay:1.2s">
+              <p class="font-inter font-900 text-2xl" style="background:linear-gradient(135deg,#F5A623,#F7B84B);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">500+</p>
+              <p class="text-[11px] text-neutral-300">Projects Completed</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scroll cue -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-float">
+          <span class="text-white/50 text-xs font-poppins tracking-widest uppercase">Scroll</span>
+          <div class="w-px h-10 bg-gradient-to-b from-white/40 to-transparent"></div>
+        </div>
+      </section>
+
+
+      <!-- ─────────────────────────────────────── -->
+      <!-- SECTION 2: COMPANY STORY               -->
+      <!-- ─────────────────────────────────────── -->
+      <section id="about-story" class="relative py-24 md:py-32 bg-luxury overflow-hidden">
+        <!-- Decorative blobs -->
+        <div class="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-pastel-blue/25 blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-pastel-peach/25 blur-3xl pointer-events-none"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-8">
-          <!-- Header -->
-          <div class="text-center max-w-3xl mx-auto mb-20">
+          <!-- Section label -->
+          <div class="text-center mb-16 reveal">
             <span class="section-label">Who We Are</span>
             <h2 class="section-title text-4xl md:text-5xl mt-3 mb-5">
-              Building Dreams for <span class="text-gradient">15+ Years</span>
+              The MONOME <span class="text-gradient">Story</span>
             </h2>
-            <p class="section-subtitle">
-              MONOME Constructions is a premium architecture, construction, and interior design firm delivering exceptional spaces that blend artistry with engineering excellence.
+            <p class="section-subtitle max-w-2xl mx-auto">
+              From a passionate design practice to South India's most trusted luxury construction brand — our journey is built on vision, craft, and an unyielding commitment to quality.
             </p>
           </div>
 
-          <!-- Story + image grid -->
-          <div class="grid lg:grid-cols-2 gap-12 items-center mb-24">
-            <div class="space-y-6">
-              <div class="glass-card rounded-3xl p-8">
-                <div class="flex items-center gap-4 mb-4">
-                  <div class="w-12 h-12 rounded-2xl flex items-center justify-center bg-gradient-to-br from-[#F5A623] to-[#D4891A]">
-                    <i data-lucide="target" class="text-white w-5.5 h-5.5"></i>
-                  </div>
-                  <h3 class="font-inter font-700 text-xl text-neutral-800 dark:text-white">Our Mission</h3>
+          <!-- Story block 1 -->
+          <div class="grid lg:grid-cols-2 gap-12 md:gap-16 items-center mb-20">
+            <div class="reveal-left">
+              <div class="rounded-3xl overflow-hidden shadow-card relative group">
+                <img
+                  src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=85&auto=format&fit=crop"
+                  alt="MONOME design studio"
+                  class="w-full h-[420px] object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent rounded-3xl"></div>
+                <div class="absolute bottom-5 left-5 glass rounded-xl px-4 py-3">
+                  <p class="font-inter font-700 text-sm text-neutral-800 dark:text-white">Design Studio</p>
+                  <p class="text-xs text-neutral-500 dark:text-neutral-400">Bangalore, Karnataka</p>
                 </div>
-                <p class="text-neutral-500 dark:text-neutral-400 text-sm leading-relaxed">
-                  To deliver world-class construction experiences that exceed client expectations through innovation, quality craftsmanship, and sustainable practices.
-                </p>
-              </div>
-
-              <div class="glass-card rounded-3xl p-8">
-                <div class="flex items-center gap-4 mb-4">
-                  <div class="w-12 h-12 rounded-2xl flex items-center justify-center bg-gradient-to-br from-[#B8D4E8] to-[#82AEC8]">
-                    <i data-lucide="eye" class="text-white w-5.5 h-5.5"></i>
-                  </div>
-                  <h3 class="font-inter font-700 text-xl text-neutral-800 dark:text-white">Our Vision</h3>
-                </div>
-                <p class="text-neutral-500 dark:text-neutral-400 text-sm leading-relaxed">
-                  To be India's most trusted luxury construction brand, shaping the skyline with structures that stand as timeless works of architectural art.
-                </p>
-              </div>
-
-              <div class="glass-card rounded-3xl p-8">
-                <div class="flex items-center gap-4 mb-4">
-                  <div class="w-12 h-12 rounded-2xl flex items-center justify-center bg-gradient-to-br from-[#D4B8E4] to-[#A882C8]">
-                    <i data-lucide="gem" class="text-white w-5.5 h-5.5"></i>
-                  </div>
-                  <h3 class="font-inter font-700 text-xl text-neutral-800 dark:text-white">Our Values</h3>
-                </div>
-                <p class="text-neutral-500 dark:text-neutral-400 text-sm leading-relaxed">
-                  Integrity, precision, sustainability, and client-centricity drive every brick we lay and every design we conceive.
-                </p>
               </div>
             </div>
 
-            <div class="relative">
-              <div class="rounded-3xl overflow-hidden shadow-card">
-                <img src="https://images.unsplash.com/photo-1606857521015-7f9fcf423740?w=900&q=85&auto=format&fit=crop" alt="MONOME team at work" class="w-full h-96 object-cover" />
+            <div class="space-y-6 reveal-right">
+              <span class="section-label">Our Foundation</span>
+              <h3 class="font-inter font-800 text-3xl md:text-4xl text-neutral-900 dark:text-white leading-tight">
+                Born from a Passion for <span class="text-gradient">Purposeful Design</span>
+              </h3>
+              <p class="text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                MONOME Constructions was born from a deep conviction — that every building has the power to change lives. Founded in 2009, we began as a boutique architecture and interior design practice (Sila Architects &amp; Furnco), driven by two brothers who believed that spaces should not just be functional, but profoundly human.
+              </p>
+              <p class="text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                Over 15 years, that vision has evolved into a full-spectrum construction powerhouse. Today, MONOME Constructions delivers end-to-end design, engineering, and build services — uniting artistic excellence with cutting-edge construction technology.
+              </p>
+              <div class="flex flex-wrap gap-3 pt-2">
+                <span class="tag">Architecture</span>
+                <span class="tag">Interior Design</span>
+                <span class="tag">Construction</span>
+                <span class="tag">Master Planning</span>
               </div>
+            </div>
+          </div>
+
+          <!-- Story block 2: Mission & Vision -->
+          <div class="grid lg:grid-cols-2 gap-12 md:gap-16 items-center">
+            <div class="space-y-6 reveal-left order-2 lg:order-1">
+              <span class="section-label">Mission &amp; Vision</span>
+              <h3 class="font-inter font-800 text-3xl md:text-4xl text-neutral-900 dark:text-white leading-tight">
+                Building Dreams with <span class="text-gradient">Unwavering Purpose</span>
+              </h3>
+
+              <div class="space-y-4">
+                <div class="glass-card rounded-2xl p-6 flex gap-4 items-start">
+                  <div class="w-11 h-11 rounded-xl flex items-center justify-center bg-gradient-to-br from-brand-orange to-brand-orange-dark flex-shrink-0">
+                    <i data-lucide="target" class="text-white w-5 h-5"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-inter font-700 text-base text-neutral-800 dark:text-white mb-1.5">Our Mission</h4>
+                    <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                      To deliver world-class construction experiences that exceed client expectations through innovation, quality craftsmanship, and sustainable practices that endure for generations.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 flex gap-4 items-start">
+                  <div class="w-11 h-11 rounded-xl flex items-center justify-center bg-gradient-to-br from-pastel-blue to-[#82AEC8] flex-shrink-0">
+                    <i data-lucide="eye" class="text-white w-5 h-5"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-inter font-700 text-base text-neutral-800 dark:text-white mb-1.5">Our Vision</h4>
+                    <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                      To be India's most trusted luxury construction brand, shaping skylines with structures that stand as timeless works of architectural art — inspiring awe for 50 years and beyond.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 flex gap-4 items-start">
+                  <div class="w-11 h-11 rounded-xl flex items-center justify-center bg-gradient-to-br from-pastel-lavender to-[#A882C8] flex-shrink-0">
+                    <i data-lucide="gem" class="text-white w-5 h-5"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-inter font-700 text-base text-neutral-800 dark:text-white mb-1.5">Our Promise</h4>
+                    <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                      Every project we take on receives our full commitment: absolute transparency, on-time delivery, and craftsmanship that goes beyond expectation.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="reveal-right order-1 lg:order-2">
+              <div class="rounded-3xl overflow-hidden shadow-card relative group">
+                <img
+                  src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=85&auto=format&fit=crop"
+                  alt="Luxury construction project"
+                  class="w-full h-[480px] object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-3xl"></div>
+                <div class="absolute -bottom-4 -right-4 glass rounded-2xl px-5 py-4 animate-float-slow" style="animation-delay:0.8s">
+                  <p class="font-inter font-800 text-2xl text-gradient">15+</p>
+                  <p class="text-[11px] text-neutral-500 dark:text-neutral-400">Years of Excellence</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Company Milestones Timeline -->
+          <div class="mt-24 relative">
+            <div class="text-center mb-14 reveal">
+              <span class="section-label">Our Journey</span>
+              <h3 class="section-title text-3xl md:text-4xl mt-2">Milestones That <span class="text-gradient">Define Us</span></h3>
+            </div>
+
+            <!-- Horizontal timeline connector for desktop -->
+            <div class="hidden md:block absolute top-[186px] left-[5%] right-[5%] h-[2px] bg-gradient-to-r from-brand-orange/10 via-brand-orange/40 to-brand-orange/10 z-0"></div>
+
+            <!-- Grid of 5 milestones (horizontal on desktop, vertical stack on mobile) -->
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-4 relative z-10">
               
-              <!-- Floating badges -->
-              <div class="absolute -bottom-6 -left-6 glass rounded-2xl px-5 py-4 flex items-center gap-3 animate-float">
-                <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br from-[#F5A623] to-[#D4891A]">
-                  <i data-lucide="award" class="text-white w-5 h-5"></i>
+              <!-- 2009 -->
+              <div class="text-center reveal flex flex-col items-center">
+                <div class="w-14 h-14 rounded-full bg-[#FAFAF8] dark:bg-[#0d1017] border-2 border-brand-orange flex items-center justify-center mb-5 relative z-10 shadow-[0_0_15px_rgba(245,166,35,0.2)] hover:scale-110 hover:shadow-[0_0_20px_rgba(245,166,35,0.4)] transition-all duration-300">
+                  <span class="font-inter font-800 text-xs text-brand-orange">2009</span>
+                </div>
+                <div class="glass-card rounded-2xl p-5 hover:translate-y-[-8px] hover:shadow-luxury-hover transition-all duration-300 border border-neutral-200/40 dark:border-white/10 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h4 class="font-inter font-700 text-base text-neutral-800 dark:text-white mb-2">Company Founded</h4>
+                    <p class="text-[12px] text-neutral-500 dark:text-neutral-400 leading-relaxed">MONOME Constructions was established with a passionate team of architects and builders driven by a singular mission — to redefine premium living in South India.</p>
+                  </div>
+                  <div class="mt-3 flex justify-center text-brand-orange">
+                    <i data-lucide="home" class="w-4 h-4"></i>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 2013 -->
+              <div class="text-center reveal flex flex-col items-center">
+                <div class="w-14 h-14 rounded-full bg-[#FAFAF8] dark:bg-[#0d1017] border-2 border-brand-orange flex items-center justify-center mb-5 relative z-10 shadow-[0_0_15px_rgba(245,166,35,0.2)] hover:scale-110 hover:shadow-[0_0_20px_rgba(245,166,35,0.4)] transition-all duration-300">
+                  <span class="font-inter font-800 text-xs text-brand-orange">2013</span>
+                </div>
+                <div class="glass-card rounded-2xl p-5 hover:translate-y-[-8px] hover:shadow-luxury-hover transition-all duration-300 border border-neutral-200/40 dark:border-white/10 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h4 class="font-inter font-700 text-base text-neutral-800 dark:text-white mb-2">Landmark Project</h4>
+                    <p class="text-[12px] text-neutral-500 dark:text-neutral-400 leading-relaxed">Completed a landmark luxury residential complex — a 40-unit premium development that set the benchmark for quality construction in the region.</p>
+                  </div>
+                  <div class="mt-3 flex justify-center text-brand-orange">
+                    <i data-lucide="building-2" class="w-4 h-4"></i>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 2017 -->
+              <div class="text-center reveal flex flex-col items-center">
+                <div class="w-14 h-14 rounded-full bg-[#FAFAF8] dark:bg-[#0d1017] border-2 border-brand-orange flex items-center justify-center mb-5 relative z-10 shadow-[0_0_15px_rgba(245,166,35,0.2)] hover:scale-110 hover:shadow-[0_0_20px_rgba(245,166,35,0.4)] transition-all duration-300">
+                  <span class="font-inter font-800 text-xs text-brand-orange">2017</span>
+                </div>
+                <div class="glass-card rounded-2xl p-5 hover:translate-y-[-8px] hover:shadow-luxury-hover transition-all duration-300 border border-neutral-200/40 dark:border-white/10 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h4 class="font-inter font-700 text-base text-neutral-800 dark:text-white mb-2">National Award</h4>
+                    <p class="text-[12px] text-neutral-500 dark:text-neutral-400 leading-relaxed">Received the National Architecture Excellence Award for innovation in design — marking MONOME's arrival on the national stage as a premium design-build powerhouse.</p>
+                  </div>
+                  <div class="mt-3 flex justify-center text-brand-orange">
+                    <i data-lucide="award" class="w-4 h-4"></i>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 2022 -->
+              <div class="text-center reveal flex flex-col items-center">
+                <div class="w-14 h-14 rounded-full bg-[#FAFAF8] dark:bg-[#0d1017] border-2 border-brand-orange flex items-center justify-center mb-5 relative z-10 shadow-[0_0_15px_rgba(245,166,35,0.2)] hover:scale-110 hover:shadow-[0_0_20px_rgba(245,166,35,0.4)] transition-all duration-300">
+                  <span class="font-inter font-800 text-xs text-brand-orange">2022</span>
+                </div>
+                <div class="glass-card rounded-2xl p-5 hover:translate-y-[-8px] hover:shadow-luxury-hover transition-all duration-300 border border-neutral-200/40 dark:border-white/10 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h4 class="font-inter font-700 text-base text-neutral-800 dark:text-white mb-2">Dual Triumph</h4>
+                    <p class="text-[12px] text-neutral-500 dark:text-neutral-400 leading-relaxed">Awarded "Most Futuristic &amp; Promising Firm – Karnataka 2022" at The Taj West End, Bengaluru, and achieved GOLD A Brand Equity Rating in the same year.</p>
+                  </div>
+                  <div class="mt-3 flex justify-center text-brand-orange">
+                    <i data-lucide="trophy" class="w-4 h-4"></i>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 2025 -->
+              <div class="text-center reveal flex flex-col items-center">
+                <div class="w-14 h-14 rounded-full bg-[#FAFAF8] dark:bg-[#0d1017] border-2 border-brand-orange flex items-center justify-center mb-5 relative z-10 shadow-[0_0_15px_rgba(245,166,35,0.2)] hover:scale-110 hover:shadow-[0_0_20px_rgba(245,166,35,0.4)] transition-all duration-300">
+                  <span class="font-inter font-800 text-xs text-brand-orange">2025</span>
+                </div>
+                <div class="glass-card rounded-2xl p-5 hover:translate-y-[-8px] hover:shadow-luxury-hover transition-all duration-300 border border-neutral-200/40 dark:border-white/10 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h4 class="font-inter font-700 text-base text-neutral-800 dark:text-white mb-2">500+ Deliveries</h4>
+                    <p class="text-[12px] text-neutral-500 dark:text-neutral-400 leading-relaxed">Crossed 500 successful project deliveries across Karnataka with 98% client satisfaction — and continue building the future, one extraordinary space at a time.</p>
+                  </div>
+                  <div class="mt-3 flex justify-center text-brand-orange">
+                    <i data-lucide="star" class="w-4 h-4"></i>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ─────────────────────────────────────── -->
+      <!-- SECTION 3: DIRECTORS & LEADERSHIP      -->
+      <!-- ─────────────────────────────────────── -->
+      <section id="about-leadership" class="relative py-24 overflow-hidden">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-brand-orange/5 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-8">
+          <div class="text-center mb-16 reveal">
+            <span class="section-label">Meet the Visionaries</span>
+            <h2 class="section-title text-4xl md:text-5xl mt-3 mb-5">
+              Our <span class="text-gradient">Leadership Team</span>
+            </h2>
+            <p class="section-subtitle max-w-2xl mx-auto">
+              Behind every extraordinary structure is an extraordinary team. Meet the founders who built MONOME Constructions from the ground up.
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+
+            <!-- Director 1: Rohith Krishna M -->
+            <div class="director-card reveal-left">
+              <div class="accent-bar"></div>
+              <div class="p-8 pt-10 text-center">
+                <div class="relative inline-block mb-6">
+                  <img
+                    src="assets/directors/rohith.png"
+                    alt="Ar. Rohith Krishna M – Founder & Director"
+                    class="director-avatar mx-auto"
+                  />
+                  <div class="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-gradient-to-br from-brand-orange to-brand-orange-dark flex items-center justify-center shadow-luxury">
+                    <i data-lucide="pen-tool" class="text-white w-3.5 h-3.5"></i>
+                  </div>
+                </div>
+
+                <div class="mb-1">
+                  <span class="tag text-xs">Founder &amp; Director</span>
+                </div>
+                <h3 class="font-inter font-800 text-xl text-neutral-900 dark:text-white mt-3 mb-1">
+                  Ar. Rohith Krishna M
+                </h3>
+                <p class="text-brand-orange text-xs font-poppins font-600 tracking-wide uppercase mb-5">
+                  Architecture &amp; Design Innovation
+                </p>
+
+                <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed mb-6">
+                  A visionary architect with 10+ years of experience, Rohith leads MONOME's design philosophy — creating spaces that bridge artistic ambition with technical precision. He heads design innovation, strategic collaborations, and master planning across South India.
+                </p>
+
+                <!-- Expertise tags -->
+                <div class="flex flex-wrap gap-2 justify-center">
+                  <span class="text-[10px] px-3 py-1 rounded-full bg-brand-orange/10 text-brand-orange font-poppins font-600 border border-brand-orange/20">Architecture</span>
+                  <span class="text-[10px] px-3 py-1 rounded-full bg-brand-orange/10 text-brand-orange font-poppins font-600 border border-brand-orange/20">Interior Design</span>
+                  <span class="text-[10px] px-3 py-1 rounded-full bg-brand-orange/10 text-brand-orange font-poppins font-600 border border-brand-orange/20">Master Planning</span>
+                  <span class="text-[10px] px-3 py-1 rounded-full bg-brand-orange/10 text-brand-orange font-poppins font-600 border border-brand-orange/20">Commercial Dev.</span>
+                </div>
+
+                <!-- Stats row -->
+                <div class="mt-7 pt-6 border-t border-neutral-200/60 dark:border-white/10 grid grid-cols-2 gap-4">
+                  <div>
+                    <p class="font-inter font-800 text-2xl text-gradient">10+</p>
+                    <p class="text-xs text-neutral-500 dark:text-neutral-400">Years Experience</p>
+                  </div>
+                  <div>
+                    <p class="font-inter font-800 text-2xl text-gradient">300+</p>
+                    <p class="text-xs text-neutral-500 dark:text-neutral-400">Projects Designed</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Director 2: Yashwanth Krishna M -->
+            <div class="director-card reveal-right">
+              <div class="accent-bar"></div>
+              <div class="p-8 pt-10 text-center">
+                <div class="relative inline-block mb-6">
+                  <img
+                    src="assets/directors/yashwanth.png"
+                    alt="Mr. Yashwanth Krishna M – Director Operations"
+                    class="director-avatar mx-auto"
+                  />
+                  <div class="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-gradient-to-br from-pastel-blue to-[#82AEC8] flex items-center justify-center shadow-luxury">
+                    <i data-lucide="briefcase" class="text-white w-3.5 h-3.5"></i>
+                  </div>
+                </div>
+
+                <div class="mb-1">
+                  <span class="tag text-xs">Director – Operations &amp; Strategy</span>
+                </div>
+                <h3 class="font-inter font-800 text-xl text-neutral-900 dark:text-white mt-3 mb-1">
+                  Mr. Yashwanth Krishna M
+                </h3>
+                <p class="text-brand-orange text-xs font-poppins font-600 tracking-wide uppercase mb-5">
+                  Operations &amp; Business Growth
+                </p>
+
+                <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed mb-6">
+                  An MBA-qualified operations strategist with 11+ years of experience, Yashwanth drives the business engine of MONOME — leading administration, compliance, facility management, and strategic growth. His operational excellence ensures every project runs on time and on budget.
+                </p>
+
+                <!-- Expertise tags -->
+                <div class="flex flex-wrap gap-2 justify-center">
+                  <span class="text-[10px] px-3 py-1 rounded-full bg-pastel-blue/20 text-[#4A7A9B] font-poppins font-600 border border-pastel-blue/30 dark:text-pastel-blue dark:border-pastel-blue/20">Operations</span>
+                  <span class="text-[10px] px-3 py-1 rounded-full bg-pastel-blue/20 text-[#4A7A9B] font-poppins font-600 border border-pastel-blue/30 dark:text-pastel-blue dark:border-pastel-blue/20">Administration</span>
+                  <span class="text-[10px] px-3 py-1 rounded-full bg-pastel-blue/20 text-[#4A7A9B] font-poppins font-600 border border-pastel-blue/30 dark:text-pastel-blue dark:border-pastel-blue/20">Facility Mgmt</span>
+                  <span class="text-[10px] px-3 py-1 rounded-full bg-pastel-blue/20 text-[#4A7A9B] font-poppins font-600 border border-pastel-blue/30 dark:text-pastel-blue dark:border-pastel-blue/20">Strategy</span>
+                </div>
+
+                <!-- Stats row -->
+                <div class="mt-7 pt-6 border-t border-neutral-200/60 dark:border-white/10 grid grid-cols-2 gap-4">
+                  <div>
+                    <p class="font-inter font-800 text-2xl text-gradient">11+</p>
+                    <p class="text-xs text-neutral-500 dark:text-neutral-400">Years Experience</p>
+                  </div>
+                  <div>
+                    <p class="font-inter font-800 text-2xl text-gradient">200+</p>
+                    <p class="text-xs text-neutral-500 dark:text-neutral-400">Projects Delivered</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ─────────────────────────────────────── -->
+      <!-- SECTION 4: AWARDS & ACHIEVEMENTS       -->
+      <!-- ─────────────────────────────────────── -->
+      <section id="about-awards" class="relative py-24 md:py-32 bg-luxury overflow-hidden">
+        <div class="absolute -top-20 -left-20 w-80 h-80 rounded-full bg-pastel-lavender/20 blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-20 -right-20 w-96 h-96 rounded-full bg-pastel-peach/20 blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-8">
+          <div class="text-center mb-16 reveal">
+            <span class="section-label">Recognition &amp; Prestige</span>
+            <h2 class="section-title text-4xl md:text-5xl mt-3 mb-5">
+              Awards &amp; <span class="text-gradient">Achievements</span>
+            </h2>
+            <p class="section-subtitle max-w-2xl mx-auto">
+              Our work has been recognised by the nation's leading architecture and design bodies — a testament to the excellence we deliver on every project.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-14">
+
+            <!-- Card 1: National Excellence Award 2022 Certificate -->
+            <div class="award-card reveal-left">
+              <div class="rounded-2xl overflow-hidden mb-6 shadow-card border border-neutral-200/40 dark:border-white/10 bg-white/5">
+                <img
+                  src="assets/awards/award1.jpg"
+                  alt="National Excellence Award 2022 Certificate"
+                  class="w-full h-auto object-contain mx-auto"
+                />
+              </div>
+              <div class="flex items-start gap-4 mb-4">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center bg-gradient-to-br from-brand-orange to-brand-orange-dark flex-shrink-0 shadow-luxury">
+                  <i data-lucide="trophy" class="text-white w-5 h-5"></i>
                 </div>
                 <div>
-                  <p class="font-inter font-700 text-sm text-neutral-800 dark:text-neutral-200">Award Winning</p>
-                  <p class="text-[11px] text-neutral-500 dark:text-neutral-400">15+ Industry Awards</p>
+                  <span class="text-[10px] font-poppins font-600 tracking-widest uppercase text-brand-orange">National Excellence Award · 2022</span>
+                  <h3 class="font-inter font-800 text-base text-neutral-900 dark:text-white mt-0.5 leading-snug">
+                    Most Futuristic Construction &amp; Interior Design Firm
+                  </h3>
                 </div>
               </div>
-
-              <div class="absolute -top-6 -right-6 glass rounded-2xl px-5 py-4 animate-float-slow" style="animation-delay: 1s">
-                <p class="font-inter font-700 text-2xl text-gradient">500+</p>
-                <p class="text-[11px] text-neutral-500 dark:text-neutral-400">Projects Completed</p>
+              <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed mb-4">
+                Presented by Beginup Research Intelligence on March 24, 2022 — at The Taj West End, Bengaluru.
+              </p>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="text-[9px] px-2.5 py-0.5 rounded-full bg-brand-orange/10 text-brand-orange border border-brand-orange/20 font-poppins font-600">Karnataka</span>
+                <span class="text-[9px] px-2.5 py-0.5 rounded-full bg-brand-orange/10 text-brand-orange border border-brand-orange/20 font-poppins font-600">Taj West End</span>
               </div>
+            </div>
+
+            <!-- Card 2: Award Presentation Ceremony (Just display the picture) -->
+            <div class="award-card reveal">
+              <div class="rounded-2xl overflow-hidden mb-6 shadow-card border border-neutral-200/40 dark:border-white/10 bg-white/5 h-[340px] flex items-center justify-center">
+                <img
+                  src="assets/awards/receiving.png"
+                  alt="MONOME Team Receiving the Award"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div class="flex items-start gap-4 mb-4">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center bg-gradient-to-br from-brand-orange to-brand-orange-dark flex-shrink-0 shadow-luxury">
+                  <i data-lucide="camera" class="text-white w-5 h-5"></i>
+                </div>
+                <div>
+                  <span class="text-[10px] font-poppins font-600 tracking-widest uppercase text-brand-orange">Presentation Ceremony · 2022</span>
+                  <h3 class="font-inter font-800 text-base text-neutral-900 dark:text-white mt-0.5 leading-snug">
+                    Ceremony Presentation Photo
+                  </h3>
+                </div>
+              </div>
+              <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed mb-4">
+                The founders, Ar Rohith Krishna &amp; Yashwanth Krishna, accepting the National Award trophy at the annual presentation gala.
+              </p>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="text-[9px] px-2.5 py-0.5 rounded-full bg-brand-orange/10 text-brand-orange border border-brand-orange/20 font-poppins font-600">Ceremony</span>
+                <span class="text-[9px] px-2.5 py-0.5 rounded-full bg-brand-orange/10 text-brand-orange border border-brand-orange/20 font-poppins font-600">Bengaluru</span>
+              </div>
+            </div>
+
+            <!-- Card 3: Brand Equity Gold Rating Certificate -->
+            <div class="award-card reveal-right">
+              <div class="rounded-2xl overflow-hidden mb-6 shadow-card border border-neutral-200/40 dark:border-white/10 bg-white/5">
+                <img
+                  src="assets/awards/award2.png"
+                  alt="GOLD A Brand Equity Rating Certificate"
+                  class="w-full h-auto object-contain mx-auto"
+                />
+              </div>
+              <div class="flex items-start gap-4 mb-4">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center bg-gradient-to-br from-[#D4AF37] to-[#B8860B] flex-shrink-0 shadow-md" style="box-shadow: 0 4px 14px rgba(212,175,55,0.15)">
+                  <i data-lucide="medal" class="text-white w-5 h-5"></i>
+                </div>
+                <div>
+                  <span class="text-[10px] font-poppins font-600 tracking-widest uppercase text-brand-orange">Brand Equity Rating · 2022</span>
+                  <h3 class="font-inter font-800 text-base text-neutral-900 dark:text-white mt-0.5 leading-snug">
+                    GOLD A Brand Rating Certificate
+                  </h3>
+                </div>
+              </div>
+              <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed mb-4">
+                Certified with the prestigious GOLD A Rating under the Interior Design Practitioner Brand Equity (ID-PBE Rating).
+              </p>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="text-[9px] px-2.5 py-0.5 rounded-full bg-[#D4AF37]/10 text-[#B8860B] border border-[#D4AF37]/20 font-poppins font-600 dark:text-[#F0C040]">GOLD A Rating</span>
+                <span class="text-[9px] px-2.5 py-0.5 rounded-full bg-[#D4AF37]/10 text-[#B8860B] border border-[#D4AF37]/20 font-poppins font-600 dark:text-[#F0C040]">Certified</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Recognition logos strip -->
+          <div class="text-center reveal">
+            <p class="text-xs text-neutral-400 font-poppins tracking-widest uppercase mb-6">Also Recognised By</p>
+            <div class="flex flex-wrap items-center justify-center gap-4 md:gap-8">
+              <span class="glass-card rounded-xl px-5 py-3 text-sm font-poppins font-600 text-neutral-600 dark:text-neutral-300">CREDAI Member</span>
+              <span class="glass-card rounded-xl px-5 py-3 text-sm font-poppins font-600 text-neutral-600 dark:text-neutral-300">ISO 9001:2015</span>
+              <span class="glass-card rounded-xl px-5 py-3 text-sm font-poppins font-600 text-neutral-600 dark:text-neutral-300">GRIHA 4-Star</span>
+              <span class="glass-card rounded-xl px-5 py-3 text-sm font-poppins font-600 text-neutral-600 dark:text-neutral-300">Beginup Research Intelligence</span>
+              <span class="glass-card rounded-xl px-5 py-3 text-sm font-poppins font-600 text-neutral-600 dark:text-neutral-300">ID-PBE Gold Rated</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ─────────────────────────────────────── -->
+      <!-- SECTION 5: COMPANY STATS               -->
+      <!-- ─────────────────────────────────────── -->
+      <section id="about-stats" class="stats-section py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-8 relative z-10">
+
+          <div class="text-center mb-14 reveal">
+            <span class="section-label" style="color: rgba(245,166,35,0.8)">By the Numbers</span>
+            <h2 class="font-inter font-800 text-4xl md:text-5xl text-neutral-800 dark:text-white mt-3">
+              Our Work, <span style="background:linear-gradient(135deg,#F5A623,#F7B84B);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">By the Numbers</span>
+            </h2>
+          </div>
+
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+            <!-- Stat 1 -->
+            <div class="text-center rounded-3xl p-6 md:p-8 reveal shadow-sm border border-neutral-200/60 dark:border-white/10 bg-[#FAFAF8]/90 dark:bg-[#0f1117]/80 backdrop-blur-md hover:translate-y-[-4px] hover:shadow-md transition-all duration-300">
+              <div class="w-12 h-12 rounded-2xl bg-brand-orange/15 flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="building" class="text-brand-orange w-5.5 h-5.5"></i>
+              </div>
+              <div class="stat-number" data-target="500" data-suffix="+">0</div>
+              <p class="text-neutral-400 text-sm font-poppins mt-2">Projects Completed</p>
+            </div>
+
+            <!-- Stat 2 -->
+            <div class="text-center rounded-3xl p-6 md:p-8 reveal shadow-sm border border-neutral-200/60 dark:border-white/10 bg-[#FAFAF8]/90 dark:bg-[#0f1117]/80 backdrop-blur-md hover:translate-y-[-4px] hover:shadow-md transition-all duration-300">
+              <div class="w-12 h-12 rounded-2xl bg-brand-orange/15 flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="calendar" class="text-brand-orange w-5.5 h-5.5"></i>
+              </div>
+              <div class="stat-number" data-target="15" data-suffix="+">0</div>
+              <p class="text-neutral-400 text-sm font-poppins mt-2">Years of Excellence</p>
+            </div>
+
+            <!-- Stat 3 -->
+            <div class="text-center rounded-3xl p-6 md:p-8 reveal shadow-sm border border-neutral-200/60 dark:border-white/10 bg-[#FAFAF8]/90 dark:bg-[#0f1117]/80 backdrop-blur-md hover:translate-y-[-4px] hover:shadow-md transition-all duration-300">
+              <div class="w-12 h-12 rounded-2xl bg-brand-orange/15 flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="users" class="text-brand-orange w-5.5 h-5.5"></i>
+              </div>
+              <div class="stat-number" data-target="1000" data-suffix="+">0</div>
+              <p class="text-neutral-400 text-sm font-poppins mt-2">Happy Clients</p>
+            </div>
+
+            <!-- Stat 4 -->
+            <div class="text-center rounded-3xl p-6 md:p-8 reveal shadow-sm border border-neutral-200/60 dark:border-white/10 bg-[#FAFAF8]/90 dark:bg-[#0f1117]/80 backdrop-blur-md hover:translate-y-[-4px] hover:shadow-md transition-all duration-300">
+              <div class="w-12 h-12 rounded-2xl bg-brand-orange/15 flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="award" class="text-brand-orange w-5.5 h-5.5"></i>
+              </div>
+              <div class="stat-number" data-target="12" data-suffix="+">0</div>
+              <p class="text-neutral-400 text-sm font-poppins mt-2">Industry Awards</p>
             </div>
           </div>
 
-          <!-- Milestones Timeline -->
-          <div class="text-center mb-12">
-            <span class="section-label">Our Journey</span>
-            <h3 class="section-title text-3xl mt-2">Milestones That Define Us</h3>
-          </div>
-
-          <div class="relative">
-            <!-- vertical divider line -->
-            <div class="hidden md:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-brand-orange via-brand-orange/30 to-transparent"></div>
-
-            <div class="space-y-12">
-              <div class="flex flex-col md:flex-row items-center gap-8 md:flex-row">
-                <div class="flex-1 w-full">
-                  <div class="glass-card rounded-2xl p-6 md:text-right">
-                    <span class="section-label text-xs">2009</span>
-                    <h4 class="font-inter font-700 text-lg text-neutral-800 dark:text-white mt-1 mb-2">Company Founded</h4>
-                    <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">Started with a small team of 5 passionate architects and builders.</p>
-                  </div>
-                </div>
-                <div class="hidden md:flex flex-none w-14 h-14 rounded-full glass items-center justify-center z-10 border-2 border-brand-orange/30">
-                  <div class="w-4 h-4 rounded-full bg-brand-orange"></div>
-                </div>
-                <div class="flex-1 hidden md:block"></div>
+          <!-- Satisfaction bar -->
+          <div class="mt-12 rounded-3xl p-8 reveal shadow-sm border border-neutral-200/60 dark:border-white/10 bg-[#FAFAF8]/90 dark:bg-[#0f1117]/80 backdrop-blur-md">
+            <div class="flex flex-col md:flex-row items-center gap-6 md:gap-10">
+              <div class="text-center md:text-left flex-shrink-0">
+                <div class="stat-number text-5xl" data-target="98" data-suffix="%">0</div>
+                <p class="text-neutral-400 text-sm font-poppins mt-1">Client Satisfaction Rate</p>
               </div>
-
-              <div class="flex flex-col md:flex-row items-center gap-8 md:flex-row-reverse">
-                <div class="flex-1 w-full">
-                  <div class="glass-card rounded-2xl p-6">
-                    <span class="section-label text-xs">2013</span>
-                    <h4 class="font-inter font-700 text-lg text-neutral-800 dark:text-white mt-1 mb-2">First Major Project</h4>
-                    <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">Completed a landmark 40-unit luxury residential complex in the city.</p>
-                  </div>
+              <div class="flex-1 w-full">
+                <div class="flex justify-between text-xs text-neutral-500 mb-2">
+                  <span>Client Satisfaction</span>
+                  <span class="text-brand-orange font-600">98%</span>
                 </div>
-                <div class="hidden md:flex flex-none w-14 h-14 rounded-full glass items-center justify-center z-10 border-2 border-brand-orange/30">
-                  <div class="w-4 h-4 rounded-full bg-brand-orange"></div>
+                <div class="h-2.5 bg-neutral-200 dark:bg-white/10 rounded-full overflow-hidden">
+                  <div id="satisfaction-bar" class="h-full rounded-full bg-gradient-to-r from-brand-orange to-brand-orange-light" style="width: 0%; transition: width 1.5s ease;"></div>
                 </div>
-                <div class="flex-1 hidden md:block"></div>
-              </div>
-
-              <div class="flex flex-col md:flex-row items-center gap-8 md:flex-row">
-                <div class="flex-1 w-full">
-                  <div class="glass-card rounded-2xl p-6 md:text-right">
-                    <span class="section-label text-xs">2017</span>
-                    <h4 class="font-inter font-700 text-lg text-neutral-800 dark:text-white mt-1 mb-2">Award Recognition</h4>
-                    <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">Received the National Architecture Excellence Award for innovation.</p>
-                  </div>
-                </div>
-                <div class="hidden md:flex flex-none w-14 h-14 rounded-full glass items-center justify-center z-10 border-2 border-brand-orange/30">
-                  <div class="w-4 h-4 rounded-full bg-brand-orange"></div>
-                </div>
-                <div class="flex-1 hidden md:block"></div>
-              </div>
-
-              <div class="flex flex-col md:flex-row items-center gap-8 md:flex-row-reverse">
-                <div class="flex-1 w-full">
-                  <div class="glass-card rounded-2xl p-6">
-                    <span class="section-label text-xs">2021</span>
-                    <h4 class="font-inter font-700 text-lg text-neutral-800 dark:text-white mt-1 mb-2">Expansion</h4>
-                    <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">Expanded to 3 metro cities with 200+ skilled professionals.</p>
-                  </div>
-                </div>
-                <div class="hidden md:flex flex-none w-14 h-14 rounded-full glass items-center justify-center z-10 border-2 border-brand-orange/30">
-                  <div class="w-4 h-4 rounded-full bg-brand-orange"></div>
-                </div>
-                <div class="flex-1 hidden md:block"></div>
-              </div>
-
-              <div class="flex flex-col md:flex-row items-center gap-8 md:flex-row">
-                <div class="flex-1 w-full">
-                  <div class="glass-card rounded-2xl p-6 md:text-right">
-                    <span class="section-label text-xs">2025</span>
-                    <h4 class="font-inter font-700 text-lg text-neutral-800 dark:text-white mt-1 mb-2">500+ Projects</h4>
-                    <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">Crossed 500 successful project deliveries with 98% client satisfaction.</p>
-                  </div>
-                </div>
-                <div class="hidden md:flex flex-none w-14 h-14 rounded-full glass items-center justify-center z-10 border-2 border-brand-orange/30">
-                  <div class="w-4 h-4 rounded-full bg-brand-orange"></div>
-                </div>
-                <div class="flex-1 hidden md:block"></div>
+                <p class="text-neutral-500 text-xs mt-3 font-poppins">Based on post-project surveys conducted across 500+ completed projects in Karnataka.</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ─── SERVICES SECTION ─── -->
+
+      <!-- ─────────────────────────────────────── -->
+      <!-- SECTION 6: WHY CHOOSE US / FUTUREREADY™-->
+      <!-- ─────────────────────────────────────── -->
+      <section id="about-features" class="relative py-24 md:py-32 overflow-hidden">
+        <div class="absolute inset-0 pointer-events-none overflow-hidden">
+          <div class="absolute -top-32 right-0 w-[500px] h-[500px] rounded-full bg-pastel-sky/30 blur-3xl"></div>
+          <div class="absolute bottom-0 left-0 w-96 h-96 rounded-full bg-pastel-mint/20 blur-3xl"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-8 relative z-10">
+          <div class="text-center mb-16 reveal">
+            <span class="section-label">Why MONOME</span>
+            <h2 class="section-title text-4xl md:text-5xl mt-3 mb-5">
+              The <span class="text-gradient">FutureReady™</span> Difference
+            </h2>
+            <p class="section-subtitle max-w-2xl mx-auto">
+              Our exclusive FutureReady™ Homes philosophy integrates cutting-edge technology and transparency into every project — giving you complete peace of mind from foundation to finish.
+            </p>
+          </div>
+
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+
+            <!-- Feature 1: Building Health Passport -->
+            <div class="feature-card reveal">
+              <div class="feature-icon-wrap bg-gradient-to-br from-brand-orange to-brand-orange-dark">
+                <i data-lucide="shield-check" class="text-white w-7 h-7"></i>
+              </div>
+              <h3 class="font-inter font-800 text-base text-neutral-900 dark:text-white mb-2">Building Health Passport™</h3>
+              <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                Complete transparency at every stage. Every material, every milestone, every inspection — documented and accessible in your personal building health record.
+              </p>
+            </div>
+
+            <!-- Feature 2: Digital Twin Model -->
+            <div class="feature-card reveal" style="transition-delay:0.1s">
+              <div class="feature-icon-wrap bg-gradient-to-br from-pastel-blue to-[#82AEC8]">
+                <i data-lucide="box" class="text-white w-7 h-7"></i>
+              </div>
+              <h3 class="font-inter font-800 text-base text-neutral-900 dark:text-white mb-2">Digital Twin Model™</h3>
+              <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                Your home, mapped for life. We create a precise digital replica of your structure — for future maintenance, renovation, or extension planning with zero guesswork.
+              </p>
+            </div>
+
+            <!-- Feature 3: Live Construction Tracking -->
+            <div class="feature-card reveal" style="transition-delay:0.2s">
+              <div class="feature-icon-wrap bg-gradient-to-br from-pastel-mint to-[#5EB88A]">
+                <i data-lucide="monitor-smartphone" class="text-white w-7 h-7"></i>
+              </div>
+              <h3 class="font-inter font-800 text-base text-neutral-900 dark:text-white mb-2">Live Construction Tracking™</h3>
+              <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                Real-time progress updates, anytime, anywhere. Track your build from anywhere in the world through our dedicated client dashboard — updated daily.
+              </p>
+            </div>
+
+            <!-- Feature 4: 50-Year Serviceability -->
+            <div class="feature-card reveal" style="transition-delay:0.3s">
+              <div class="feature-icon-wrap bg-gradient-to-br from-pastel-lavender to-[#A882C8]">
+                <i data-lucide="shield-alert" class="text-white w-7 h-7"></i>
+              </div>
+              <h3 class="font-inter font-800 text-base text-neutral-900 dark:text-white mb-2">50-Year Serviceability Design™</h3>
+              <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                Built for lasting strength and comfort. Our structural designs are engineered to remain functionally superior for 50+ years — without major retrofitting.
+              </p>
+            </div>
+
+            <!-- Feature 5: Transparent Cost Dashboard -->
+            <div class="feature-card reveal" style="transition-delay:0.4s">
+              <div class="feature-icon-wrap bg-gradient-to-br from-pastel-peach to-[#C88A68]">
+                <i data-lucide="wallet" class="text-white w-7 h-7"></i>
+              </div>
+              <h3 class="font-inter font-800 text-base text-neutral-900 dark:text-white mb-2">Transparent Cost Dashboard™</h3>
+              <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                Clear costs, no hidden surprises. Our itemised cost dashboard gives you full visibility over every rupee spent — from materials to labour to finishing.
+              </p>
+            </div>
+
+            <!-- Feature 6: Dedicated Client Support -->
+            <div class="feature-card reveal" style="transition-delay:0.5s">
+              <div class="feature-icon-wrap bg-gradient-to-br from-[#F5A623] via-[#F7B84B] to-[#D4891A]">
+                <i data-lucide="headphones" class="text-white w-7 h-7"></i>
+              </div>
+              <h3 class="font-inter font-800 text-base text-neutral-900 dark:text-white mb-2">Dedicated Client Relationship™</h3>
+              <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                Your personal project manager, available throughout design, construction, and post-handover — ensuring a seamless, stress-free building experience.
+              </p>
+            </div>
+
+          </div>
+
+          <!-- FutureReady badge strip -->
+          <div class="text-center reveal">
+            <div class="inline-flex items-center gap-3 glass-card rounded-full px-6 py-3 border border-brand-orange/20">
+              <i data-lucide="zap" class="text-brand-orange w-4 h-4"></i>
+              <span class="text-sm font-poppins font-600 text-neutral-700 dark:text-neutral-300">
+                FutureReady™ is an exclusive MONOME Constructions proprietary programme — available in all premium builds.
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ─────────────────────────────────────── -->
+      <!-- SECTION 7: COMPANY GALLERY             -->
+      <!-- ─────────────────────────────────────── -->
+      <section id="about-gallery" class="relative py-24 md:py-32 bg-luxury overflow-hidden">
+        <div class="absolute top-0 right-0 w-[400px] h-[400px] bg-pastel-blue/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-[350px] h-[350px] bg-pastel-peach/15 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-8">
+          <div class="text-center mb-14 reveal">
+            <span class="section-label">Our Work in Pictures</span>
+            <h2 class="section-title text-4xl md:text-5xl mt-3 mb-5">
+              Inside <span class="text-gradient">MONOME</span>
+            </h2>
+            <p class="section-subtitle max-w-xl mx-auto">
+              A glimpse into our studio, project sites, award ceremonies, and the extraordinary spaces we create.
+            </p>
+          </div>
+
+          <div class="gallery-masonry reveal">
+            <!-- Gallery item 1 -->
+            <div class="gallery-item">
+              <img
+                src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=700&q=80&auto=format&fit=crop"
+                alt="Luxury Villa Exterior"
+                class="w-full"
+              />
+              <div class="gallery-item-overlay">
+                <h4 class="font-inter font-700 text-white text-sm">Luxury Villa – Exterior Design</h4>
+              </div>
+            </div>
+
+            <!-- Gallery item 2 -->
+            <div class="gallery-item">
+              <img
+                src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=700&q=80&auto=format&fit=crop"
+                alt="Design Studio"
+                class="w-full"
+              />
+              <div class="gallery-item-overlay">
+                <h4 class="font-inter font-700 text-white text-sm">MONOME Design Studio</h4>
+              </div>
+            </div>
+
+            <!-- Gallery item 3 -->
+            <div class="gallery-item">
+              <img
+                src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=700&q=80&auto=format&fit=crop"
+                alt="Construction Site"
+                class="w-full"
+              />
+              <div class="gallery-item-overlay">
+                <h4 class="font-inter font-700 text-white text-sm">Premium Construction Site</h4>
+              </div>
+            </div>
+
+            <!-- Gallery item 4 -->
+            <div class="gallery-item">
+              <img
+                src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=700&q=80&auto=format&fit=crop"
+                alt="Interior Design"
+                class="w-full"
+              />
+              <div class="gallery-item-overlay">
+                <h4 class="font-inter font-700 text-white text-sm">Luxury Interior – Living Space</h4>
+              </div>
+            </div>
+
+            <!-- Gallery item 5 -->
+            <div class="gallery-item">
+              <img
+                src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=700&q=80&auto=format&fit=crop"
+                alt="Master Bedroom"
+                class="w-full"
+              />
+              <div class="gallery-item-overlay">
+                <h4 class="font-inter font-700 text-white text-sm">Master Bedroom Suite</h4>
+              </div>
+            </div>
+
+            <!-- Gallery item 6 -->
+            <div class="gallery-item">
+              <img
+                src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=700&q=80&auto=format&fit=crop"
+                alt="Modern Architecture"
+                class="w-full"
+              />
+              <div class="gallery-item-overlay">
+                <h4 class="font-inter font-700 text-white text-sm">Contemporary Architecture</h4>
+              </div>
+            </div>
+
+            <!-- Gallery item 7 -->
+            <div class="gallery-item">
+              <img
+                src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=700&q=80&auto=format&fit=crop"
+                alt="Kitchen Design"
+                class="w-full"
+              />
+              <div class="gallery-item-overlay">
+                <h4 class="font-inter font-700 text-white text-sm">Modular Kitchen Design</h4>
+              </div>
+            </div>
+
+            <!-- Gallery item 8 -->
+            <div class="gallery-item">
+              <img
+                src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=700&q=80&auto=format&fit=crop"
+                alt="Bathroom Design"
+                class="w-full"
+              />
+              <div class="gallery-item-overlay">
+                <h4 class="font-inter font-700 text-white text-sm">Spa-Grade Bathroom</h4>
+              </div>
+            </div>
+
+            <!-- Gallery item 9 -->
+            <div class="gallery-item">
+              <img
+                src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=700&q=80&auto=format&fit=crop"
+                alt="Completed Project"
+                class="w-full"
+              />
+              <div class="gallery-item-overlay">
+                <h4 class="font-inter font-700 text-white text-sm">Completed Luxury Home</h4>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center mt-10 reveal">
+            <a href="gallery.html" class="btn-primary inline-flex items-center gap-2 px-7 py-3.5 text-sm">
+              <i data-lucide="image" class="w-4 h-4"></i>
+              View Full Gallery
+            </a>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ─────────────────────────────────────── -->
+      <!-- SECTION 8: COMPANY VALUES              -->
+      <!-- ─────────────────────────────────────── -->
+      <section id="about-values" class="relative py-24 md:py-32 overflow-hidden">
+        <div class="absolute inset-0 pointer-events-none">
+          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] rounded-full bg-brand-orange/5 blur-3xl"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-8 relative z-10">
+          <div class="text-center mb-16 reveal">
+            <span class="section-label">Our Principles</span>
+            <h2 class="section-title text-4xl md:text-5xl mt-3 mb-5">
+              The Values That <span class="text-gradient">Drive Us</span>
+            </h2>
+            <p class="section-subtitle max-w-2xl mx-auto">
+              Every brick we lay, every space we design, every client we serve — guided by five unshakeable core values.
+            </p>
+          </div>
+
+          <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
+            <!-- Value 1 -->
+            <div class="value-card reveal" style="transition-delay:0s">
+              <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-orange to-brand-orange-dark flex items-center justify-center mx-auto mb-4 shadow-luxury">
+                <i data-lucide="handshake" class="text-white w-6 h-6"></i>
+              </div>
+              <h3 class="font-inter font-800 text-base text-neutral-900 dark:text-white mb-2">Integrity</h3>
+              <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                Transparent dealings, honest timelines, and promises kept — every single time.
+              </p>
+            </div>
+
+            <!-- Value 2 -->
+            <div class="value-card reveal" style="transition-delay:0.1s">
+              <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-pastel-blue to-[#82AEC8] flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="gem" class="text-white w-6 h-6"></i>
+              </div>
+              <h3 class="font-inter font-800 text-base text-neutral-900 dark:text-white mb-2">Quality</h3>
+              <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                Premium materials, master craftsmanship, and standards that surpass industry benchmarks.
+              </p>
+            </div>
+
+            <!-- Value 3 -->
+            <div class="value-card reveal" style="transition-delay:0.2s">
+              <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-pastel-mint to-[#5EB88A] flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="lightbulb" class="text-white w-6 h-6"></i>
+              </div>
+              <h3 class="font-inter font-800 text-base text-neutral-900 dark:text-white mb-2">Innovation</h3>
+              <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                Adopting the latest in construction technology, design thinking, and smart building practices.
+              </p>
+            </div>
+
+            <!-- Value 4 -->
+            <div class="value-card reveal" style="transition-delay:0.3s">
+              <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-pastel-lavender to-[#A882C8] flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="users" class="text-white w-6 h-6"></i>
+              </div>
+              <h3 class="font-inter font-800 text-base text-neutral-900 dark:text-white mb-2">Client-First</h3>
+              <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                Your vision, your timeline, your budget — at the absolute centre of every decision we make.
+              </p>
+            </div>
+
+            <!-- Value 5 -->
+            <div class="value-card reveal" style="transition-delay:0.4s">
+              <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-pastel-peach to-[#C88A68] flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="leaf" class="text-white w-6 h-6"></i>
+              </div>
+              <h3 class="font-inter font-800 text-base text-neutral-900 dark:text-white mb-2">Sustainability</h3>
+              <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                Eco-conscious materials, energy-efficient design, and a commitment to building a greener India.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ─────────────────────────────────────── -->
+      <!-- SECTION 9: CALL TO ACTION              -->
+      <!-- ─────────────────────────────────────── -->
+      <section id="about-cta" class="cta-section py-28 md:py-36 relative overflow-hidden">
+        <!-- Luxury Real-Estate Walkthrough Slideshow (Cinematic Ken Burns animation) -->
+        <div class="cta-slideshow">
+          <div class="cta-slide active" style="background-image: url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=80');"></div>
+          <div class="cta-slide" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80');"></div>
+          <div class="cta-slide" style="background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1600&q=80');"></div>
+          <div class="cta-slide" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=80');"></div>
+          <div class="cta-slide" style="background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1600&q=80');"></div>
+          <div class="cta-overlay"></div>
+        </div>
+        <div class="max-w-5xl mx-auto px-4 sm:px-8 text-center relative z-10">
+          <!-- Icon badge -->
+          <div class="inline-flex w-16 h-16 rounded-2xl items-center justify-center bg-brand-orange/20 border border-brand-orange/30 mb-8 reveal">
+            <i data-lucide="building-2" class="text-brand-orange w-7 h-7"></i>
+          </div>
+
+          <div class="reveal">
+            <span class="section-label" style="color:rgba(245,166,35,0.7)">Start Your Journey</span>
+            <h2 class="font-inter font-900 leading-tight mt-3 mb-6" style="font-size: clamp(2rem, 5vw, 4rem); color: white; text-shadow: 0 4px 15px rgba(0,0,0,0.6);">
+              Let's Build Something<br/>
+              <span style="background:linear-gradient(135deg,#F5A623 0%,#F7B84B 50%,#D4891A 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
+                Extraordinary Together.
+              </span>
+            </h2>
+            <p class="text-neutral-200 text-lg leading-relaxed max-w-2xl mx-auto font-poppins font-300 mb-10" style="text-shadow: 0 2px 10px rgba(0,0,0,0.8);">
+              Whether it's your dream home, a commercial landmark, or a space that tells your story — MONOME Constructions is ready to bring your vision to life with unmatched craftsmanship.
+            </p>
+          </div>
+
+          <!-- CTA Buttons -->
+          <div class="flex flex-col sm:flex-row gap-4 justify-center items-center reveal">
+            <a href="projects.html" class="btn-primary flex items-center gap-2 px-8 py-4 text-sm">
+              <i data-lucide="folder-open" class="w-4 h-4"></i>
+              View Our Projects
+            </a>
+            <a href="contact.html" class="flex items-center gap-2 px-8 py-4 text-sm font-poppins font-600 text-white rounded-full border border-white/25 hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">
+              <i data-lucide="phone-call" class="w-4 h-4"></i>
+              Book a Free Consultation
+            </a>
+          </div>
+
+          <!-- Contact quick info -->
+          <div class="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6 reveal">
+            <a href="tel:+919620974224" class="flex items-center gap-2.5 text-neutral-400 hover:text-brand-orange transition-colors">
+              <i data-lucide="phone" class="w-4 h-4 text-brand-orange"></i>
+              <span class="text-sm font-poppins">+91 9620 974 224</span>
+            </a>
+            <span class="hidden sm:block w-1 h-1 rounded-full bg-neutral-600"></span>
+            <a href="https://instagram.com/monome.india" target="_blank" rel="noopener" class="flex items-center gap-2.5 text-neutral-400 hover:text-brand-orange transition-colors">
+              <i data-lucide="instagram" class="w-4 h-4 text-brand-orange"></i>
+              <span class="text-sm font-poppins">@monome.india</span>
+            </a>
+            <span class="hidden sm:block w-1 h-1 rounded-full bg-neutral-600"></span>
+            <span class="flex items-center gap-2.5 text-neutral-400">
+              <i data-lucide="map-pin" class="w-4 h-4 text-brand-orange"></i>
+              <span class="text-sm font-poppins">Bangalore, Karnataka</span>
+            </span>
+          </div>
+        </div>
+      </section>
+
     </main>
 
     <script>document.write(window.MonomeComponents.footer());</script>
-
     <script>document.write(window.MonomeComponents.extras());</script>
 
     <!-- Lucide Icons CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
-      // Initialize Lucide icons on load
       lucide.createIcons();
     </script>
 
     <!-- Custom Script File -->
     <script src="script.js"></script>
+
+    <!-- ── About Page Scripts ── -->
+    <script>
+      // ── Scroll Reveal ──────────────────────────────────────────────
+      (function() {
+        const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+        revealEls.forEach(el => observer.observe(el));
+      })();
+
+      // ── Count-Up Animations ────────────────────────────────────────
+      (function() {
+        let countersStarted = false;
+
+        function animateCounter(el, target, suffix, duration) {
+          let startTime = null;
+          const startVal = 0;
+          function step(timestamp) {
+            if (!startTime) startTime = timestamp;
+            const progress = Math.min((timestamp - startTime) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+            const current = Math.round(startVal + eased * (target - startVal));
+            el.textContent = current.toLocaleString() + (suffix || '');
+            if (progress < 1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+        }
+
+        const statsSection = document.getElementById('about-stats');
+        if (statsSection) {
+          const io = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && !countersStarted) {
+              countersStarted = true;
+              document.querySelectorAll('.stat-number[data-target]').forEach(el => {
+                const target = parseInt(el.dataset.target, 10);
+                const suffix = el.dataset.suffix || '';
+                animateCounter(el, target, suffix, 1800);
+              });
+              // Animate satisfaction bar
+              setTimeout(() => {
+                const bar = document.getElementById('satisfaction-bar');
+                if (bar) bar.style.width = '98%';
+              }, 400);
+              io.unobserve(statsSection);
+            }
+          }, { threshold: 0.2 });
+          io.observe(statsSection);
+        }
+      })();
+
+      // ── Smooth scroll for hero CTA ─────────────────────────────────
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          const href = this.getAttribute('href');
+          if (href.length > 1) {
+            const target = document.querySelector(href);
+            if (target) {
+              e.preventDefault();
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }
+        });
+      });
+
+      // ── CTA Slideshow Animation ─────────────────────────────────────
+      (function() {
+        const slides = document.querySelectorAll('#about-cta .cta-slide');
+        if (slides.length === 0) return;
+        let currentIndex = 0;
+        const intervalTime = 6000; // 6 seconds per slide
+
+        // Initialize first slide animation
+        slides[0].style.animation = 'kenburns-0 10s linear forwards';
+
+        setInterval(() => {
+          const prevIndex = currentIndex;
+          currentIndex = (currentIndex + 1) % slides.length;
+
+          // Fade out the previous slide (remove active class and animation)
+          slides[prevIndex].classList.remove('active');
+          
+          // Fade in the new slide
+          slides[currentIndex].classList.add('active');
+          // Apply a fresh Ken Burns animation to it
+          slides[currentIndex].style.animation = `kenburns-${currentIndex} 10s linear forwards`;
+          
+          // Clean up the animation on the previous slide after it has fully faded out
+          setTimeout(() => {
+            if (!slides[prevIndex].classList.contains('active')) {
+              slides[prevIndex].style.animation = 'none';
+            }
+          }, 2500);
+        }, intervalTime);
+      })();
+    </script>
   </body>
 </html>
