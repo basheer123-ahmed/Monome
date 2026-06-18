@@ -18,12 +18,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const toggleIcon = document.getElementById('dark-mode-icon');
   
   const applyTheme = (isDark) => {
+    const icon = document.getElementById('dark-mode-icon');
     if (isDark) {
       document.documentElement.classList.add('dark');
-      if (toggleIcon) toggleIcon.setAttribute('data-lucide', 'sun');
+      if (icon) icon.setAttribute('data-lucide', 'sun');
     } else {
       document.documentElement.classList.remove('dark');
-      if (toggleIcon) toggleIcon.setAttribute('data-lucide', 'moon');
+      if (icon) icon.setAttribute('data-lucide', 'moon');
     }
     if (window.lucide) {
       window.lucide.createIcons();
@@ -49,36 +50,45 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('header');
   const backToTopBtn = document.getElementById('back-to-top');
 
+  let scrollTicking = false;
+
   window.addEventListener('scroll', () => {
-    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    
-    // Progress
-    const pct = scrollHeight === 0 ? 0 : (scrollTop / scrollHeight) * 100;
-    if (scrollProgressBar) {
-      scrollProgressBar.style.width = `${pct}%`;
-    }
+    if (!scrollTicking) {
+      window.requestAnimationFrame(() => {
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        
+        // Progress
+        const pct = scrollHeight === 0 ? 0 : (scrollTop / scrollHeight) * 100;
+        if (scrollProgressBar) {
+          scrollProgressBar.style.width = `${pct}%`;
+        }
 
-    // Sticky navbar
-    if (header) {
-      if (scrollTop > 40) {
-        header.classList.add('navbar-glass', 'py-2', 'shadow-soft');
-        header.classList.remove('bg-[#FAFAF8]/95', 'dark:bg-[#0d1017]/95', 'border-neutral-200/30', 'dark:border-white/10', 'py-4');
-      } else {
-        header.classList.remove('navbar-glass', 'py-2', 'shadow-soft');
-        header.classList.add('bg-[#FAFAF8]/95', 'dark:bg-[#0d1017]/95', 'border-neutral-200/30', 'dark:border-white/10', 'py-4');
-      }
-    }
+        // Sticky navbar
+        if (header) {
+          if (scrollTop > 40) {
+            header.classList.add('navbar-glass', 'py-2', 'shadow-soft');
+            header.classList.remove('bg-[#FAFAF8]/95', 'dark:bg-[#0d1017]/95', 'border-neutral-200/30', 'dark:border-white/10', 'py-4');
+          } else {
+            header.classList.remove('navbar-glass', 'py-2', 'shadow-soft');
+            header.classList.add('bg-[#FAFAF8]/95', 'dark:bg-[#0d1017]/95', 'border-neutral-200/30', 'dark:border-white/10', 'py-4');
+          }
+        }
 
-    // Back to top visibility
-    if (backToTopBtn) {
-      if (scrollTop > 500) {
-        backToTopBtn.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
-        backToTopBtn.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
-      } else {
-        backToTopBtn.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
-        backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
-      }
+        // Back to top visibility
+        if (backToTopBtn) {
+          if (scrollTop > 500) {
+            backToTopBtn.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+            backToTopBtn.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+          } else {
+            backToTopBtn.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+            backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+          }
+        }
+        
+        scrollTicking = false;
+      });
+      scrollTicking = true;
     }
   }, { passive: true });
 
@@ -179,7 +189,15 @@ document.addEventListener('DOMContentLoaded', () => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const id = entry.target.getAttribute('id');
-        setActiveNav(id);
+        
+        // Map page section prefixes to keep active state consistent
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        if (currentPage === 'index.html' || currentPage === '') {
+          setActiveNav('home');
+        } else {
+          const pageName = currentPage.replace(/\.html$/, '');
+          setActiveNav(pageName);
+        }
       }
     });
   }, observerOptions);
@@ -345,12 +363,14 @@ document.addEventListener('DOMContentLoaded', () => {
     opt.addEventListener('change', () => {
       qualityOptions.forEach(o => {
         const wrapper = o.closest('label');
-        if (o.checked) {
-          wrapper.classList.add('border-brand-orange', 'bg-brand-orange/5');
-          wrapper.classList.remove('border-neutral-200', 'dark:border-neutral-700');
-        } else {
-          wrapper.classList.remove('border-brand-orange', 'bg-brand-orange/5');
-          wrapper.classList.add('border-neutral-200', 'dark:border-neutral-700');
+        if (wrapper) {
+          if (o.checked) {
+            wrapper.classList.add('border-brand-orange', 'bg-brand-orange/5');
+            wrapper.classList.remove('border-neutral-200', 'dark:border-neutral-700');
+          } else {
+            wrapper.classList.remove('border-brand-orange', 'bg-brand-orange/5');
+            wrapper.classList.add('border-neutral-200', 'dark:border-neutral-700');
+          }
         }
       });
     });
@@ -358,6 +378,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (estimateBtn) {
     estimateBtn.addEventListener('click', () => {
+      if (!plotSizeInput || !floorInput) return;
       const plotSize = parseFloat(plotSizeInput.value);
       const floors = parseInt(floorInput.value);
       
@@ -612,4 +633,25 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // ─── 13. Hover-Based Page Prefetching for Instant Navigation ───
+  const prefetchLink = (url) => {
+    if (!url || url.includes('#') || url.startsWith('javascript:')) return;
+    const linkId = `prefetch-${url.replace(/[^a-zA-Z0-9]/g, '-')}`;
+    if (document.getElementById(linkId)) return;
+
+    const link = document.createElement('link');
+    link.id = linkId;
+    link.rel = 'prefetch';
+    link.href = url;
+    document.head.appendChild(link);
+  };
+
+  document.querySelectorAll('a[href]').forEach(link => {
+    const href = link.getAttribute('href');
+    if (href && href.endsWith('.html')) {
+      link.addEventListener('mouseenter', () => prefetchLink(href), { passive: true });
+      link.addEventListener('touchstart', () => prefetchLink(href), { passive: true });
+    }
+  });
 });

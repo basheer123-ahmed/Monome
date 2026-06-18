@@ -16,6 +16,10 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="https://img.icons8.com/color/48/construction.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preload" href="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80&auto=format&fit=crop&fm=webp" as="image" type="image/webp" />
+    <link rel="preload" href="tailwind.js" as="script" />
+    <link rel="preload" href="style.css?v=2" as="style" />
+    <link rel="preload" href="public/home-background.mp4?v=2" as="video" type="video/mp4" />
     <meta name="description" content="MONOME Constructions – Premium Construction, Architecture & Interior Design. Crafting spaces that inspire across India." />
     <meta name="keywords" content="construction, architecture, interior design, luxury homes, villas, commercial buildings, India" />
     <meta property="og:title" content="MONOME Constructions – Crafting Spaces That Inspire" />
@@ -133,31 +137,31 @@
 
     <!-- ??? MAIN CONTENT SECTIONS ??? -->
     <main class="relative z-10">
-      <section id="home" class="relative w-full h-screen min-h-[700px] overflow-hidden bg-[#0d1017]">
+      <section id="home" class="relative w-full h-screen min-h-[700px] overflow-hidden bg-[#0d1017] bg-cover bg-center">
         <!-- Background video -->
         <div id="hero-scenes-container" class="absolute inset-0">
-          <video id="home-background-video" class="absolute inset-0 w-full h-full object-cover" src="assets/home-background.mp4" autoplay muted loop playsinline></video>
+          <video id="home-background-video" class="absolute inset-0 w-full h-full object-cover" src="public/home-background.mp4?v=2" autoplay muted loop playsinline preload="auto"></video>
         </div>
 
         <!-- Premium cinematic overlays -->
-        <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent z-10"></div>
-        <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent z-10"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-black/40 via-black/15 to-transparent z-10"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent z-10"></div>
 
         <!-- Main content: Left-aligned asymmetric layout wrapper -->
         <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-8 h-full flex items-center justify-start w-full">
           <!-- Text and Action Block -->
-          <div class="max-w-2xl text-left flex flex-col items-start animate-fade-in">
+          <div class="max-w-2xl text-left flex flex-col items-start">
             <!-- Premium Label -->
             <div class="mb-4">
               <span class="bg-[#F5A623]/15 border border-[#F5A623]/30 text-[#F5A623] px-4 py-1.5 rounded-full inline-block backdrop-blur-md shadow-sm font-bold uppercase tracking-[0.2em] text-xs">MONOME Constructions</span>
             </div>
             <!-- Main Title -->
             <h1 class="section-title text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight mb-6">
-              <span id="hero-typewriter-line1"></span><br class="hidden lg:inline" /><span class="text-gradient font-black" id="hero-typewriter-line2"></span>
+              <span id="hero-typewriter-line1">Crafting Spaces </span><br class="hidden lg:inline" /><span class="text-gradient font-black" id="hero-typewriter-line2">That Inspire</span>
             </h1>
             <!-- Description -->
             <p class="section-subtitle text-sm sm:text-base text-neutral-200/90 max-w-lg mb-10 leading-relaxed">
-              <span id="hero-typewriter-sub"></span><span id="hero-cursor" class="inline-block w-0.5 h-5 bg-white/80 ml-0.5 align-middle" style="animation: cursorBlink 0.75s step-end infinite;"></span>
+              <span id="hero-typewriter-sub">Premium construction, architectural planning, and interior design solutions crafted with absolute precision and elegance.</span><span id="hero-cursor" class="inline-block w-0.5 h-5 bg-white/80 ml-0.5 align-middle" style="animation: cursorBlink 0.75s step-end infinite;"></span>
             </p>
             <!-- Call to Actions -->
             <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
@@ -1244,6 +1248,11 @@
         var L2el = document.getElementById('hero-typewriter-line2');
         var Sel  = document.getElementById('hero-typewriter-sub');
         var Cel  = document.getElementById('hero-cursor');
+
+        // Clear contents right before starting the typing animation to ensure first-paint visibility
+        if (L1el) L1el.textContent = '';
+        if (L2el) L2el.textContent = '';
+        if (Sel) Sel.textContent = '';
 
         var TXT1 = 'Crafting Spaces ';
         var TXT2 = 'That Inspire';
