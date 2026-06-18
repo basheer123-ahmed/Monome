@@ -14,7 +14,7 @@ html {
 
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: #FAFAF8;
+  background-color: #FAF8F3;
   color: #1a1a1a;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -397,7 +397,7 @@ input[type="range"]::-webkit-slider-thumb {
 .loading-screen {
   position: fixed;
   inset: 0;
-  background: #FAFAF8;
+  background: #FAF8F3;
   z-index: 9999;
   display: flex;
   align-items: center;
@@ -406,25 +406,42 @@ input[type="range"]::-webkit-slider-thumb {
   transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
-.loader-bar {
-  width: 200px;
-  height: 3px;
-  background: #EDE4D4;
-  border-radius: 2px;
-  overflow: hidden;
+.dark .loading-screen {
+  background: #0d1017;
+}
+
+.dancing-bars-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 6px;
+  height: 32px;
   margin-top: 1.5rem;
 }
 
-.loader-bar-fill {
+.dancing-bars-container .bar {
+  width: 5px;
   height: 100%;
-  background: linear-gradient(90deg, #F5A623, #D4891A);
-  border-radius: 2px;
-  animation: loadFill 1.8s ease-in-out forwards;
+  background: linear-gradient(to top, #D4891A, #F5A623);
+  border-radius: 3px;
+  transform-origin: bottom;
+  animation: danceBar 1s ease-in-out infinite alternate;
+  will-change: transform;
 }
 
-@keyframes loadFill {
-  from { width: 0%; }
-  to { width: 100%; }
+.dancing-bars-container .bar:nth-child(1) { animation-delay: 0.1s; animation-duration: 0.8s; }
+.dancing-bars-container .bar:nth-child(2) { animation-delay: 0.3s; animation-duration: 1.1s; }
+.dancing-bars-container .bar:nth-child(3) { animation-delay: 0.5s; animation-duration: 0.9s; }
+.dancing-bars-container .bar:nth-child(4) { animation-delay: 0.2s; animation-duration: 1.2s; }
+.dancing-bars-container .bar:nth-child(5) { animation-delay: 0.4s; animation-duration: 1.0s; }
+
+@keyframes danceBar {
+  0% {
+    transform: scaleY(0.15);
+  }
+  100% {
+    transform: scaleY(1.0);
+  }
 }
 
 /* ─── Testimonials ───────────────────────────────── */
@@ -457,7 +474,7 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .bg-luxury {
-  background: linear-gradient(135deg, #FAFAF8 0%, #F5F0E8 50%, #EDE4D4 100%);
+  background: linear-gradient(135deg, #FAF8F3 0%, #F5F0E8 50%, #EDE4D4 100%);
 }
 
 .dark .bg-luxury {
@@ -534,3 +551,30 @@ input[type="range"]::-webkit-slider-thumb {
 #mobile-menu.translate-x-full.glass-card:hover {
   transform: translateX(100%) !important;
 }
+
+/* ─── Scroll Reveal Animations ───────────────────── */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.21, 0.6, 0.35, 1), transform 0.8s cubic-bezier(0.21, 0.6, 0.35, 1);
+  will-change: transform, opacity;
+}
+
+.reveal-on-scroll.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Delay modifiers */
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-400 { transition-delay: 400ms; }
+.delay-500 { transition-delay: 500ms; }
+
+/* Tab panel transition */
+.style-panel:not(.hidden) {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+

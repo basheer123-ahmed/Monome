@@ -39,8 +39,8 @@ window.MonomeComponents = {
       <div class="floating-shape bg-pastel-lavender w-[400px] h-[400px] bottom-[-10%] left-1/4 animate-float" style="animation-delay: 3s"></div>
     </div>
 
-    <!-- ─── Header & Navigation Component ─── -->
-    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-[#FAFAF8]/95 dark:bg-[#0d1017]/95 backdrop-blur-xl border-b border-neutral-200/30 dark:border-white/10 shadow-sm py-4">
+    <!-- Header & Navigation Component -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-[#FAF8F3]/95 dark:bg-[#0d1017]/95 backdrop-blur-xl border-b border-neutral-200/30 dark:border-white/10 shadow-sm py-4">
       <!-- Premium Top Brand Accent line -->
       <div class="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#F5A623] via-[#F7B84B] to-[#D4891A] shadow-[0_1px_10px_rgba(245,166,35,0.3)]"></div>
       <!-- Subtle Bottom Accent Line -->
@@ -71,9 +71,6 @@ window.MonomeComponents = {
           </a>
           <a href="gallery.html" class="relative px-4 py-2 text-sm font-medium font-poppins rounded-full transition-all duration-300 cursor-pointer ${isActive('gallery.html')}">
             Gallery<div class="nav-pill-bg absolute inset-0 bg-brand-orange/10 rounded-full -z-10 ${isPillHidden('gallery.html')}"></div>
-          </a>
-          <a href="testimonials.html" class="relative px-4 py-2 text-sm font-medium font-poppins rounded-full transition-all duration-300 cursor-pointer ${isActive('testimonials.html')}">
-            Testimonials<div class="nav-pill-bg absolute inset-0 bg-brand-orange/10 rounded-full -z-10 ${isPillHidden('testimonials.html')}"></div>
           </a>
           <a href="contact.html" class="relative px-4 py-2 text-sm font-medium font-poppins rounded-full transition-all duration-300 cursor-pointer ${isActive('contact.html')}">
             Contact<div class="nav-pill-bg absolute inset-0 bg-brand-orange/10 rounded-full -z-10 ${isPillHidden('contact.html')}"></div>
@@ -111,7 +108,6 @@ window.MonomeComponents = {
         <a href="services.html" class="mobile-nav-link px-4 py-3 rounded-xl text-sm font-medium transition-all cursor-pointer ${isMobileActive('services.html')}">Services</a>
         <a href="projects.html" class="mobile-nav-link px-4 py-3 rounded-xl text-sm font-medium transition-all cursor-pointer ${isMobileActive('projects.html')}">Projects</a>
         <a href="gallery.html" class="mobile-nav-link px-4 py-3 rounded-xl text-sm font-medium transition-all cursor-pointer ${isMobileActive('gallery.html')}">Gallery</a>
-        <a href="testimonials.html" class="mobile-nav-link px-4 py-3 rounded-xl text-sm font-medium transition-all cursor-pointer ${isMobileActive('testimonials.html')}">Testimonials</a>
         <a href="contact.html" class="mobile-nav-link px-4 py-3 rounded-xl text-sm font-medium transition-all cursor-pointer ${isMobileActive('contact.html')}">Contact</a>
         <a href="contact.html" class="mobile-nav-link btn-primary text-center mt-4 text-sm cursor-pointer">Book Consultation</a>
       </nav>
@@ -180,7 +176,6 @@ window.MonomeComponents = {
                 <li><a href="services.html" class="text-sm text-neutral-400 hover:text-brand-orange transition-colors flex items-center gap-1.5"><i data-lucide="arrow-right" class="text-brand-orange/50 w-3 h-3"></i> Services</a></li>
                 <li><a href="projects.html" class="text-sm text-neutral-400 hover:text-brand-orange transition-colors flex items-center gap-1.5"><i data-lucide="arrow-right" class="text-brand-orange/50 w-3 h-3"></i> Projects</a></li>
                 <li><a href="gallery.html" class="text-sm text-neutral-400 hover:text-brand-orange transition-colors flex items-center gap-1.5"><i data-lucide="arrow-right" class="text-brand-orange/50 w-3 h-3"></i> Gallery</a></li>
-                <li><a href="testimonials.html" class="text-sm text-neutral-400 hover:text-brand-orange transition-colors flex items-center gap-1.5"><i data-lucide="arrow-right" class="text-brand-orange/50 w-3 h-3"></i> Testimonials</a></li>
                 <li><a href="contact.html" class="text-sm text-neutral-400 hover:text-brand-orange transition-colors flex items-center gap-1.5"><i data-lucide="arrow-right" class="text-brand-orange/50 w-3 h-3"></i> Contact</a></li>
               </ul>
             </div>
@@ -250,8 +245,10 @@ window.MonomeComponents = {
   extras() {
     return `
     <!-- ─── BACK TO TOP BUTTON ─── -->
-    <button id="back-to-top" class="fixed bottom-[216px] right-7 z-50 w-12 h-12 rounded-full btn-primary flex items-center justify-center shadow-lg opacity-0 pointer-events-none translate-y-4 transition-all duration-300 hover:scale-110 active:scale-95" aria-label="Back to top">
-      <i data-lucide="chevron-up" class="w-5 h-5 text-white"></i>
+    <button id="back-to-top" style="padding: 0;" class="fixed bottom-24 right-7 z-50 w-12 h-12 rounded-full btn-primary flex items-center justify-center shadow-lg opacity-0 pointer-events-none translate-y-4 transition-all duration-300 hover:scale-110 active:scale-95" aria-label="Back to top">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 19V5M5 12l7-7 7 7"/>
+      </svg>
     </button>
 
     <!-- ─── LIGHTBOX MODAL ─── -->
@@ -270,7 +267,7 @@ window.MonomeComponents = {
 
     <!-- ─── CHATBOT LAUNCHER & WINDOW CONTAINER ─── -->
     <div id="monome-chatbot-root"></div>
-    <script src="chatbot.js" defer></script>
+    <script type="module" src="chatbot.js"></script>
 `;
   }
 };

@@ -131,6 +131,162 @@
     <link rel="stylesheet" href="style.css?v=2" />
   </head>
   <body>
+    <!-- ─── LOADING SCREEN (HOME ONLY) ─── -->
+    <div id="loading-screen" class="loading-screen">
+      <canvas id="loader-canvas" class="absolute inset-0 w-full h-full pointer-events-auto"></canvas>
+      
+      <div class="relative z-10 flex flex-col items-center justify-center pointer-events-none">
+        <!-- Logo and branding with pulsing effect -->
+        <div class="flex items-center gap-4 animate-float">
+          <img src="assets/logo.png" alt="MONOME Logo" class="h-16 w-auto object-contain rounded-xl shadow-2xl transition-transform duration-500 hover:scale-110 pointer-events-auto cursor-pointer" />
+          <div class="text-left select-none">
+            <span class="font-inter font-900 text-4xl tracking-tight leading-none text-neutral-800 dark:text-white block">MONOME</span>
+            <span class="block text-xs tracking-[0.3em] font-poppins text-brand-orange uppercase mt-1">Constructions</span>
+          </div>
+        </div>
+        
+        <!-- Dancing bars loading animation -->
+        <div class="dancing-bars-container">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+
+        <!-- Loading progress indicator -->
+        <div class="mt-6 text-neutral-400 dark:text-neutral-500 font-poppins text-[10px] tracking-[0.3em] uppercase select-none flex items-center gap-2">
+          <span>Crafting Spaces</span>
+          <span class="inline-block w-1.5 h-1.5 rounded-full bg-brand-orange animate-ping"></span>
+        </div>
+
+        <div class="mt-5 text-[10px] text-neutral-400/70 dark:text-neutral-500/70 tracking-widest select-none pointer-events-auto cursor-pointer hover:text-brand-orange transition-colors" style="font-weight: 500;">
+          Click anywhere to skip
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function() {
+        const canvas = document.getElementById('loader-canvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        
+        function resize() {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+        
+        const particles = [];
+        const particleCount = Math.min(80, Math.floor((window.innerWidth * window.innerHeight) / 16000));
+        const mouse = { x: null, y: null, radius: 160 };
+        
+        window.addEventListener('mousemove', function(e) {
+          mouse.x = e.clientX;
+          mouse.y = e.clientY;
+        });
+        window.addEventListener('mouseleave', function() {
+          mouse.x = null;
+          mouse.y = null;
+        });
+        
+        const screen = document.getElementById('loading-screen');
+        screen.addEventListener('click', function() {
+          screen.style.opacity = '0';
+          screen.style.visibility = 'hidden';
+          if (window.startTypewriterNow) {
+            window.startTypewriterNow();
+          }
+        });
+        
+        const isDark = document.documentElement.classList.contains('dark');
+        const colors = isDark 
+          ? ['rgba(245,166,35,0.45)', 'rgba(184,212,232,0.4)', 'rgba(255,255,255,0.15)']
+          : ['rgba(245,166,35,0.4)', 'rgba(184,212,232,0.45)', 'rgba(0,0,0,0.06)'];
+          
+        for (let i = 0; i < particleCount; i++) {
+          particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: (Math.random() - 0.5) * 0.8,
+            vy: (Math.random() - 0.5) * 0.8,
+            size: Math.random() * 3 + 1.5,
+            color: colors[Math.floor(Math.random() * colors.length)]
+          });
+        }
+        
+        let active = true;
+        function animate() {
+          if (!active) return;
+          if (screen.style.opacity === '0' || screen.style.visibility === 'hidden') {
+            active = false;
+            return;
+          }
+          
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          
+          for (let i = 0; i < particles.length; i++) {
+            const p1 = particles[i];
+            
+            p1.x += p1.vx;
+            p1.y += p1.vy;
+            
+            if (p1.x < 0 || p1.x > canvas.width) p1.vx *= -1;
+            if (p1.y < 0 || p1.y > canvas.height) p1.vy *= -1;
+            
+            if (mouse.x !== null && mouse.y !== null) {
+              const dx = mouse.x - p1.x;
+              const dy = mouse.y - p1.y;
+              const dist = Math.sqrt(dx*dx + dy*dy);
+              if (dist < mouse.radius) {
+                const force = (mouse.radius - dist) / mouse.radius;
+                p1.x += (dx / dist) * force * 1.6;
+                p1.y += (dy / dist) * force * 1.6;
+                
+                ctx.beginPath();
+                ctx.moveTo(p1.x, p1.y);
+                ctx.lineTo(mouse.x, mouse.y);
+                ctx.strokeStyle = isDark 
+                  ? `rgba(245,166,35, ${force * 0.16})` 
+                  : `rgba(245,166,35, ${force * 0.2})`;
+                ctx.lineWidth = 0.8;
+                ctx.stroke();
+              }
+            }
+            
+            for (let j = i + 1; j < particles.length; j++) {
+              const p2 = particles[j];
+              const dx = p1.x - p2.x;
+              const dy = p1.y - p2.y;
+              const dist = Math.sqrt(dx*dx + dy*dy);
+              
+              if (dist < 110) {
+                const alpha = (110 - dist) / 110 * (isDark ? 0.08 : 0.12);
+                ctx.beginPath();
+                ctx.moveTo(p1.x, p1.y);
+                ctx.lineTo(p2.x, p2.y);
+                ctx.strokeStyle = isDark 
+                  ? `rgba(255, 255, 255, ${alpha})`
+                  : `rgba(245, 166, 35, ${alpha})`;
+                ctx.lineWidth = 0.6;
+                ctx.stroke();
+              }
+            }
+            
+            ctx.beginPath();
+            ctx.arc(p1.x, p1.y, p1.size, 0, Math.PI * 2);
+            ctx.fillStyle = p1.color;
+            ctx.fill();
+          }
+          
+          requestAnimationFrame(animate);
+        }
+        
+        animate();
+      })();
+    </script>
 
     <script src="components.js"></script>
     <script>document.write(window.MonomeComponents.top());</script>
@@ -150,7 +306,7 @@
         <!-- Main content: Left-aligned asymmetric layout wrapper -->
         <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-8 h-full flex items-center justify-start w-full">
           <!-- Text and Action Block -->
-          <div class="max-w-2xl text-left flex flex-col items-start">
+          <div class="max-w-2xl text-left flex flex-col items-start animate-fade-in opacity-0">
             <!-- Premium Label -->
             <div class="mb-4">
               <span class="bg-[#F5A623]/15 border border-[#F5A623]/30 text-[#F5A623] px-4 py-1.5 rounded-full inline-block backdrop-blur-md shadow-sm font-bold uppercase tracking-[0.2em] text-xs">MONOME Constructions</span>
@@ -170,7 +326,7 @@
             </div>
 
             <!-- Premium Stats Row (Left Aligned and Clean) -->
-            <div class="flex gap-8 mt-12 border-t border-white/10 pt-8 w-full max-w-md justify-start">
+            <div class="flex gap-8 mt-12 border-t border-white/10 pt-8 w-full max-w-md justify-start animate-slide-up opacity-0">
               <div>
                 <p class="text-2xl font-bold font-inter text-white"><span class="stat-counter" data-target="500" data-suffix="+">0+</span></p>
                 <p class="text-[10px] text-neutral-400 font-poppins font-medium uppercase tracking-wider mt-0.5">Projects</p>
@@ -208,7 +364,7 @@
 
         <div class="relative max-w-6xl mx-auto px-6 sm:px-12">
           <!-- Section Header -->
-          <div class="text-center mb-16">
+          <div class="text-center mb-16 reveal-on-scroll">
             <p class="section-label mb-3">HOW WE BUILD</p>
             <h2 class="section-title text-3xl sm:text-4xl lg:text-5xl mb-4">Our Construction Process</h2>
             <p class="section-subtitle max-w-2xl mx-auto">A transparent, step-by-step journey from your vision to a beautifully handed-over space.</p>
@@ -223,7 +379,7 @@
             <div class="space-y-12 lg:space-y-0">
 
               <!-- Step 1 -->
-              <div class="process-step lg:flex lg:items-center lg:gap-12 lg:mb-16" data-side="left">
+              <div class="process-step lg:flex lg:items-center lg:gap-12 lg:mb-16 reveal-on-scroll" data-side="left">
                 <div class="lg:w-1/2 lg:text-right lg:pr-12 mb-4 lg:mb-0">
                   <div class="glass-card rounded-2xl p-6 inline-block w-full">
                     <div class="flex items-center gap-3 lg:justify-end mb-3">
@@ -240,7 +396,7 @@
               </div>
 
               <!-- Step 2 -->
-              <div class="process-step lg:flex lg:items-center lg:gap-12 lg:mb-16" data-side="right">
+              <div class="process-step lg:flex lg:items-center lg:gap-12 lg:mb-16 reveal-on-scroll" data-side="right">
                 <div class="lg:w-1/2 lg:pr-12"></div>
                 <!-- Dot -->
                 <div class="hidden lg:flex w-10 h-10 rounded-full bg-brand-orange border-4 border-white dark:border-neutral-900 shadow-luxury items-center justify-center text-white font-bold text-sm z-10 flex-shrink-0">2</div>
@@ -257,7 +413,7 @@
               </div>
 
               <!-- Step 3 -->
-              <div class="process-step lg:flex lg:items-center lg:gap-12 lg:mb-16" data-side="left">
+              <div class="process-step lg:flex lg:items-center lg:gap-12 lg:mb-16 reveal-on-scroll" data-side="left">
                 <div class="lg:w-1/2 lg:text-right lg:pr-12 mb-4 lg:mb-0">
                   <div class="glass-card rounded-2xl p-6 inline-block w-full">
                     <div class="flex items-center gap-3 lg:justify-end mb-3">
@@ -273,7 +429,7 @@
               </div>
 
               <!-- Step 4 -->
-              <div class="process-step lg:flex lg:items-center lg:gap-12 lg:mb-16" data-side="right">
+              <div class="process-step lg:flex lg:items-center lg:gap-12 lg:mb-16 reveal-on-scroll" data-side="right">
                 <div class="lg:w-1/2 lg:pr-12"></div>
                 <div class="hidden lg:flex w-10 h-10 rounded-full bg-brand-orange border-4 border-white dark:border-neutral-900 shadow-luxury items-center justify-center text-white font-bold text-sm z-10 flex-shrink-0">4</div>
                 <div class="lg:w-1/2 lg:pl-12 mb-4 lg:mb-0">
@@ -289,7 +445,7 @@
               </div>
 
               <!-- Step 5 -->
-              <div class="process-step lg:flex lg:items-center lg:gap-12 lg:mb-16" data-side="left">
+              <div class="process-step lg:flex lg:items-center lg:gap-12 lg:mb-16 reveal-on-scroll" data-side="left">
                 <div class="lg:w-1/2 lg:text-right lg:pr-12 mb-4 lg:mb-0">
                   <div class="glass-card rounded-2xl p-6 inline-block w-full">
                     <div class="flex items-center gap-3 lg:justify-end mb-3">
@@ -305,7 +461,7 @@
               </div>
 
               <!-- Step 6 -->
-              <div class="process-step lg:flex lg:items-center lg:gap-12 lg:mb-16" data-side="right">
+              <div class="process-step lg:flex lg:items-center lg:gap-12 lg:mb-16 reveal-on-scroll" data-side="right">
                 <div class="lg:w-1/2 lg:pr-12"></div>
                 <div class="hidden lg:flex w-10 h-10 rounded-full bg-brand-orange border-4 border-white dark:border-neutral-900 shadow-luxury items-center justify-center text-white font-bold text-sm z-10 flex-shrink-0">6</div>
                 <div class="lg:w-1/2 lg:pl-12 mb-4 lg:mb-0">
@@ -321,7 +477,7 @@
               </div>
 
               <!-- Step 7 -->
-              <div class="process-step lg:flex lg:items-center lg:gap-12" data-side="left">
+              <div class="process-step lg:flex lg:items-center lg:gap-12 reveal-on-scroll" data-side="left">
                 <div class="lg:w-1/2 lg:text-right lg:pr-12 mb-4 lg:mb-0">
                   <div class="glass-card rounded-2xl p-6 inline-block w-full border-2 border-brand-orange/30">
                     <div class="flex items-center gap-3 lg:justify-end mb-3">
@@ -349,7 +505,7 @@
         <div class="floating-shape w-80 h-80 bg-pastel-lavender/30 right-0 -top-20"></div>
         <div class="max-w-6xl mx-auto px-6 sm:px-12">
           <!-- Header -->
-          <div class="text-center mb-14">
+          <div class="text-center mb-14 reveal-on-scroll">
             <p class="section-label mb-3">ANCIENT WISDOM</p>
             <h2 class="section-title text-3xl sm:text-4xl lg:text-5xl mb-4">Vastu Knowledge Center</h2>
             <p class="section-subtitle max-w-2xl mx-auto">Harmonize your home with the five elements. Explore Vastu principles our architects integrate into every project.</p>
@@ -358,7 +514,7 @@
           <!-- Accordion Cards -->
           <div id="vastu-accordion" class="space-y-4 max-w-4xl mx-auto">
 
-            <div class="vastu-item glass-card rounded-2xl overflow-hidden border border-neutral-200/50 dark:border-white/10 transition-all duration-300">
+            <div class="vastu-item glass-card rounded-2xl overflow-hidden border border-neutral-200/50 dark:border-white/10 transition-all duration-300 reveal-on-scroll">
               <button class="vastu-trigger w-full flex items-center justify-between p-5 text-left cursor-pointer group" data-target="vastu-1">
                 <div class="flex items-center gap-4">
                   <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-[#F5A623]/10 to-[#F7B84B]/20 border border-[#F5A623]/25 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300 shadow-sm">
@@ -380,7 +536,7 @@
               </div>
             </div>
 
-            <div class="vastu-item glass-card rounded-2xl overflow-hidden border border-neutral-200/50 dark:border-white/10 transition-all duration-300">
+            <div class="vastu-item glass-card rounded-2xl overflow-hidden border border-neutral-200/50 dark:border-white/10 transition-all duration-300 reveal-on-scroll delay-100">
               <button class="vastu-trigger w-full flex items-center justify-between p-5 text-left cursor-pointer group" data-target="vastu-2">
                 <div class="flex items-center gap-4">
                   <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-[#F5A623]/10 to-[#F7B84B]/20 border border-[#F5A623]/25 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300 shadow-sm">
@@ -402,7 +558,7 @@
               </div>
             </div>
 
-            <div class="vastu-item glass-card rounded-2xl overflow-hidden border border-neutral-200/50 dark:border-white/10 transition-all duration-300">
+            <div class="vastu-item glass-card rounded-2xl overflow-hidden border border-neutral-200/50 dark:border-white/10 transition-all duration-300 reveal-on-scroll delay-200">
               <button class="vastu-trigger w-full flex items-center justify-between p-5 text-left cursor-pointer group" data-target="vastu-3">
                 <div class="flex items-center gap-4">
                   <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-[#F5A623]/10 to-[#F7B84B]/20 border border-[#F5A623]/25 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300 shadow-sm">
@@ -424,7 +580,7 @@
               </div>
             </div>
 
-            <div class="vastu-item glass-card rounded-2xl overflow-hidden border border-neutral-200/50 dark:border-white/10 transition-all duration-300">
+            <div class="vastu-item glass-card rounded-2xl overflow-hidden border border-neutral-200/50 dark:border-white/10 transition-all duration-300 reveal-on-scroll delay-300">
               <button class="vastu-trigger w-full flex items-center justify-between p-5 text-left cursor-pointer group" data-target="vastu-4">
                 <div class="flex items-center gap-4">
                   <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-[#F5A623]/10 to-[#F7B84B]/20 border border-[#F5A623]/25 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300 shadow-sm">
@@ -446,7 +602,7 @@
               </div>
             </div>
 
-            <div class="vastu-item glass-card rounded-2xl overflow-hidden border border-neutral-200/50 dark:border-white/10 transition-all duration-300">
+            <div class="vastu-item glass-card rounded-2xl overflow-hidden border border-neutral-200/50 dark:border-white/10 transition-all duration-300 reveal-on-scroll delay-400">
               <button class="vastu-trigger w-full flex items-center justify-between p-5 text-left cursor-pointer group" data-target="vastu-5">
                 <div class="flex items-center gap-4">
                   <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-[#F5A623]/10 to-[#F7B84B]/20 border border-[#F5A623]/25 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300 shadow-sm">
@@ -474,20 +630,152 @@
 
 
       <!-- ═══════════════════════════════════════════════
+           SECTION: COST ESTIMATOR
+      ═══════════════════════════════════════════════ -->
+      <section id="cost-estimator" class="py-28 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-cream-100 via-cream-50 to-cream-100 dark:from-neutral-950 dark:to-neutral-900"></div>
+        <div class="absolute top-0 right-0 w-80 h-80 rounded-full bg-pastel-peach/25 blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-6xl mx-auto px-4 sm:px-8 relative">
+          <!-- Header -->
+          <div class="text-center max-w-2xl mx-auto mb-16 reveal-on-scroll">
+            <span class="section-label">Transparency Tool</span>
+            <h2 class="section-title text-4xl md:text-5xl mt-3 mb-5">
+              Cost <span class="text-gradient">Estimator</span>
+            </h2>
+            <p class="section-subtitle">
+              Get an instant budget overview for your construction project based on plot size, levels, and materials quality.
+            </p>
+          </div>
+
+          <div class="grid lg:grid-cols-5 gap-8 items-start">
+            <!-- Left: Inputs -->
+            <div class="lg:col-span-3 glass-card rounded-3xl p-8 space-y-6 reveal-on-scroll">
+              <h3 class="font-inter font-700 text-xl text-neutral-800 dark:text-white mb-4">Input Specifications</h3>
+
+              <!-- Plot Size Slider -->
+              <div class="space-y-2">
+                <div class="flex justify-between items-center text-sm font-semibold">
+                  <label for="estimator-plot-size" class="text-neutral-700 dark:text-neutral-300">Plot Area (sq.ft)</label>
+                  <span class="text-brand-orange text-base font-bold"><span id="estimator-plot-size-val">1200</span> sq.ft</span>
+                </div>
+                <input id="estimator-plot-size" type="range" min="500" max="10000" step="100" value="1200" class="w-full cursor-pointer" />
+                <div class="flex justify-between text-[10px] text-neutral-400"><span>500 sq.ft</span><span>10,000 sq.ft</span></div>
+              </div>
+
+              <!-- Floor Count Slider -->
+              <div class="space-y-2">
+                <div class="flex justify-between items-center text-sm font-semibold">
+                  <label for="estimator-floors" class="text-neutral-700 dark:text-neutral-300">Number of Floors</label>
+                  <span class="text-brand-orange text-base font-bold"><span id="estimator-floors-val">2</span> Levels</span>
+                </div>
+                <input id="estimator-floors" type="range" min="1" max="10" step="1" value="2" class="w-full cursor-pointer" />
+                <div class="flex justify-between text-[10px] text-neutral-400"><span>Ground Floor Only</span><span>10 Floors</span></div>
+              </div>
+
+              <!-- Quality Selection -->
+              <div class="space-y-3">
+                <label class="block text-sm font-semibold text-neutral-700 dark:text-neutral-300">Material Quality &amp; Specifications</label>
+                <div class="grid sm:grid-cols-3 gap-3">
+                  <!-- Option Standard -->
+                  <label class="border-2 border-neutral-200 dark:border-neutral-700 rounded-2xl p-4 cursor-pointer hover:border-brand-orange/50 transition-all flex flex-col justify-between">
+                    <input type="radio" name="material-quality" value="standard" class="hidden" />
+                    <div>
+                      <p class="font-bold text-sm text-neutral-800 dark:text-neutral-200">Standard</p>
+                      <p class="text-[10px] text-neutral-400 mt-0.5">Quality essentials, robust framework</p>
+                    </div>
+                    <span class="block text-brand-orange text-xs font-semibold mt-3">₹ 1,800/sq.ft</span>
+                  </label>
+                  <!-- Option Premium (Checked) -->
+                  <label class="border-2 border-brand-orange bg-brand-orange/5 rounded-2xl p-4 cursor-pointer hover:border-brand-orange transition-all flex flex-col justify-between">
+                    <input type="radio" name="material-quality" value="premium" checked class="hidden" />
+                    <div>
+                      <p class="font-bold text-sm text-neutral-800 dark:text-neutral-200">Premium</p>
+                      <p class="text-[10px] text-neutral-400 mt-0.5">High-grade fixtures, premium finishes</p>
+                    </div>
+                    <span class="block text-brand-orange text-xs font-semibold mt-3">₹ 2,800/sq.ft</span>
+                  </label>
+                  <!-- Option Luxury -->
+                  <label class="border-2 border-neutral-200 dark:border-neutral-700 rounded-2xl p-4 cursor-pointer hover:border-brand-orange/50 transition-all flex flex-col justify-between">
+                    <input type="radio" name="material-quality" value="luxury" class="hidden" />
+                    <div>
+                      <p class="font-bold text-sm text-neutral-800 dark:text-neutral-200">Luxury</p>
+                      <p class="text-[10px] text-neutral-400 mt-0.5">Artisan woodwork, luxury automation</p>
+                    </div>
+                    <span class="block text-brand-orange text-xs font-semibold mt-3">₹ 4,500/sq.ft</span>
+                  </label>
+                </div>
+              </div>
+
+              <button id="estimator-calc-btn" class="btn-primary w-full text-center mt-2 flex items-center justify-center gap-2">
+                <i data-lucide="calculator" class="w-4.5 h-4.5"></i> Calculate Cost Estimate
+              </button>
+            </div>
+
+            <!-- Right: Output Card -->
+            <div class="lg:col-span-2 reveal-on-scroll">
+              <div id="estimator-output" class="glass-card rounded-3xl p-8 space-y-6">
+                <h3 class="font-inter font-700 text-xl text-neutral-800 dark:text-white border-b border-brand-orange/10 pb-4">Estimated Budget Breakdown</h3>
+
+                <div class="space-y-4 text-sm">
+                  <div class="flex justify-between">
+                    <span class="text-neutral-500">Built-Up Area (Approx.)</span>
+                    <span id="est-built-area" class="font-bold text-neutral-800 dark:text-white">1,560 sq.ft</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-neutral-500">Civil &amp; Finishes (Base)</span>
+                    <span id="est-base-cost" class="font-bold text-neutral-800 dark:text-white">₹ 43.68 L</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-neutral-500">Design &amp; Arch Planning (8%)</span>
+                    <span id="est-design-fee" class="font-bold text-neutral-800 dark:text-white">₹ 3.49 L</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-neutral-500">MEP &amp; Electric (10%)</span>
+                    <span id="est-electric" class="font-bold text-neutral-800 dark:text-white">₹ 4.37 L</span>
+                  </div>
+                  <hr class="border-brand-orange/10 my-2" />
+                  <div class="flex justify-between items-end">
+                    <div>
+                      <p class="font-bold text-neutral-800 dark:text-white text-base">Total Estimated Budget</p>
+                      <p class="text-[10px] text-neutral-400 mt-0.5">*Inclusive of GST, Excl. Land costs</p>
+                    </div>
+                    <span id="est-total" class="text-2xl font-800 text-brand-orange">₹ 51.54 L</span>
+                  </div>
+                </div>
+
+                <div class="bg-brand-orange/10 dark:bg-brand-orange/5 rounded-2xl p-4 flex gap-3 items-start border border-brand-orange/20 mt-4">
+                  <i data-lucide="info" class="text-brand-orange w-5 h-5 flex-shrink-0 mt-0.5"></i>
+                  <p class="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed font-poppins">
+                    This is a rough cost estimation based on average regional construction variables. For a detailed customized quote, schedule a consultation call with us.
+                  </p>
+                </div>
+
+                <a href="contact.html" class="btn-primary w-full text-center mt-2 block">
+                  Book Senior Consultant
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ═══════════════════════════════════════════════
            SECTION 3: HOUSE DESIGN INSPIRATION LIBRARY
       ═══════════════════════════════════════════════ -->
       <section id="design-inspiration" class="py-24 bg-luxury relative overflow-hidden">
         <div class="floating-shape w-72 h-72 bg-pastel-peach/40 -left-20 bottom-0"></div>
         <div class="max-w-6xl mx-auto px-6 sm:px-12">
           <!-- Header -->
-          <div class="text-center mb-12">
+          <div class="text-center mb-12 reveal-on-scroll">
             <p class="section-label mb-3">DESIGN STYLES</p>
             <h2 class="section-title text-3xl sm:text-4xl lg:text-5xl mb-4">House Design Inspiration</h2>
             <p class="section-subtitle max-w-2xl mx-auto">Explore architecture styles we master — from contemporary minimalism to traditional grandeur.</p>
           </div>
 
           <!-- Category Tabs -->
-          <div class="flex flex-wrap justify-center gap-3 mb-10" id="style-tabs">
+          <div class="flex flex-wrap justify-center gap-3 mb-10 reveal-on-scroll" id="style-tabs">
             <button class="style-tab active px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 cursor-pointer border" data-tab="contemporary">Contemporary</button>
             <button class="style-tab px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 cursor-pointer border" data-tab="traditional">Traditional</button>
             <button class="style-tab px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 cursor-pointer border" data-tab="modern">Modern Minimal</button>
@@ -499,7 +787,7 @@
 
             <!-- Contemporary -->
             <div class="style-panel" data-panel="contemporary">
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal-on-scroll">
                 <div class="glass-card rounded-2xl p-6 col-span-1 md:col-span-2">
                   <div class="w-12 h-12 rounded-xl bg-brand-orange/15 flex items-center justify-center text-2xl mb-4">🏠</div>
                   <h3 class="font-inter font-bold text-xl text-neutral-800 dark:text-neutral-100 mb-2">Contemporary Architecture</h3>
@@ -530,7 +818,7 @@
 
             <!-- Traditional -->
             <div class="style-panel hidden" data-panel="traditional">
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal-on-scroll">
                 <div class="glass-card rounded-2xl p-6 col-span-1 md:col-span-2">
                   <div class="w-12 h-12 rounded-xl bg-pastel-peach/60 flex items-center justify-center text-2xl mb-4">🏛️</div>
                   <h3 class="font-inter font-bold text-xl text-neutral-800 dark:text-neutral-100 mb-2">Traditional & Heritage</h3>
@@ -561,7 +849,7 @@
 
             <!-- Modern Minimal -->
             <div class="style-panel hidden" data-panel="modern">
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal-on-scroll">
                 <div class="glass-card rounded-2xl p-6 col-span-1 md:col-span-2">
                   <div class="w-12 h-12 rounded-xl bg-pastel-sky/50 flex items-center justify-center text-2xl mb-4">◻️</div>
                   <h3 class="font-inter font-bold text-xl text-neutral-800 dark:text-neutral-100 mb-2">Modern Minimalist</h3>
@@ -592,7 +880,7 @@
 
             <!-- Luxury Villa -->
             <div class="style-panel hidden" data-panel="luxury">
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal-on-scroll">
                 <div class="glass-card rounded-2xl p-6 col-span-1 md:col-span-2" style="border: 1.5px solid rgba(245,166,35,0.3);">
                   <div class="w-12 h-12 rounded-xl bg-brand-orange/20 flex items-center justify-center text-2xl mb-4">👑</div>
                   <h3 class="font-inter font-bold text-xl text-neutral-800 dark:text-neutral-100 mb-2">Luxury Villa Design</h3>
@@ -726,7 +1014,7 @@
         <div class="floating-shape w-64 h-64 bg-pastel-mint/30 -left-16 bottom-0"></div>
         <div class="max-w-6xl mx-auto px-6 sm:px-12">
           <!-- Header -->
-          <div class="text-center mb-14">
+          <div class="text-center mb-14 reveal-on-scroll">
             <p class="section-label mb-3">OUR EDGE</p>
             <h2 class="section-title text-3xl sm:text-4xl lg:text-5xl mb-4">Why Choose MONOME?</h2>
             <p class="section-subtitle max-w-2xl mx-auto">Discover the MONOME difference — a combination of technology, transparency, and timeless craftsmanship.</p>
@@ -735,7 +1023,7 @@
           <!-- Expandable Reason Cards -->
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-            <div class="why-card glass-card rounded-2xl p-6 cursor-pointer group" onclick="this.classList.toggle('why-expanded')">
+            <div class="why-card glass-card rounded-2xl p-6 cursor-pointer group reveal-on-scroll" onclick="this.classList.toggle('why-expanded')">
               <div class="w-14 h-14 rounded-2xl bg-brand-orange/15 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">🏆</div>
               <h3 class="font-inter font-bold text-lg text-neutral-800 dark:text-neutral-100 mb-2">15+ Years of Excellence</h3>
               <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">Over a decade and a half of proven track record across 500+ residential and commercial projects in South India.</p>
@@ -748,7 +1036,7 @@
               </div>
             </div>
 
-            <div class="why-card glass-card rounded-2xl p-6 cursor-pointer group" onclick="this.classList.toggle('why-expanded')">
+            <div class="why-card glass-card rounded-2xl p-6 cursor-pointer group reveal-on-scroll delay-100" onclick="this.classList.toggle('why-expanded')">
               <div class="w-14 h-14 rounded-2xl bg-pastel-sky/50 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">📊</div>
               <h3 class="font-inter font-bold text-lg text-neutral-800 dark:text-neutral-100 mb-2">Complete Transparency</h3>
               <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">Fixed-price contracts, weekly progress photos, and an online project portal so you always know where your money and project stand.</p>
@@ -761,7 +1049,7 @@
               </div>
             </div>
 
-            <div class="why-card glass-card rounded-2xl p-6 cursor-pointer group" onclick="this.classList.toggle('why-expanded')">
+            <div class="why-card glass-card rounded-2xl p-6 cursor-pointer group reveal-on-scroll delay-200" onclick="this.classList.toggle('why-expanded')">
               <div class="w-14 h-14 rounded-2xl bg-pastel-mint/50 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">🛡️</div>
               <h3 class="font-inter font-bold text-lg text-neutral-800 dark:text-neutral-100 mb-2">10-Year Structural Warranty</h3>
               <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">We stand behind our work with a full decade of structural warranty, 3 years of waterproofing warranty, and dedicated post-handover support.</p>
@@ -774,7 +1062,7 @@
               </div>
             </div>
 
-            <div class="why-card glass-card rounded-2xl p-6 cursor-pointer group" onclick="this.classList.toggle('why-expanded')">
+            <div class="why-card glass-card rounded-2xl p-6 cursor-pointer group reveal-on-scroll" onclick="this.classList.toggle('why-expanded')">
               <div class="w-14 h-14 rounded-2xl bg-pastel-lavender/50 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">🔬</div>
               <h3 class="font-inter font-bold text-lg text-neutral-800 dark:text-neutral-100 mb-2">35+ Quality Checkpoints</h3>
               <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">Every project undergoes 35 structured quality checks — from concrete cube tests and plaster alignment to plumbing pressure tests and waterproofing flood tests.</p>
@@ -787,7 +1075,7 @@
               </div>
             </div>
 
-            <div class="why-card glass-card rounded-2xl p-6 cursor-pointer group" onclick="this.classList.toggle('why-expanded')">
+            <div class="why-card glass-card rounded-2xl p-6 cursor-pointer group reveal-on-scroll delay-100" onclick="this.classList.toggle('why-expanded')">
               <div class="w-14 h-14 rounded-2xl bg-pastel-peach/60 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">🌱</div>
               <h3 class="font-inter font-bold text-lg text-neutral-800 dark:text-neutral-100 mb-2">Green & Sustainable Builds</h3>
               <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">From fly-ash bricks and rainwater harvesting to solar wiring prep and double-glazed windows — sustainability is built into every MONOME project by default.</p>
@@ -800,7 +1088,7 @@
               </div>
             </div>
 
-            <div class="why-card glass-card rounded-2xl p-6 cursor-pointer group" onclick="this.classList.toggle('why-expanded')">
+            <div class="why-card glass-card rounded-2xl p-6 cursor-pointer group reveal-on-scroll delay-200" onclick="this.classList.toggle('why-expanded')">
               <div class="w-14 h-14 rounded-2xl bg-brand-orange/15 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">🤝</div>
               <h3 class="font-inter font-bold text-lg text-neutral-800 dark:text-neutral-100 mb-2">Dedicated Project Manager</h3>
               <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">Every client gets a dedicated project manager as a single point of contact — ensuring seamless communication from concept to handover.</p>
@@ -825,7 +1113,7 @@
         <div class="floating-shape w-72 h-72 bg-pastel-lavender/25 right-0 top-20"></div>
         <div class="max-w-6xl mx-auto px-6 sm:px-12">
           <!-- Header -->
-          <div class="text-center mb-14">
+          <div class="text-center mb-14 reveal-on-scroll">
             <p class="section-label mb-3">EXPERT INSIGHTS</p>
             <h2 class="section-title text-3xl sm:text-4xl lg:text-5xl mb-4">Construction Knowledge Hub</h2>
             <p class="section-subtitle max-w-2xl mx-auto">Guides and insights from our engineers and architects to help you make smarter construction decisions.</p>
@@ -834,7 +1122,7 @@
           <!-- Article Cards with Modals -->
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-            <article class="glass-card rounded-2xl overflow-hidden group cursor-pointer" onclick="document.getElementById('modal-k1').classList.remove('hidden')" role="button" tabindex="0">
+            <article class="glass-card rounded-2xl overflow-hidden group cursor-pointer reveal-on-scroll" onclick="document.getElementById('modal-k1').classList.remove('hidden')" role="button" tabindex="0">
               <div class="h-36 bg-gradient-to-br from-brand-orange/20 to-pastel-peach/40 flex items-center justify-center text-5xl group-hover:scale-105 transition-transform duration-300">🏗️</div>
               <div class="p-5">
                 <span class="tag text-xs mb-3 inline-block">Foundation</span>
@@ -844,7 +1132,7 @@
               </div>
             </article>
 
-            <article class="glass-card rounded-2xl overflow-hidden group cursor-pointer" onclick="document.getElementById('modal-k2').classList.remove('hidden')" role="button" tabindex="0">
+            <article class="glass-card rounded-2xl overflow-hidden group cursor-pointer reveal-on-scroll delay-100" onclick="document.getElementById('modal-k2').classList.remove('hidden')" role="button" tabindex="0">
               <div class="h-36 bg-gradient-to-br from-pastel-sky/40 to-pastel-blue/30 flex items-center justify-center text-5xl group-hover:scale-105 transition-transform duration-300">💧</div>
               <div class="p-5">
                 <span class="tag text-xs mb-3 inline-block">Waterproofing</span>
@@ -854,7 +1142,7 @@
               </div>
             </article>
 
-            <article class="glass-card rounded-2xl overflow-hidden group cursor-pointer" onclick="document.getElementById('modal-k3').classList.remove('hidden')" role="button" tabindex="0">
+            <article class="glass-card rounded-2xl overflow-hidden group cursor-pointer reveal-on-scroll delay-200" onclick="document.getElementById('modal-k3').classList.remove('hidden')" role="button" tabindex="0">
               <div class="h-36 bg-gradient-to-br from-pastel-mint/40 to-pastel-sky/20 flex items-center justify-center text-5xl group-hover:scale-105 transition-transform duration-300">⚡</div>
               <div class="p-5">
                 <span class="tag text-xs mb-3 inline-block">Electrical</span>
@@ -864,7 +1152,7 @@
               </div>
             </article>
 
-            <article class="glass-card rounded-2xl overflow-hidden group cursor-pointer" onclick="document.getElementById('modal-k4').classList.remove('hidden')" role="button" tabindex="0">
+            <article class="glass-card rounded-2xl overflow-hidden group cursor-pointer reveal-on-scroll" onclick="document.getElementById('modal-k4').classList.remove('hidden')" role="button" tabindex="0">
               <div class="h-36 bg-gradient-to-br from-pastel-lavender/40 to-pastel-peach/20 flex items-center justify-center text-5xl group-hover:scale-105 transition-transform duration-300">🧱</div>
               <div class="p-5">
                 <span class="tag text-xs mb-3 inline-block">Materials</span>
@@ -874,7 +1162,7 @@
               </div>
             </article>
 
-            <article class="glass-card rounded-2xl overflow-hidden group cursor-pointer" onclick="document.getElementById('modal-k5').classList.remove('hidden')" role="button" tabindex="0">
+            <article class="glass-card rounded-2xl overflow-hidden group cursor-pointer reveal-on-scroll delay-100" onclick="document.getElementById('modal-k5').classList.remove('hidden')" role="button" tabindex="0">
               <div class="h-36 bg-gradient-to-br from-brand-orange/15 to-pastel-peach/30 flex items-center justify-center text-5xl group-hover:scale-105 transition-transform duration-300">🪟</div>
               <div class="p-5">
                 <span class="tag text-xs mb-3 inline-block">Windows</span>
@@ -884,7 +1172,7 @@
               </div>
             </article>
 
-            <article class="glass-card rounded-2xl overflow-hidden group cursor-pointer" onclick="document.getElementById('modal-k6').classList.remove('hidden')" role="button" tabindex="0">
+            <article class="glass-card rounded-2xl overflow-hidden group cursor-pointer reveal-on-scroll delay-200" onclick="document.getElementById('modal-k6').classList.remove('hidden')" role="button" tabindex="0">
               <div class="h-36 bg-gradient-to-br from-pastel-sky/40 to-pastel-mint/30 flex items-center justify-center text-5xl group-hover:scale-105 transition-transform duration-300">🌱</div>
               <div class="p-5">
                 <span class="tag text-xs mb-3 inline-block">Sustainability</span>
@@ -1101,14 +1389,22 @@
 
 
       <!-- ─── CALL TO ACTION ─── -->
-      <section class="py-20 bg-gradient-to-r from-[#F5A623] via-[#E09520] to-[#D4891A] relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: url(&quot;data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E&quot;)"></div>
-        <div class="relative max-w-4xl mx-auto px-6 sm:px-12 text-center">
-          <h2 class="font-inter font-extrabold text-3xl sm:text-4xl lg:text-5xl text-white mb-4">Ready to Build Your Dream Space?</h2>
-          <p class="text-white/85 text-lg mb-10 max-w-2xl mx-auto leading-relaxed">Join 500+ satisfied families who trusted MONOME to build their most important investment. Let's start with a free consultation.</p>
-          <div class="flex flex-col sm:flex-row justify-center gap-4">
-            <a href="contact.html" class="inline-block px-10 py-4 rounded-full bg-white text-brand-orange font-bold text-sm tracking-wide shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">Book Free Consultation</a>
-            <a href="projects.html" class="inline-block px-10 py-4 rounded-full border-2 border-white/40 text-white font-bold text-sm tracking-wide backdrop-blur-sm hover:bg-white/10 hover:-translate-y-1 transition-all duration-300">View Our Projects</a>
+      <section class="py-20 bg-transparent relative overflow-hidden">
+        <div class="relative max-w-6xl mx-auto px-4 sm:px-8">
+          <div class="rounded-3xl sm:rounded-[2rem] py-16 px-6 sm:px-12 text-center bg-gradient-to-br from-neutral-900 via-[#161a23] to-neutral-950 relative overflow-hidden shadow-2xl border border-white/5 reveal-on-scroll">
+            <!-- Abstract gradient glows -->
+            <div class="absolute -top-40 -left-40 w-96 h-96 rounded-full bg-brand-orange/10 blur-[100px] pointer-events-none"></div>
+            <div class="absolute -bottom-40 -right-40 w-96 h-96 rounded-full bg-pastel-blue/10 blur-[100px] pointer-events-none"></div>
+
+            <div class="relative z-10 max-w-3xl mx-auto">
+              <span class="bg-[#F5A623]/10 border border-[#F5A623]/20 text-[#F5A623] px-4 py-1.5 rounded-full inline-block backdrop-blur-md shadow-sm font-bold uppercase tracking-[0.2em] text-xs mb-6">Build With Monome</span>
+              <h2 class="font-inter font-extrabold text-3xl sm:text-4xl lg:text-5xl text-white mb-6">Ready to Build Your Dream Space?</h2>
+              <p class="text-neutral-400 text-base sm:text-lg mb-10 max-w-2xl mx-auto leading-relaxed">Join 500+ satisfied families who trusted MONOME to build their most important investment. Let's start with a free consultation.</p>
+              <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                <a href="contact.html" class="btn-primary inline-block px-10 py-4 text-center cursor-pointer shadow-xl hover:shadow-brand-orange/20 hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto">Book Free Consultation</a>
+                <a href="projects.html" class="inline-block px-10 py-4 rounded-full border-2 border-neutral-700 text-neutral-300 font-bold text-sm tracking-wide hover:border-white hover:text-white hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto">View Our Projects</a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -1286,8 +1582,15 @@
           }
         }
 
-        // Start typewriter immediately (no loading screen delay)
-        setTimeout(typeNext, 100);
+        // Start typewriter after loading screen fades out (2200ms)
+        var typewriterTimeout = setTimeout(typeNext, 2300);
+        window.startTypewriterNow = function() {
+          if (typewriterTimeout) {
+            clearTimeout(typewriterTimeout);
+            typewriterTimeout = null;
+            typeNext();
+          }
+        };
 
         /* === 2. NUMBER COUNTERS =============================================== */
         function easeOutQuart(t) { return 1 - Math.pow(1 - t, 4); }

@@ -68,10 +68,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (header) {
           if (scrollTop > 40) {
             header.classList.add('navbar-glass', 'py-2', 'shadow-soft');
-            header.classList.remove('bg-[#FAFAF8]/95', 'dark:bg-[#0d1017]/95', 'border-neutral-200/30', 'dark:border-white/10', 'py-4');
+            header.classList.remove('bg-[#FAF8F3]/95', 'dark:bg-[#0d1017]/95', 'border-neutral-200/30', 'dark:border-white/10', 'py-4');
           } else {
             header.classList.remove('navbar-glass', 'py-2', 'shadow-soft');
-            header.classList.add('bg-[#FAFAF8]/95', 'dark:bg-[#0d1017]/95', 'border-neutral-200/30', 'dark:border-white/10', 'py-4');
+            header.classList.add('bg-[#FAF8F3]/95', 'dark:bg-[#0d1017]/95', 'border-neutral-200/30', 'dark:border-white/10', 'py-4');
           }
         }
 
@@ -110,7 +110,6 @@ document.addEventListener('DOMContentLoaded', () => {
     services: 'services.html',
     projects: 'projects.html',
     gallery: 'gallery.html',
-    testimonials: 'testimonials.html',
     contact: 'contact.html',
     'cost-estimator': 'estimator.html'
   };
@@ -654,4 +653,25 @@ document.addEventListener('DOMContentLoaded', () => {
       link.addEventListener('touchstart', () => prefetchLink(href), { passive: true });
     }
   });
+
+  // ─── 14. Scroll Reveal Observer ───
+  const revealCallback = (entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  };
+
+  const revealObserver = new IntersectionObserver(revealCallback, {
+    root: null,
+    threshold: 0.05,
+    rootMargin: '0px 0px -60px 0px'
+  });
+
+  document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+    revealObserver.observe(el);
+  });
 });
+

@@ -1,7 +1,11 @@
 /**
  * MONOME Construction Assistant Chatbot (Pure Frontend)
  * Premium guided assistant matching MONOME's aesthetic.
+ * Optimized standalone vanilla JavaScript architecture.
  */
+
+import { pipeline, env } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3';
+import { KNOWLEDGE_BASE_EMBEDDED } from './embeddings_compact.js';
 
 (function () {
   // CSS styling for the chatbot, injected dynamically
@@ -75,553 +79,98 @@
   styleSheet.textContent = styles;
   document.head.appendChild(styleSheet);
 
-  // Chatbot configurations and responses data
-  const data = {
-    residential: {
-      title: "🏠 Residential Construction",
-      options: ["Villas", "Independent Houses", "Apartments", "Renovations"],
-      responses: {
-        "Villas": {
-          text: "We design and build bespoke luxury villas with high-end architecture, premium materials, and custom finishes. Our packages include landscape design, smart home integration, and structural warranty.",
-          replies: ["💰 Villa Construction Cost", "📅 Residential Timelines", "🧱 Materials & Quality", "🏠 Main Menu"]
-        },
-        "Independent Houses": {
-          text: "We build premium independent houses tailored to your plot size and family needs. We manage architectural design, approvals, excavation, structural works, utility mapping, and handover.",
-          replies: ["💰 Construction Costs", "📅 Residential Timelines", "🧱 Materials & Quality", "🏠 Main Menu"]
-        },
-        "Apartments": {
-          text: "For developers and landowners, we construct high-quality multi-dwelling residential buildings and apartments. We focus on spatial efficiency, safety compliance, modern amenities, and timely delivery.",
-          replies: ["🏢 Commercial Construction", "💰 Construction Costs", "🧱 Materials & Quality", "🏠 Main Menu"]
-        },
-        "Renovations": {
-          text: "Breathe new life into your existing spaces with our comprehensive remodeling services. We specialize in structural remodeling, kitchen & bath updates, luxury finishes, and electrical/plumbing upgrades.",
-          replies: ["🧱 Finishing Materials", "💰 Construction Costs", "📞 Contact MONOME", "🏠 Main Menu"]
-        }
-      }
+  // Predefined Interactive Questions (The UX Hook)
+  const QUICK_INQUIRIES = [
+    "How do I access my live building portal?",
+    "What premium materials do you use?",
+    "Can I get an instant cost estimate?",
+    "Where are your offices located?"
+  ];
+
+  const PILL_RESPONSES = {
+    "How do I access my live building portal?": {
+      text: "To access your live building portal, simply click on the <strong>Client Portal</strong> button in our main navigation, or visit <strong>portal.html</strong>. It features daily construction logs, 360-degree site photos, material testing logs, and billing statements updated in real-time.",
+      topic: "portal"
     },
-    commercial: {
-      title: "🏢 Commercial Construction",
-      options: ["Office Buildings", "Business Parks", "Retail Spaces", "Warehouses"],
-      responses: {
-        "Office Buildings": {
-          text: "We build modern, energy-efficient corporate offices and office towers. Features include open-plan workspaces, premium HVAC, backup power integration, and high-speed network cabling.",
-          replies: ["📅 Commercial Timelines", "💰 Commercial Building Cost", "🧱 Quality Assurance", "🏠 Main Menu"]
-        },
-        "Business Parks": {
-          text: "Our team designs and constructs large-scale integrated IT parks, business hubs, and industrial campuses with premium infrastructure, ample parking, green building ratings, and top-tier security.",
-          replies: ["📅 Commercial Timelines", "🧱 Quality Assurance", "📞 Contact MONOME", "🏠 Main Menu"]
-        },
-        "Retail Spaces": {
-          text: "We construct eye-catching retail storefronts, showrooms, boutique stores, and malls optimized for foot traffic, premium product displays, customer flow, and durable finishes.",
-          replies: ["💰 Commercial Building Cost", "🧱 Finishing Materials", "📞 Contact MONOME", "🏠 Main Menu"]
-        },
-        "Warehouses": {
-          text: "We build robust, pre-engineered steel warehouses, storage units, and fulfillment centers with high-load floors, efficient loading bays, fire safety integration, and structural durability.",
-          replies: ["📅 Commercial Timelines", "💰 Construction Costs", "🧱 Quality Assurance", "🏠 Main Menu"]
-        }
-      }
+    "What premium materials do you use?": {
+      text: "We use Fe-550D TMT reinforcement steel (Tata/JSW), OPC 53 Grade Cement (UltraTech/ACC), elastomeric waterproofing membranes (Fosroc/Dr. Fixit), UPVC soundproof windows (Fenesta), and luxury vitrified tiles or Italian marble.",
+      topic: "materials"
     },
-    institutional: {
-      title: "🏫 Institutional Projects",
-      options: ["Schools", "Colleges", "Research Labs", "Libraries"],
-      responses: {
-        "Schools": {
-          text: "We construct modern school buildings with safety features, interactive classrooms, sports areas, and child-safe facilities, complying with educational boards.",
-          replies: ["💰 Construction Costs", "🧱 Quality Assurance", "📞 Contact MONOME", "🏠 Main Menu"]
-        },
-        "Colleges": {
-          text: "We construct college campuses, lecture halls, administrative wings, and auditoriums designed for high student capacity and state-of-the-art acoustics.",
-          replies: ["💰 Construction Costs", "🧱 Quality Assurance", "📞 Contact MONOME", "🏠 Main Menu"]
-        },
-        "Research Labs": {
-          text: "We design and build cleanrooms, research labs, and diagnostic facilities with specialized HVAC, chemical-resistant flooring, and strict safety specs.",
-          replies: ["💰 Construction Costs", "🧱 Quality Assurance", "📞 Contact MONOME", "🏠 Main Menu"]
-        },
-        "Libraries": {
-          text: "We build modern libraries with optimal natural lighting, silent study zones, ventilation, climate-controlled archive rooms, and heavy structural load capacities.",
-          replies: ["💰 Construction Costs", "🧱 Quality Assurance", "📞 Contact MONOME", "🏠 Main Menu"]
-        }
-      }
+    "Can I get an instant cost estimate?": {
+      text: "Yes! Construction starts from approx. ₹1,800 to ₹2,500/sq.ft for Standard specs, ₹2,800 to ₹3,500 for Premium, and ₹4,000+ for Luxury. You can also use our interactive cost estimator by typing 'cost calculator'.",
+      topic: "costs"
     },
-    costs: {
-      title: "💰 Construction Costs",
-      options: ["Cost Factors", "Villa Construction Cost", "Commercial Building Cost", "Budget Planning"],
-      responses: {
-        "Cost Factors": {
-          text: "Construction costs depend on: 1) Built-up area, 2) Soil condition & foundation type, 3) Material specifications (Standard vs Premium vs Luxury), 4) Interior fit-outs, and 5) Location access.",
-          replies: ["💰 Villa Construction Cost", "💰 Commercial Building Cost", "📅 Project Timelines", "🏠 Main Menu"]
-        },
-        "Villa Construction Cost": {
-          text: "Villa construction starts from approximately ₹1,800 to ₹2,500 per sq.ft for Standard specs, ₹2,800 to ₹3,500 for Premium, and ₹4,000+ for high-end Luxury finishes. Landscaping and interior design are estimated separately.",
-          replies: ["💰 Cost Factors", "📅 Residential Timelines", "🧱 Quality Assurance", "🏠 Main Menu"]
-        },
-        "Commercial Building Cost": {
-          text: "Commercial construction typically ranges between ₹2,000 to ₹3,200 per sq.ft depending on structural load, number of floors, glass facade specs, utility integrations, and basement parking scope.",
-          replies: ["💰 Cost Factors", "📅 Commercial Timelines", "🧱 Quality Assurance", "🏠 Main Menu"]
-        },
-        "Budget Planning": {
-          text: "To plan a construction budget: 1) Define requirements & built-up area, 2) Set aside 10-15% contingency for upgrades or unexpected foundation conditions, 3) Split budget: 60% structure/finishing, 25% interiors, 15% utilities/fees.",
-          replies: ["💰 Cost Factors", "💰 Villa Construction Cost", "📞 Contact MONOME", "🏠 Main Menu"]
-        }
-      }
-    },
-    timelines: {
-      title: "📅 Project Timelines",
-      options: ["Residential Timelines", "Commercial Timelines", "Construction Stages", "Project Tracking"],
-      responses: {
-        "Residential Timelines": {
-          text: "Standard independent houses take about 8 to 11 months. Premium luxury villas of 3,000–5,000 sq.ft take 12 to 15 months. Renovations vary from 1 to 4 months depending on structural scope.",
-          replies: ["📅 Construction Stages", "📅 Project Tracking", "🏠 Residential Construction", "🏠 Main Menu"]
-        },
-        "Commercial Timelines": {
-          text: "Commercial office complexes of medium scale take 15 to 24 months, including excavation, concrete frame curing, facade installation, MEP services, and compliance certifications.",
-          replies: ["📅 Construction Stages", "📅 Project Tracking", "🏢 Commercial Construction", "🏠 Main Menu"]
-        },
-        "Construction Stages": {
-          text: "Our process has 5 stages: 1) Concept & Approvals (1-2 mo), 2) Foundation & Plinth (2 mo), 3) RCC Structure & Brickwork (3-5 mo), 4) MEP & Plastering (2-3 mo), 5) Finishes & Handover (2-3 mo).",
-          replies: ["📅 Project Tracking", "🧱 Quality Assurance", "💰 Construction Costs", "🏠 Main Menu"]
-        },
-        "Project Tracking": {
-          text: "We provide clients with access to our online Project Portal. You get weekly photo updates, milestone progress reports, material verification sheets, and budget utilization statements.",
-          replies: ["📅 Construction Stages", "🧱 Quality Assurance", "📞 Contact MONOME", "🏠 Main Menu"]
-        }
-      }
-    },
-    materials: {
-      title: "🧱 Materials & Quality",
-      options: ["Cement", "Steel", "Waterproofing", "Finishing Materials", "Quality Assurance"],
-      responses: {
-        "Cement": {
-          text: "We use top-grade OPC 53 grade cement for structural works (beams, slabs, columns) and PPC for plastering. Brands used: UltraTech, ACC, and Birla Super to ensure high durability and strength.",
-          replies: ["🧱 Steel", "🧱 Waterproofing", "🧱 Quality Assurance", "🏠 Main Menu"]
-        },
-        "Steel": {
-          text: "We exclusively use Fe-550D TMT reinforcement steel bars (Fe-500D minimum) to ensure earthquake resistance and structural ductility. Brands used: Tata Tiscon, JSW NeoSteel, and Sail.",
-          replies: ["🧱 Cement", "🧱 Waterproofing", "🧱 Quality Assurance", "🏠 Main Menu"]
-        },
-        "Waterproofing": {
-          text: "Waterproofing is critical! We apply multiple coats of elastomeric and polyurethane waterproofing membranes on balconies, sumps, bathrooms, and terrace floors. Brands used: Dr. Fixit and Fosroc.",
-          replies: ["🧱 Cement", "🧱 Steel", "🧱 Quality Assurance", "🏠 Main Menu"]
-        },
-        "Finishing Materials": {
-          text: "We offer premium vitrified tiles (Kajaria, Somany), premium Italian marble, solid teak wood doors, UPVC soundproof windows (Fenesta), Jaguar/Kohler CP fittings, and Asian Paints Royale series.",
-          replies: ["🧱 Quality Assurance", "💰 Construction Costs", "📞 Contact MONOME", "🏠 Main Menu"]
-        },
-        "Quality Assurance": {
-          text: "Quality is our hallmark! We conduct 35+ structural checks, concrete compressive tests, plaster verticality alignment, and plumbing pressure tests before handover.",
-          replies: ["🧱 Cement", "🧱 Steel", "🧱 Waterproofing", "🏠 Main Menu"]
-        }
-      }
-    },
-    plots: {
-      title: "🗺️ Plots & Land",
-      options: ["Plot Size Requirements", "Soil Testing Importance", "Vastu for Plots", "Land Development"],
-      responses: {
-        "Plot Size Requirements": {
-          text: "We construct on plots starting from 1,200 sq.ft (30x40) up to larger sites like 2,400 sq.ft (40x60), 4,000 sq.ft, and custom estate lands. Setbacks and built-up guidelines are determined by local municipal rules.",
-          replies: ["🗺️ Vastu for Plots", "🗺️ Soil Testing Importance", "💰 Construction Costs", "🏠 Main Menu"]
-        },
-        "Soil Testing Importance": {
-          text: "Before laying the foundation, we perform geotechnical soil tests (borewell testing) to determine the bearing capacity. This helps choose the right foundation (pile, raft, or isolated footings) and prevents structural cracks.",
-          replies: ["🧱 Quality Assurance", "🗺️ Land Development", "🏠 Main Menu"]
-        },
-        "Vastu for Plots": {
-          text: "We specialize in Vastu-compliant layouts. Key Vastu checks: East & North-facing entry is auspicious, kitchen in Southeast (Agni), Master Bedroom in Southwest (Nairutya), and water sumps in Northeast.",
-          replies: ["🗺️ Plot Size Requirements", "📞 Contact MONOME", "🏠 Main Menu"]
-        },
-        "Land Development": {
-          text: "We handle land clearing, soil compaction, stone-pitching, compound walls, excavation, and leveling to prepare your plot for construction. This is included in our comprehensive turn-key package.",
-          replies: ["🗺️ Soil Testing Importance", "📅 Project Timelines", "🏠 Main Menu"]
-        }
-      }
-    },
-    buildings: {
-      title: "🏢 Building Structures",
-      options: ["RCC Frame Structures", "Pre-engineered Steel Buildings", "Apartment Complex Specs", "Green Buildings (GRIHA)"],
-      responses: {
-        "RCC Frame Structures": {
-          text: "Most of our residential structures are RCC (Reinforced Concrete) frames consisting of columns, beams, and slabs. This provides maximum structural life, rigidity, and easy modification of walls.",
-          replies: ["🧱 Steel", "📅 Project Timelines", "🏠 Main Menu"]
-        },
-        "Pre-engineered Steel Buildings": {
-          text: "For warehouses, factory sheds, and commercial structures, we build Pre-Engineered Buildings (PEB) using high-tensile structural steel frames. This reduces construction time by 40% and allows large column-free spans.",
-          replies: ["🏢 Commercial Construction", "📅 Project Timelines", "🏠 Main Menu"]
-        },
-        "Apartment Complex Specs": {
-          text: "Our apartment structures use top-quality concrete blocks, modern seismic-zone resistance, dual plumbing systems (flush & raw), rainwater harvesting pits, and fire-fighting systems.",
-          replies: ["🧱 Quality Assurance", "💰 Construction Costs", "🏠 Main Menu"]
-        },
-        "Green Buildings (GRIHA)": {
-          text: "We are ISO certified and build GRIHA-rated green buildings. Features include solar wiring, rainwater harvesting, double-glazed window panels (insulation), and fly-ash bricks for thermal cooling.",
-          replies: ["🧱 Quality Assurance", "📅 Project Timelines", "🏠 Main Menu"]
-        }
-      }
-    },
-    faqs: {
-      title: "❓ FAQs",
-      options: [
-        "What is your main office address?",
-        "Are you registered with CREDAI?",
-        "Do you handle government approvals?",
-        "Is there a warranty on construction?",
-        "Can we customize the floor plans?",
-        "What locations do you construct in?",
-        "Do you provide modular kitchens?",
-        "Can I visit your active sites?",
-        "What concrete grade do you use?",
-        "How do you handle water conservation?"
-      ],
-      responses: {
-        "What is your main office address?": {
-          text: "Our corporate office is located at 42, Prestige Towers, MG Road, Bangalore.",
-          replies: ["📞 Contact MONOME", "🏠 Main Menu"]
-        },
-        "Are you registered with CREDAI?": {
-          text: "Yes, MONOME Constructions is a registered CREDAI member and all projects comply with local corporation norms and RERA guidelines.",
-          replies: ["🧱 Quality Assurance", "🏠 Main Menu"]
-        },
-        "Do you handle government approvals?": {
-          text: "Yes, we handle the complete process of acquiring building permissions, BESCOM electricity links, BWSSB water connections, and occupancy certificates.",
-          replies: ["📅 Project Timelines", "🏠 Main Menu"]
-        },
-        "Is there a warranty on construction?": {
-          text: "We offer a 10-year structural warranty on all RCC elements, a 3-year waterproofing warranty, and a 1-year general maintenance warranty.",
-          replies: ["🧱 Quality Assurance", "🏠 Main Menu"]
-        },
-        "Can we customize the floor plans?": {
-          text: "Absolutely. We work with our clients through multiple design iterations until the floor plans and 3D architectural elevations are exactly to their satisfaction.",
-          replies: ["🏠 Residential Construction", "📞 Contact MONOME", "🏠 Main Menu"]
-        },
-        "What locations do you construct in?": {
-          text: "We are headquartered in Bangalore and undertake projects across Karnataka, Tamil Nadu, Andhra Pradesh, and major cities across South India.",
-          replies: ["📞 Contact MONOME", "🏠 Main Menu"]
-        },
-        "Do you provide modular kitchens?": {
-          text: "Yes, our interior design division provides complete turn-key premium modular kitchens, built-in wardrobes, custom vanities, and smart storage systems.",
-          replies: ["🏠 Residential Construction", "🏠 Main Menu"]
-        },
-        "Can I visit your active sites?": {
-          text: "Absolutely! We encourage potential clients to visit our ongoing projects in Bangalore to inspect the quality of our brickwork, plastering, and materials firsthand.",
-          replies: ["🧱 Quality Assurance", "🏠 Main Menu"]
-        },
-        "What concrete grade do you use?": {
-          text: "We use M20 or M25 design mix concrete for columns and foundations (reinforced with Fe-550D steel) to guarantee superior structural safety and durability.",
-          replies: ["🧱 Quality Assurance", "🏠 Main Menu"]
-        },
-        "How do you handle water conservation?": {
-          text: "All our projects include rainwater harvesting systems, sewage treatment plants (for multi-dwelling projects), and water-efficient fixtures (Jaguar/Kohler) as standard.",
-          replies: ["🧱 Quality Assurance", "🏠 Main Menu"]
-        }
-      }
+    "Where are your offices located?": {
+      text: "Our corporate headquarters is located at <strong>42, Prestige Towers, MG Road, Bangalore</strong>. We execute premium residential and commercial projects across Bangalore and major South Indian cities.",
+      topic: "locations"
     }
   };
+
+  const fallbackCardHtml = `
+    <div class="p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200/50 dark:border-neutral-700/50 shadow-sm space-y-3 mt-1">
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-full bg-[#F5A623]/10 flex items-center justify-center text-[#F5A623]">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          </svg>
+        </div>
+        <h4 class="font-inter font-bold text-sm text-neutral-800 dark:text-white">Let's Connect Directly!</h4>
+      </div>
+      <p class="text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed">
+        Our design desk can answer this specific architectural detail.
+      </p>
+      <div class="pt-1">
+        <a href="contact.html" class="inline-flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#F5A623] to-[#D4891A] text-white text-[12px] font-bold shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all text-center">
+          Book Design Consultation &rarr;
+        </a>
+      </div>
+    </div>
+  `;
 
   // State variables
-  let unmatchedCount = 0;
   let isOpen = false;
+  let isModelReady = false;
+  let pipelineInstance = null;
+  let currentContext = null;
 
-  // Dynamic Cost Estimator State
-  let estimatorState = {
-    step: 0,
-    area: 0,
-    floors: 0,
-    quality: ""
-  };
-
-  // Home Style Recommender State
-  let styleState = {
-    step: 0,
-    scores: { contemporary: 0, traditional: 0, modern: 0, luxury: 0 }
-  };
-
-  function resetStyleRecommender() {
-    styleState = { step: 0, scores: { contemporary: 0, traditional: 0, modern: 0, luxury: 0 } };
+  // Helper: check if shorthand/pronoun-like
+  function isShorthandOrPronoun(text) {
+    const words = text.toLowerCase().trim().split(/\s+/);
+    if (words.length <= 3) return true;
+    const pronouns = ['it', 'its', 'this', 'that', 'they', 'them', 'these', 'those', 'there', 'here', 'more', 'about', 'how much', 'cost', 'timelines', 'price', 'duration', 'address', 'where', 'why', 'who'];
+    return words.some(w => pronouns.includes(w));
   }
 
-  function resetEstimator() {
-    estimatorState = {
-      step: 0,
-      area: 0,
-      floors: 0,
-      quality: ""
-    };
-  }
-
-  // ─── HOME STYLE RECOMMENDER FLOW ─────────────────────────────────────────
-  function startStyleRecommender() {
-    resetStyleRecommender();
-    styleState.step = 1;
-    showTypingIndicator(() => {
-      addBotMessage("Welcome to the **🏡 Home Style Recommender**! I\'ll ask you 4 quick questions to suggest the perfect architecture style for your dream home. Let\'s go!");
-      showTypingIndicator(() => {
-        addBotMessage("**Question 1 of 4:** What is your approximate construction budget?");
-        renderQuickReplies([
-          { text: "Under ₹50 Lakhs",        scores: { contemporary: 2, traditional: 3, modern: 1, luxury: 0 } },
-          { text: "₹50L – ₹1 Crore",        scores: { contemporary: 3, traditional: 2, modern: 3, luxury: 0 } },
-          { text: "₹1 Cr – ₹2 Crore",       scores: { contemporary: 2, traditional: 2, modern: 3, luxury: 1 } },
-          { text: "Above ₹2 Crore",          scores: { contemporary: 1, traditional: 1, modern: 2, luxury: 4 } },
-          { text: "🏠 Main Menu",             cancel: true }
-        ], (opt) => handleStyleStep(opt));
-      });
-    });
-  }
-
-  function handleStyleStep(opt) {
-    if (opt.cancel) {
-      resetStyleRecommender();
-      addUserMessage("🏠 Main Menu");
-      showTypingIndicator(() => {
-        addBotMessage("No problem! Select a topic below:");
-        renderMainMenu();
-      });
-      return;
+  // Helper: dot product for normalized vectors
+  function dotProduct(a, b) {
+    let sum = 0;
+    const len = a.length;
+    for (let i = 0; i < len; ++i) {
+      sum += a[i] * b[i];
     }
-
-    // Accumulate scores
-    if (opt.scores) {
-      for (const key in opt.scores) {
-        styleState.scores[key] = (styleState.scores[key] || 0) + opt.scores[key];
-      }
-    }
-
-    addUserMessage(opt.text);
-
-    if (styleState.step === 1) {
-      styleState.step = 2;
-      showTypingIndicator(() => {
-        addBotMessage("**Question 2 of 4:** How many family members will live in the house?");
-        renderQuickReplies([
-          { text: "1–2 People (Couple/Solo)",     scores: { contemporary: 3, traditional: 0, modern: 4, luxury: 2 } },
-          { text: "3–4 People (Nuclear Family)",  scores: { contemporary: 3, traditional: 2, modern: 2, luxury: 2 } },
-          { text: "5–7 People (Extended Family)", scores: { contemporary: 1, traditional: 4, modern: 1, luxury: 1 } },
-          { text: "8+ People (Joint Family)",     scores: { contemporary: 0, traditional: 4, modern: 0, luxury: 2 } },
-          { text: "🏠 Main Menu",                  cancel: true }
-        ], (opt2) => handleStyleStep(opt2));
-      });
-    } else if (styleState.step === 2) {
-      styleState.step = 3;
-      showTypingIndicator(() => {
-        addBotMessage("**Question 3 of 4:** Which phrase best describes your personal aesthetic taste?");
-        renderQuickReplies([
-          { text: "Clean, open & bright spaces",       scores: { contemporary: 4, traditional: 0, modern: 3, luxury: 1 } },
-          { text: "Heritage warmth & rich woodwork",   scores: { contemporary: 0, traditional: 5, modern: 0, luxury: 1 } },
-          { text: "Sleek, minimal & clutter-free",      scores: { contemporary: 2, traditional: 0, modern: 5, luxury: 2 } },
-          { text: "Opulent, grand & statement-making", scores: { contemporary: 1, traditional: 1, modern: 0, luxury: 5 } },
-          { text: "🏠 Main Menu",                        cancel: true }
-        ], (opt3) => handleStyleStep(opt3));
-      });
-    } else if (styleState.step === 3) {
-      styleState.step = 4;
-      showTypingIndicator(() => {
-        addBotMessage("**Question 4 of 4:** How many floors are you planning to build?");
-        renderQuickReplies([
-          { text: "Ground Floor Only (G)",   scores: { contemporary: 2, traditional: 3, modern: 3, luxury: 0 } },
-          { text: "G + 1 Floor",             scores: { contemporary: 3, traditional: 2, modern: 3, luxury: 1 } },
-          { text: "G + 2 Floors",            scores: { contemporary: 2, traditional: 1, modern: 2, luxury: 2 } },
-          { text: "G + 3 or More",           scores: { contemporary: 1, traditional: 0, modern: 1, luxury: 4 } },
-          { text: "🏠 Main Menu",             cancel: true }
-        ], (opt4) => handleStyleStep(opt4));
-      });
-    } else if (styleState.step === 4) {
-      // Compute top style
-      const scores = styleState.scores;
-      const styleMap = {
-        contemporary: {
-          name: "🏠 Contemporary Architecture",
-          desc: "Your home will shine with clean lines, large windows, open floor plans, and a seamless indoor-outdoor connection. Light-filled, functional, and modern — built for today's lifestyle.",
-          features: ["Open Floor Plans", "Large Glazed Windows", "Neutral Palettes", "Smart Home Ready", "Flat/Low-Pitch Roofs"],
-          link: "design-inspiration"
-        },
-        traditional: {
-          name: "🏛️ Traditional & Heritage",
-          desc: "A timeless home inspired by South Indian architecture — teak wood carvings, sloped terracotta roofs, granite pillars, and Vastu-centric courtyard layouts (Nalukettu style).",
-          features: ["Nalukettu Courtyard", "Teak Wood Doors", "Athangudi Tiles", "Terracotta Roofs", "Vastu Compliant"],
-          link: "design-inspiration"
-        },
-        modern: {
-          name: "◻️ Modern Minimalist",
-          desc: "Every detail serves a purpose. Hidden storage, flush surfaces, monochromatic palettes, and precision craftsmanship define this elegant, calm, and uncluttered living experience.",
-          features: ["Hidden Joinery Storage", "Large Format Tiles", "Cove LED Lighting", "Monochromatic Palette", "Flush Door Panels"],
-          link: "design-inspiration"
-        },
-        luxury: {
-          name: "👑 Luxury Villa",
-          desc: "For those who demand the extraordinary. Italian marble, infinity pools, KNX smart home automation, home theatres, and statement facades — an architectural masterpiece tailored for you.",
-          features: ["Italian Marble Flooring", "Infinity Pool", "Private Home Theatre", "KNX Smart Automation", "Bespoke Stone Facade"],
-          link: "design-inspiration"
-        }
-      };
-
-      let topStyle = "contemporary";
-      let topScore = -1;
-      for (const k in scores) {
-        if (scores[k] > topScore) { topScore = scores[k]; topStyle = k; }
-      }
-
-      const result = styleMap[topStyle];
-      const savedStyle = topStyle;
-      resetStyleRecommender();
-
-      showTypingIndicator(() => {
-        const featuresHtml = result.features.map(f => `<span class="inline-block px-2 py-0.5 bg-[#F5A623]/10 border border-[#F5A623]/20 text-[#D4891A] rounded-full text-[10px] font-semibold">${f}</span>`).join(' ');
-        const resultHtml = `
-          <div class="space-y-3">
-            <p class="font-bold text-brand-orange text-sm border-b border-neutral-200 dark:border-neutral-700 pb-2">🏡 Your Recommended Style</p>
-            <p class="font-inter font-bold text-base text-neutral-800 dark:text-neutral-100">${result.name}</p>
-            <p class="text-[12px] text-neutral-600 dark:text-neutral-300 leading-relaxed">${result.desc}</p>
-            <div class="flex flex-wrap gap-1 pt-1">${featuresHtml}</div>
-            <p class="text-[10px] text-neutral-400 mt-1">Based on your preferences — scroll to our <strong>Design Inspiration</strong> section to see this style in detail.</p>
-          </div>
-        `;
-        addBotMessage(resultHtml);
-        renderQuickReplies([
-          { text: "💬 Discuss This Style", key: "whatsapp_style" },
-          { text: "📊 Try Cost Estimator", key: "estimator" },
-          { text: "🏠 Main Menu",           key: "main" }
-        ], (opt5) => {
-          if (opt5.key === "whatsapp_style") {
-            addUserMessage("💬 Discuss This Style");
-            showTypingIndicator(() => {
-              addBotMessage("Great choice! Let's connect on WhatsApp to discuss your " + result.name + " home design:");
-              const waText = encodeURIComponent(`Hi MONOME, I used your Home Style Recommender and got "${result.name}" recommended for me. I'd love to discuss this further!`);
-              addBotMessage(`<a href="https://wa.me/919620974224?text=${waText}" target="_blank" rel="noopener noreferrer" class="inline-block mt-2 px-5 py-2.5 rounded-full bg-[#25D366] text-white text-[11px] font-bold shadow-md hover:scale-105 active:scale-95 transition-all text-center">Open WhatsApp Chat</a>`);
-              renderQuickReplies([{ text: "🏠 Main Menu", key: "main" }], () => handleQuickReplySelect("🏠 Main Menu"));
-            });
-          } else if (opt5.key === "estimator") {
-            addUserMessage("📊 Start Cost Estimator");
-            startEstimatorFlow();
-          } else {
-            handleQuickReplySelect("🏠 Main Menu");
-          }
-        });
-      });
-    }
+    return sum;
   }
 
-  function startEstimatorFlow() {
-    estimatorState.step = 1;
-    showTypingIndicator(() => {
-      addBotMessage("Welcome to the **MONOME Chat Cost Estimator**! Let's build your budget step-by-step. \n\nFirst, **what is your approximate planned built-up area (sq.ft)?**");
-      renderQuickReplies([
-        { text: "1,000 sq.ft", value: 1000 },
-        { text: "1,500 sq.ft", value: 1500 },
-        { text: "2,000 sq.ft", value: 2000 },
-        { text: "3,000 sq.ft", value: 3000 },
-        { text: "5,000 sq.ft", value: 5000 },
-        { text: "🏠 Main Menu", value: "main" }
-      ], (opt) => handleEstimatorStep(opt.text, opt.value));
-    });
-  }
-
-  function handleEstimatorStep(optionText, value) {
-    if (optionText === "🏠 Main Menu" || value === "main") {
-      resetEstimator();
-      addUserMessage("🏠 Main Menu");
-      showTypingIndicator(() => {
-        addBotMessage("Estimator cancelled. Select a topic below to continue:");
-        renderMainMenu();
-      });
-      return;
-    }
-
-    if (estimatorState.step === 1) {
-      estimatorState.area = value;
-      estimatorState.step = 2;
-      addUserMessage(optionText);
-      showTypingIndicator(() => {
-        addBotMessage("Got it. **How many floor levels are you planning to construct?**");
-        renderQuickReplies([
-          { text: "Ground Floor Only", value: 1 },
-          { text: "G + 1 Floor", value: 2 },
-          { text: "G + 2 Floors", value: 3 },
-          { text: "G + 3 Floors", value: 4 },
-          { text: "🏠 Main Menu", value: "main" }
-        ], (opt) => handleEstimatorStep(opt.text, opt.value));
-      });
-    } else if (estimatorState.step === 2) {
-      estimatorState.floors = value;
-      estimatorState.step = 3;
-      addUserMessage(optionText);
-      showTypingIndicator(() => {
-        addBotMessage("Select the **material quality specification standard**:");
-        renderQuickReplies([
-          { text: "Standard Specs (₹1,800/sq.ft)", value: { key: "Standard", rate: 1800 } },
-          { text: "Premium Specs (₹2,800/sq.ft)", value: { key: "Premium", rate: 2800 } },
-          { text: "Luxury Specs (₹4,500/sq.ft)", value: { key: "Luxury", rate: 4500 } },
-          { text: "🏠 Main Menu", value: "main" }
-        ], (opt) => handleEstimatorStep(opt.text, opt.value));
-      });
-    } else if (estimatorState.step === 3) {
-      estimatorState.quality = value.key;
-      const rate = value.rate;
-      const area = estimatorState.area;
-      const floors = estimatorState.floors;
+  // Model Initialization
+  async function initModel() {
+    try {
+      env.allowLocalModels = true;
+      env.allowRemoteModels = false;
+      env.localModelPath = '/models/';
       
-      const baseCost = area * rate * floors;
-      const designFee = baseCost * 0.08;
-      const electricPlumbing = baseCost * 0.10;
-      const total = baseCost + designFee + electricPlumbing;
+      // Load standard model Xenova/all-MiniLM-L6-v2 from local path
+      pipelineInstance = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
       
-      const formatINR = (num) => {
-        if (num >= 10000000) {
-          return `₹ ${(num / 10000000).toFixed(2)} Cr`;
-        } else if (num >= 100000) {
-          return `₹ ${(num / 100000).toFixed(2)} Lakhs`;
-        }
-        return `₹ ${num}`;
-      };
-
-      addUserMessage(optionText);
-      showTypingIndicator(() => {
-        const resultHtml = `
-          <div class="space-y-3 font-poppins text-left">
-            <p class="font-bold text-brand-orange text-sm border-b border-neutral-200 dark:border-neutral-700 pb-2">📊 Budget Estimate Summary</p>
-            <div class="text-[12px] space-y-1 text-neutral-600 dark:text-neutral-300">
-              <p>📍 <strong>Built-Up Area:</strong> ${area.toLocaleString()} sq.ft</p>
-              <p>🏢 <strong>No. of Floors:</strong> ${floors} Levels</p>
-              <p>💎 <strong>Quality Standard:</strong> ${estimatorState.quality}</p>
-              <p>🧱 <strong>Civil &amp; Finishes (Base):</strong> ${formatINR(baseCost)}</p>
-              <p>📐 <strong>Design &amp; Arch Fee (8%):</strong> ${formatINR(designFee)}</p>
-              <p>⚡ <strong>Electrical &amp; MEP (10%):</strong> ${formatINR(electricPlumbing)}</p>
-            </div>
-            <div class="border-t border-dashed border-neutral-200 dark:border-neutral-700 pt-2 flex justify-between items-center">
-              <span class="font-bold text-neutral-800 dark:text-neutral-100 text-xs">Total Estimate:</span>
-              <span class="font-extrabold text-brand-orange text-sm">${formatINR(total)}</span>
-            </div>
-            <p class="text-[10px] text-neutral-400 mt-1 leading-normal">*Estimated based on average construction variables. Excludes land and municipal approval costs.</p>
-          </div>
-        `;
-        addBotMessage(resultHtml);
-        
-        // Save current variables before resetting so they're in scope for whatsapp link
-        const savedArea = area;
-        const savedFloors = floors;
-        const savedQuality = estimatorState.quality;
-        resetEstimator();
-
-        renderQuickReplies([
-          { text: "💬 Chat on WhatsApp", key: "whatsapp" },
-          { text: "🧱 Materials & Quality", key: "materials" },
-          { text: "🏠 Main Menu", key: "main" }
-        ], (opt) => {
-          if (opt.key === "whatsapp") {
-            addUserMessage("💬 Chat on WhatsApp");
-            showTypingIndicator(() => {
-              addBotMessage("Sure! Click below to send your calculation to our coordinator on WhatsApp:");
-              const textMsg = encodeURIComponent(`Hi MONOME, I ran a budget estimate on your chatbot. Built-up area: ${savedArea} sqft, Floors: ${savedFloors}, Quality: ${savedQuality}. Let's discuss!`);
-              const waLink = `
-                <a href="https://wa.me/919620974224?text=${textMsg}" target="_blank" rel="noopener noreferrer" class="inline-block mt-2 px-5 py-2.5 rounded-full bg-[#25D366] text-white text-[11px] font-bold shadow-md hover:scale-105 active:scale-95 transition-all text-center">Open WhatsApp Chat</a>
-              `;
-              addBotMessage(waLink);
-              renderQuickReplies([{ text: "🏠 Main Menu", key: "main" }], (mOpt) => handleQuickReplySelect("🏠 Main Menu"));
-            });
-          } else if (opt.key === "materials") {
-            handleQuickReplySelect("🧱 Materials & Quality");
-          } else {
-            handleQuickReplySelect("🏠 Main Menu");
-          }
-        });
-      });
+      isModelReady = true;
+      console.log("MONOME Semantic vector engine initialized successfully.");
+      
+      // Hide spinner and render Quick Inquiry pill buttons instantly
+      renderQuickInquiries();
+    } catch (err) {
+      console.error("Failed to load local semantic engine:", err);
+      // Fail gracefully and allow users to use the Quick Inquiries matrix
+      isModelReady = true;
+      renderQuickInquiries();
     }
   }
 
@@ -763,23 +312,6 @@
         </div>
       </button>
 
-      <!-- WhatsApp Floating Launcher Button -->
-      <a href="https://wa.me/919620974224" target="_blank" rel="noopener noreferrer" id="monome-whatsapp-launcher" class="fixed bottom-[92px] right-7 z-50 w-12 h-12 rounded-full bg-[#0d1017]/90 border border-[#25D366]/80 text-[#25D366] shadow-[0_4px_14px_rgba(37,211,102,0.15)] hover:shadow-[0_6px_20px_rgba(37,211,102,0.35)] active:scale-95 transition-all duration-300 flex items-center justify-center cursor-pointer animate-whatsapp-float" title="Chat on WhatsApp" aria-label="Chat on WhatsApp">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24">
-          <!-- Outer bubble outline -->
-          <path d="M12.05 21.84h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-          <!-- Phone receiver filled -->
-          <path d="M15.8 12.8c-.2-.1-.9-.4-1-.5-.1-.1-.2-.1-.3.1-.1.2-.4.5-.5.6-.1.1-.2.1-.4 0-.3-.1-1.1-.4-2.1-1.3-.8-.7-1.3-1.5-1.5-1.8-.2-.3 0-.4.1-.5.1-.1.3-.3.4-.4.1-.1.1-.2.2-.4 0-.2 0-.3-.1-.4-.1-.1-.5-1.3-.7-1.8-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.5.1-.7.3s-.9.9-.9 2.1c0 1.2.9 2.4 1 2.6.1.2 1.7 2.6 4.2 3.7.6.3 1 .4 1.4.5.6.2 1.1.2 1.5.1.5-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1-.1-.1-.3-.2-.5-.3z" fill="currentColor" />
-        </svg>
-      </a>
-
-      <!-- Phone Floating Launcher Button -->
-      <a href="tel:+919620974224" id="monome-phone-launcher" class="fixed bottom-[152px] right-7 z-50 w-12 h-12 rounded-full bg-[#0d1017]/90 border border-[#F5A623]/80 text-[#F5A623] shadow-[0_4px_14px_rgba(245,166,35,0.15)] hover:shadow-[0_6px_20px_rgba(245,166,35,0.35)] active:scale-95 transition-all duration-300 flex items-center justify-center cursor-pointer animate-phone-float" title="Call MONOME" aria-label="Call MONOME">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-        </svg>
-      </a>
-
       <!-- Chat Window Panel -->
       <div id="monome-chatbot-window" class="fixed bottom-24 right-6 z-50 w-[92vw] sm:w-[380px] h-[520px] rounded-3xl overflow-hidden glass-card shadow-2xl flex flex-col chatbot-window hidden-scale">
         <!-- Header -->
@@ -809,17 +341,18 @@
           <!-- Welcome message bubble -->
           <div class="flex justify-start animate-bubble-in">
             <div class="bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100 rounded-2xl rounded-tl-none px-4 py-3 max-w-[82%] text-[13px] leading-relaxed shadow-sm relative border border-neutral-200/40 dark:border-neutral-700/40">
-              <p class="font-semibold text-[#F5A623] mb-1 font-inter">Welcome to MONOME Constructions! 👋</p>
+              <p class="font-semibold text-[#F5A623] mb-1 font-inter font-bold">Welcome to MONOME Constructions! 👋</p>
               <p>Get quick answers about construction, costs, timelines and services.</p>
               <span class="text-[9px] text-neutral-400 dark:text-neutral-500 mt-1 block">Just now</span>
             </div>
           </div>
         </div>
 
-        <!-- Options Container (Quick Replies & Navigation) -->
+        <!-- Options Container (Quick Inquiries pills) -->
         <div id="monome-chatbot-options-container" class="px-4 py-2 bg-[#FEFDFB]/90 dark:bg-[#0f1117]/90 border-t border-neutral-100 dark:border-neutral-800/60 max-h-[140px] overflow-y-auto">
-          <!-- Render main menu initially -->
-          <div id="monome-chatbot-options" class="flex flex-wrap gap-2 py-1.5"></div>
+          <div id="monome-chatbot-options" class="flex flex-wrap gap-2 py-1.5">
+            <div class="text-[11px] text-neutral-400 dark:text-neutral-500 animate-pulse py-1">🧠 Loading intelligence engine...</div>
+          </div>
         </div>
 
         <!-- Text Input Area -->
@@ -849,6 +382,7 @@
         windowPanel.classList.remove("hidden-scale");
         launcher.classList.remove("animate-chatbot-bounce");
         if (badge) badge.classList.add("hidden"); // Remove notification badge once clicked
+        renderQuickInquiries();
         setTimeout(() => input.focus(), 150);
       } else {
         windowPanel.classList.add("hidden-scale");
@@ -873,317 +407,131 @@
       handleUserTextSubmit(text);
     });
 
-    // Load initial main menu options
-    renderMainMenu();
+    // Initial render
+    renderQuickInquiries();
   }
 
-  // Render main menu choices
-  function renderMainMenu() {
-    const options = [
-      { text: "🏠 Residential Construction", category: "residential" },
-      { text: "🏢 Commercial Construction", category: "commercial" },
-      { text: "🏫 Institutional Projects", category: "institutional" },
-      { text: "🗺️ Plots & Land", category: "plots" },
-      { text: "🏢 Building Structures", category: "buildings" },
-      { text: "🏡 Home Style Recommender", category: "style_recommender" },
-      { text: "📊 Chat Cost Estimator", category: "chat_estimator" },
-      { text: "💰 Construction Costs", category: "costs" },
-      { text: "📅 Project Timelines", category: "timelines" },
-      { text: "🧱 Materials & Quality", category: "materials" },
-      { text: "❓ FAQs", category: "faqs" },
-      { text: "📞 Contact MONOME", category: "contact" }
-    ];
-
-    renderQuickReplies(options, (opt) => {
-      if (opt.category === "contact") {
-        handlePredefinedOptionSelect("📞 Contact MONOME", {
-          text: "You can reach us at <strong>hello@monome.in</strong> or call us at <strong>+91 80 4120 3456</strong>. Alternatively, you can book a free face-to-face consultation on our contact page.",
-          replies: ["🏠 Main Menu"]
-        });
-      } else if (opt.category === "chat_estimator") {
-        addUserMessage(opt.text);
-        startEstimatorFlow();
-      } else if (opt.category === "style_recommender") {
-        addUserMessage(opt.text);
-        startStyleRecommender();
-      } else if (opt.category === "faqs") {
-        // Show FAQs list
-        addUserMessage(opt.text);
-        showTypingIndicator(() => {
-          addBotMessage("Here are some frequently asked questions about MONOME:");
-          renderCategoryMenu("faqs");
-        });
-      } else {
-        // Show subcategory options
-        addUserMessage(opt.text);
-        showTypingIndicator(() => {
-          addBotMessage(`Please select an option under **${data[opt.category].title}**:`);
-          renderCategoryMenu(opt.category);
-        });
-      }
-    });
-  }
-
-  // Render specific category sub-menus
-  function renderCategoryMenu(categoryKey) {
-    const catData = data[categoryKey];
-    if (!catData) return;
-
-    const options = catData.options.map(opt => ({ text: opt, key: opt, category: categoryKey }));
-    // Append a back button to main menu
-    options.push({ text: "🏠 Main Menu", key: "Main Menu" });
-
-    renderQuickReplies(options, (opt) => {
-      if (opt.key === "Main Menu") {
-        addUserMessage("🏠 Main Menu");
-        showTypingIndicator(() => {
-          addBotMessage("How else can I assist you? Select from the main topics below:");
-          renderMainMenu();
-        });
-      } else {
-        const responseObj = catData.responses[opt.key];
-        handlePredefinedOptionSelect(opt.text, responseObj);
-      }
-    });
-  }
-
-  // Predefined option selection helper
-  function handlePredefinedOptionSelect(userText, responseObj) {
-    addUserMessage(userText);
-    showTypingIndicator(() => {
-      addBotMessage(responseObj.text);
-      if (responseObj.replies && responseObj.replies.length > 0) {
-        const replies = responseObj.replies.map(reply => ({ text: reply, key: reply }));
-        renderQuickReplies(replies, (selectedReply) => {
-          handleQuickReplySelect(selectedReply.key);
-        });
-      }
-    });
-  }
-
-  // Handles standard replies (e.g. Go Back, Main Menu, or related subtopics)
-  function handleQuickReplySelect(replyText) {
-    // Intercept if estimator is active
-    if (estimatorState.step > 0) {
-      showTypingIndicator(() => {
-        addBotMessage("Please complete the estimator selections or click **🏠 Main Menu** to cancel.");
-      });
-      return;
-    }
-
-    // Intercept if style recommender is active
-    if (styleState.step > 0) {
-      showTypingIndicator(() => {
-        addBotMessage("Please complete the style recommendation questions or click **🏠 Main Menu** to cancel.");
-      });
-      return;
-    }
-
-    // Normalise key matching
-    if (replyText === "🏠 Main Menu") {
-      addUserMessage("🏠 Main Menu");
-      showTypingIndicator(() => {
-        addBotMessage("Welcome back! Select a topic to explore:");
-        renderMainMenu();
-      });
-      return;
-    }
-
-    // Try finding matching responses in nested data
-    let found = false;
-    for (const catKey in data) {
-      if (data[catKey].responses && data[catKey].responses[replyText]) {
-        handlePredefinedOptionSelect(replyText, data[catKey].responses[replyText]);
-        found = true;
-        break;
-      } else if (data[catKey].title === replyText) {
-        addUserMessage(replyText);
-        showTypingIndicator(() => {
-          addBotMessage(`Please select an option under **${data[catKey].title}**:`);
-          renderCategoryMenu(catKey);
-        });
-        found = true;
-        break;
-      }
-    }
-
-    if (!found) {
-      // Direct call fallback
-      if (replyText.includes("Contact")) {
-        handlePredefinedOptionSelect("📞 Contact MONOME", {
-          text: "You can reach us at <strong>hello@monome.in</strong> or call us at <strong>+91 80 4120 3456</strong>. Alternatively, you can book a free face-to-face consultation on our contact page.",
-          replies: ["🏠 Main Menu"]
-        });
-      } else {
-        // Fallback to main menu
-        addUserMessage(replyText);
-        showTypingIndicator(() => {
-          addBotMessage("Select a topic from the options below:");
-          renderMainMenu();
-        });
-      }
-    }
-  }
-
-  // Handles custom typed messages
-  function handleUserTextSubmit(text) {
-    // Intercept if estimator is active
-    if (estimatorState.step > 0) {
-      addUserMessage(text);
-      showTypingIndicator(() => {
-        addBotMessage("Please complete the cost estimator selections or click **🏠 Main Menu** to exit.");
-      });
-      return;
-    }
-
-    // Intercept if style recommender is active
-    if (styleState.step > 0) {
-      addUserMessage(text);
-      showTypingIndicator(() => {
-        addBotMessage("Please complete the style recommendation questions using the options, or click **🏠 Main Menu** to exit.");
-      });
-      return;
-    }
-
-    addUserMessage(text);
-    const cleanedText = text.toLowerCase().trim();
-
-    // Check for extremely long custom messages (> 150 chars)
-    if (cleanedText.length > 150) {
-      triggerSmartRedirectRule();
-      return;
-    }
-
-    // Check for direct cost calculator matches
-    if (cleanedText.includes("calculator") || cleanedText.includes("estimator") || (cleanedText.includes("estimate") && cleanedText.includes("cost"))) {
-      showTypingIndicator(() => {
-        addBotMessage("Would you like to start our interactive **Chat Cost Estimator** to calculate a budget?");
-        renderQuickReplies([
-          { text: "📊 Yes, Start Estimator", key: "start" },
-          { text: "🏠 Main Menu", key: "main" }
-        ], (opt) => {
-          if (opt.key === "start") {
-            addUserMessage("📊 Start Estimator");
-            startEstimatorFlow();
-          } else {
-            handleQuickReplySelect("🏠 Main Menu");
-          }
-        });
-      });
-      return;
-    }
-
-    // Check for style recommender keyword matches
-    if (cleanedText.includes("style") || cleanedText.includes("design") || cleanedText.includes("recommend") || cleanedText.includes("architecture") || cleanedText.includes("which style") || cleanedText.includes("contemporary") || cleanedText.includes("traditional") || cleanedText.includes("minimalist") || cleanedText.includes("luxury villa")) {
-      showTypingIndicator(() => {
-        addBotMessage("Would you like me to recommend a home style based on your preferences?");
-        renderQuickReplies([
-          { text: "🏡 Yes, Recommend a Style", key: "start" },
-          { text: "🏠 Main Menu", key: "main" }
-        ], (opt) => {
-          if (opt.key === "start") {
-            addUserMessage("🏡 Start Style Recommender");
-            startStyleRecommender();
-          } else {
-            handleQuickReplySelect("🏠 Main Menu");
-          }
-        });
-      });
-      return;
-    }
-
-    // Keyword matching logic
-    let matchedCategory = null;
-
-    const keywords = {
-      residential: ["residential", "house", "villa", "apartment", "flat", "renovat", "home", "bedroom", "kitchen"],
-      commercial: ["commercial", "office", "retail", "shop", "warehouse", "showroom", "business park"],
-      institutional: ["institutional", "school", "college", "lab", "library", "research", "classroom"],
-      plots: ["plot", "land", "soil", "vastu", "site", "survey", "excavat", "boundary", "ground"],
-      buildings: ["building", "structure", "rcc", "peb", "steel frame", "concrete block", "green build", "griha"],
-      costs: ["cost", "price", "budget", "rate", "fee", "estimate", "calculation", "inr", "charge"],
-      timelines: ["time", "timeline", "duration", "month", "stage", "schedule", "track", "delay", "process"],
-      materials: ["material", "cement", "steel", "waterproof", "finish", "quality", "brand", "tmt"],
-      faqs: ["faq", "common", "question", "help", "warranty", "address", "location", "office", "credai", "approval"]
-    };
-
-    // Check matching keywords
-    for (const key in keywords) {
-      if (keywords[key].some(keyword => cleanedText.includes(keyword))) {
-        matchedCategory = key;
-        break;
-      }
-    }
-
-    if (matchedCategory) {
-      unmatchedCount = 0; // Reset unmatched count on success
-      showTypingIndicator(() => {
-        addBotMessage(`I found details related to your query! Check out our options under **${data[matchedCategory].title}**:`);
-        renderCategoryMenu(matchedCategory);
-      });
-    } else {
-      unmatchedCount++;
-      if (unmatchedCount >= 3) {
-        triggerSmartRedirectRule();
-      } else {
-        showTypingIndicator(() => {
-          const bubbleHtml = `
-            <p>Sorry, I can currently assist only with predefined construction-related topics.</p>
-            <a href="contact.html" class="inline-block mt-3 px-4 py-2.5 rounded-full bg-gradient-to-r from-[#F5A623] to-[#D4891A] text-white text-[11px] font-semibold shadow-md hover:scale-105 active:scale-95 transition-all text-center">Contact MONOME Team</a>
-          `;
-          addBotMessage(bubbleHtml);
-          // Quick reply option to help user navigate back
-          renderQuickReplies([{ text: "🏠 Main Menu", key: "Main Menu" }], (opt) => {
-            addUserMessage("🏠 Main Menu");
-            showTypingIndicator(() => {
-              addBotMessage("Select a topic to get quick details:");
-              renderMainMenu();
-            });
-          });
-        });
-      }
-    }
-  }
-
-  // Triggers smart redirect logic on 3 failed attempts or extremely long inputs
-  function triggerSmartRedirectRule() {
-    unmatchedCount = 0; // Reset count
-    showTypingIndicator(() => {
-      const bubbleHtml = `
-        <p class="font-semibold text-brand-orange">Need custom discussion? 🤝</p>
-        <p class="mt-1">For detailed project discussions, our team can assist you better.</p>
-        <a href="contact.html" class="inline-block mt-3 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#F5A623] to-[#D4891A] text-white text-[11px] font-semibold shadow-md hover:scale-105 active:scale-95 transition-all text-center">Go To Contact Page</a>
-      `;
-      addBotMessage(bubbleHtml);
-      renderQuickReplies([{ text: "🏠 Main Menu", key: "Main Menu" }], (opt) => {
-        addUserMessage("🏠 Main Menu");
-        showTypingIndicator(() => {
-          addBotMessage("Select a topic to get quick details:");
-          renderMainMenu();
-        });
-      });
-    });
-  }
-
-  // Renders bottom quick replies
-  function renderQuickReplies(optionsArray, callback) {
+  // Render quick inquiry pill buttons above the input field
+  function renderQuickInquiries() {
     const container = document.getElementById("monome-chatbot-options");
     if (!container) return;
 
+    if (!isModelReady) {
+      container.innerHTML = `<div class="text-[11px] text-neutral-400 dark:text-neutral-500 animate-pulse py-1">🧠 Loading intelligence engine...</div>`;
+      return;
+    }
+
     container.innerHTML = "";
-    optionsArray.forEach(opt => {
+    QUICK_INQUIRIES.forEach(q => {
       const button = document.createElement("button");
-      button.className = "text-[12px] px-3.5 py-1.5 rounded-full border border-[#F5A623]/30 dark:border-[#F5A623]/20 text-[#F5A623] hover:bg-[#F5A623] hover:text-white dark:hover:bg-[#F5A623]/25 transition-all duration-200 cursor-pointer bg-white/90 dark:bg-neutral-800/90 font-medium shadow-sm hover:scale-105 active:scale-95";
-      button.innerHTML = opt.text;
+      button.className = "text-[12px] px-3.5 py-1.5 rounded-full border border-[#F5A623]/30 dark:border-[#F5A623]/20 text-[#F5A623] hover:bg-[#F5A623] hover:text-white dark:hover:bg-[#F5A623]/25 transition-all duration-200 cursor-pointer bg-white/90 dark:bg-neutral-800/90 font-medium shadow-sm hover:scale-105 active:scale-95 text-left";
+      button.textContent = q;
       button.addEventListener("click", () => {
-        callback(opt);
+        handlePillClick(q);
       });
       container.appendChild(button);
     });
 
-    // Auto-scroll options container to left/top
+    // Auto-scroll options container to top
     const parentContainer = document.getElementById("monome-chatbot-options-container");
     if (parentContainer) parentContainer.scrollTop = 0;
+  }
+
+  // Handles click on interactive pill buttons (instant response, zero delay)
+  function handlePillClick(questionText) {
+    addUserMessage(questionText);
+    showTypingIndicator(() => {
+      const response = PILL_RESPONSES[questionText];
+      if (response) {
+        addBotMessage(response.text);
+        currentContext = response.topic;
+      }
+      renderQuickInquiries();
+    });
+  }
+
+  // Handles custom typed messages & semantic matches
+  async function handleUserTextSubmit(text) {
+    addUserMessage(text);
+
+    if (text.toLowerCase().trim() === "clear context") {
+      currentContext = null;
+      showTypingIndicator(() => {
+        addBotMessage("Context cleared. Ask me anything about MONOME.");
+        renderQuickInquiries();
+      });
+      return;
+    }
+
+    // Check if the typed query is an exact match for one of our pill questions (bypass model, instant match)
+    const pillKey = Object.keys(PILL_RESPONSES).find(k => k.toLowerCase() === text.toLowerCase().trim());
+    if (pillKey) {
+      showTypingIndicator(() => {
+        addBotMessage(PILL_RESPONSES[pillKey].text);
+        currentContext = PILL_RESPONSES[pillKey].topic;
+        renderQuickInquiries();
+      });
+      return;
+    }
+
+    if (!isModelReady || !pipelineInstance) {
+      showTypingIndicator(() => {
+        addBotMessage("My AI intelligence module is initializing. Please try again in a brief moment.");
+        renderQuickInquiries();
+      });
+      return;
+    }
+
+    // Context stitching: Prepend topic keyword if current context is set and query is shorthand/pronoun-based
+    let finalQuery = text;
+    if (currentContext && isShorthandOrPronoun(text)) {
+      finalQuery = `${currentContext} ${text}`;
+      console.log(`Stitched query: "${finalQuery}" using context: "${currentContext}"`);
+    }
+
+    showTypingIndicator(async () => {
+      try {
+        // Run vector inference ONLY on the single user query (takes ~50ms, zero main thread block)
+        const queryTensor = await pipelineInstance(finalQuery, {
+          pooling: 'mean',
+          normalize: true
+        });
+        const queryEmbedding = queryTensor.tolist()[0];
+
+        let highestScore = -1;
+        let bestItem = null;
+        let bestQuestion = "";
+
+        // Cosine Similarity search over the precomputed reference embeddings in embeddings_compact.js
+        KNOWLEDGE_BASE_EMBEDDED.forEach(kbItem => {
+          kbItem.embeddings.forEach((emb, embIdx) => {
+            const score = dotProduct(queryEmbedding, emb);
+            if (score > highestScore) {
+              highestScore = score;
+              bestItem = kbItem;
+              bestQuestion = kbItem.questions[embIdx];
+            }
+          });
+        });
+
+        console.log(`Query: "${finalQuery}" | Best Match: "${bestQuestion}" | Score: ${highestScore.toFixed(4)}`);
+
+        // Gate threshold check (0.70)
+        if (highestScore >= 0.70) {
+          addBotMessage(bestItem.answer);
+          currentContext = bestItem.topic;
+        } else {
+          // Sharp Pivot Fallback: clear context, bypass model, render premium consultation card
+          currentContext = null;
+          addBotMessage(fallbackCardHtml);
+        }
+        renderQuickInquiries();
+      } catch (err) {
+        console.error("Inference error:", err);
+        addBotMessage("Apologies, I encountered an issue processing your query. Please try again.");
+        renderQuickInquiries();
+      }
+    });
   }
 
   // Append user message bubble to chat logs
@@ -1247,7 +595,7 @@
       const el = document.getElementById("monome-chatbot-typing");
       if (el) el.remove();
       callback();
-    }, 700 + Math.random() * 300); // 700ms - 1000ms delay for realism
+    }, 500 + Math.random() * 300); // 500ms - 800ms delay for realism
   }
 
   // Scrolls chat to the bottom
@@ -1279,7 +627,10 @@
       .replace(/'/g, "&#039;");
   }
 
-  // Wait for document to load, then initialize
+  // Initialize the model in the background
+  initModel();
+
+  // Wait for document to load, then initialize chatbot UI
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", initChatbot);
   } else {
