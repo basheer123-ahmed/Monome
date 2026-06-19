@@ -274,6 +274,36 @@
   // TIER 2: Multi-Keyword combination token / phrase checking & scoring
   function findNavigationMatch(userInput) {
     const cleanInput = cleanText(userInput);
+    
+    // Direct matches for "go to <page>", "show <page>", "open <page>"
+    const pages = [
+      { file: 'index.html', names: ['home', 'main', 'homepage'], msg: "Navigating you to our Homepage..." },
+      { file: 'projects.html', names: ['projects', 'project', 'portfolio'], msg: "Navigating you to our curated Project Portfolio..." },
+      { file: 'gallery.html', names: ['gallery', 'photos', 'images', 'pictures'], msg: "Navigating you to our design and project Gallery..." },
+      { file: 'about.html', names: ['about', 'team', 'profile', 'history'], msg: "Navigating you to our About Us profile..." },
+      { file: 'contact.html', names: ['contact', 'consultation', 'address', 'reach', 'meet'], msg: "Navigating you to our Contact & Consultation Desk..." }
+    ];
+
+    for (const p of pages) {
+      for (const name of p.names) {
+        const patterns = [
+          `go to ${name}`,
+          `open ${name}`,
+          `show ${name}`,
+          `view ${name}`,
+          `visit ${name}`,
+          `navigate to ${name}`,
+          `${name} page`,
+          `redirect to ${name}`
+        ];
+        for (const pattern of patterns) {
+          if (cleanInput.includes(pattern)) {
+            return { dest: p.file, info: { confirmMsg: p.msg } };
+          }
+        }
+      }
+    }
+
     const inputTokens = cleanInput.split(/\s+/).filter(Boolean);
     if (inputTokens.length === 0) return null;
 
@@ -288,7 +318,7 @@
         const cleanPhrase = cleanText(phrase);
         if (cleanInput.includes(cleanPhrase)) {
           // Grant substantial score points for full phrase match
-          score += cleanPhrase.split(/\s+/).length * 12;
+          score += cleanPhrase.split(/\s+/).length * 15;
         }
       }
 
@@ -302,7 +332,7 @@
 
       for (const token of inputTokens) {
         if (keywordTokens.has(token)) {
-          score += 3;
+          score += 4;
         }
       }
 
@@ -312,8 +342,8 @@
       }
     }
 
-    // Only route if a minimum matching confidence threshold is met
-    if (maxScore >= 6) {
+    // Lowered threshold to 4 to match single-word inputs like "gallery" or "projects"
+    if (maxScore >= 4) {
       return bestDest;
     }
     return null;
