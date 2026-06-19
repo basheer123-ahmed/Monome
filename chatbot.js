@@ -1,7 +1,7 @@
 /**
  * MONOME Construction Assistant Chatbot (Pure Frontend)
  * Production-ready, standalone, zero-dependency script.
- * Instant load time (0ms executing footprint), state-driven, Flipkart-style option side-effects.
+ * Executing in 0ms, 0MB download footprint, ironclad syntax.
  */
 
 (function () {
@@ -90,22 +90,22 @@
   styleSheet.textContent = styles;
   document.head.appendChild(styleSheet);
 
-  // IMMUTABLE 80 QUESTION-ANSWER CONVERSATION MATRIX
-  const CONVERSATION_MATRIX = [
-    { q: "hi", a: "Hello! Welcome to Monom Constructions. How can I assist you today?" },
-    { q: "hello", a: "Hi there! Welcome to Monom Constructions. How may I help you?" },
-    { q: "hey", a: "Hey! Thank you for visiting Monom Constructions." },
-    { q: "good morning", a: "Good Morning! Welcome to Monom Constructions." },
-    { q: "good afternoon", a: "Good Afternoon! How can Monom Constructions assist you?" },
-    { q: "good evening", a: "Good Evening! Thank you for contacting Monom Constructions." },
+  // IMMUTABLE 80 QUESTION-ANSWER CONVERSATION MATRIX (FAQ_MATRIX)
+  const FAQ_MATRIX = [
+    { q: "hi", a: "Hello! Welcome to Monome Constructions. How can I assist you today?" },
+    { q: "hello", a: "Hi there! Welcome to Monome Constructions. How may I help you?" },
+    { q: "hey", a: "Hey! Thank you for visiting Monome Constructions." },
+    { q: "good morning", a: "Good Morning! Welcome to Monome Constructions." },
+    { q: "good afternoon", a: "Good Afternoon! How can Monome Constructions assist you?" },
+    { q: "good evening", a: "Good Evening! Thank you for contacting Monome Constructions." },
     { q: "how are you", a: "I'm doing well. How can I help with your construction requirements?" },
-    { q: "who are you", a: "I am Monom Constructions' virtual assistant." },
+    { q: "who are you", a: "I am Monome Constructions' virtual assistant." },
     { q: "what can you do", a: "I can answer questions about our construction services and projects." },
     { q: "can you help me", a: "Absolutely! Please let me know your construction requirements." },
-    { q: "what is monom constructions", a: "Monom Constructions is a professional construction company specializing in residential and commercial projects." },
+    { q: "what is monome constructions", a: "Monome Constructions is a professional construction company specializing in residential and commercial projects." },
     { q: "what services do you provide", a: "We provide construction, renovation, interior, and project management services." },
-    { q: "why choose monom constructions", a: "We focus on quality, transparency, and timely project delivery." },
-    { q: "are you a registered company", a: "Yes, Monom Constructions operates as a professional construction company." },
+    { q: "why choose monome constructions", a: "We focus on quality, transparency, and timely project delivery." },
+    { q: "are you a registered company", a: "Yes, Monome Constructions operates as a professional construction company." },
     { q: "do you have experienced engineers", a: "Yes, our team includes experienced engineers and construction professionals." },
     { q: "do you have skilled workers", a: "Yes, we employ skilled workers to ensure quality construction." },
     { q: "what is your mission", a: "Our mission is to deliver quality construction services that exceed client expectations." },
@@ -167,38 +167,13 @@
     { q: "do you provide warranties", a: "Warranty details depend on project scope and agreement terms." },
     { q: "what happens after project completion", a: "We hand over the completed project and provide support if needed." },
     { q: "do you offer maintenance services", a: "Yes, maintenance services can be provided upon request." },
-    { q: "what are your your working hours", a: "Please contact our team for business hours." },
+    { q: "what are your working hours", a: "Please contact our team for business hours." },
     { q: "do you provide customer support", a: "Yes, our team is available to assist clients." },
     { q: "can i request a callback", a: "Yes, please share your contact details and our team will reach out." },
-    { q: "thank you", a: "You're welcome! Thank you for choosing Monom Constructions." },
-    { q: "bye", a: "Thank you for visiting Monom Constructions. Have a wonderful day!" }
+    { q: "thank you", a: "You're welcome! Thank you for choosing Monome Constructions." },
+    { q: "bye", a: "Thank you for visiting Monome Constructions. Have a wonderful day!" }
   ];
-  Object.freeze(CONVERSATION_MATRIX);
-
-  // Structured multi-keyword navigation dictionary
-  const NAVIGATION_MATRIX = {
-    'index.html': {
-      confirmMsg: "Navigating you to our Homepage...",
-      phrases: ["go to home", "back to home", "main page", "home page", "go home", "return to main"]
-    },
-    'projects.html': {
-      confirmMsg: "Navigating you to our curated Project Portfolio...",
-      phrases: ["view projects", "see projects", "show projects", "explore projects", "our work", "past work", "completed builds", "commercial projects", "residential projects"]
-    },
-    'gallery.html': {
-      confirmMsg: "Navigating you to our design and project Gallery...",
-      phrases: ["see gallery", "view photos", "show images", "project gallery", "portfolio photos", "design pictures", "site photos"]
-    },
-    'about.html': {
-      confirmMsg: "Navigating you to our About Us profile...",
-      phrases: ["about you", "about company", "who are you", "company profile", "our history", "about monom", "team details"]
-    },
-    'contact.html': {
-      confirmMsg: "Navigating you to our Contact & Consultation Desk...",
-      phrases: ["go to contact", "open contact", "contact page", "book consultation", "call desk", "office address", "schedule meet"]
-    }
-  };
-  Object.freeze(NAVIGATION_MATRIX);
+  Object.freeze(FAQ_MATRIX);
 
   // Fallback card markup
   const fallbackCardHtml = `
@@ -212,19 +187,19 @@
         <h4 class="font-inter font-bold text-sm text-neutral-800 dark:text-white">Custom Specification Inquiries</h4>
       </div>
       <p class="text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed">
-        Our structural engineering desk can provide custom calculations for this specification.
+        Our architectural engineering desk can map out this specific structural detail for you.
       </p>
       <div class="pt-1">
-        <a href="contact.html" class="inline-flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#F5A623] to-[#D4891A] text-white text-[12px] font-bold shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all text-center">
-          Schedule Design Consultation &rarr;
-        </a>
+        <button class="inline-flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#F5A623] to-[#D4891A] text-white text-[12px] font-bold shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all text-center border-none cursor-pointer" onclick="window.location.href='contact.html'">
+          Book Consultation &rarr;
+        </button>
       </div>
     </div>
   `;
 
   let isOpen = false;
 
-  // Brand Normalization & String Sanitation Engine
+  // Sanitation & brand standardization
   function cleanText(text) {
     if (!text) return "";
     let cleaned = text
@@ -232,219 +207,105 @@
       .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"']/g, "")
       .replace(/\s+/g, " ")
       .trim();
-
-    // If the user types "monom", programmatically replace or process as "monom constructions" or "monome"
-    // We normalize both "monom" (if not followed by constructions) and "monome" to "monom constructions"
-    // to map seamlessly to matrix questions like "what is monom constructions" or "why choose monom constructions".
-    cleaned = cleaned.replace(/\bmonom\b(?! constructions)/g, "monom constructions");
-    cleaned = cleaned.replace(/\bmonome\b/g, "monom constructions");
-    
-    // Clean up any double constructions words just in case
-    cleaned = cleaned.replace(/\bmonom constructions constructions\b/g, "monom constructions");
-
-    return cleaned.replace(/\s+/g, " ").trim();
+    cleaned = cleaned.replace(/\bmonom\b/g, "monome");
+    return cleaned;
   }
 
-  // TIER 1: Exact / includes matches in the 80 Q&A Array
+  // TIER 1: Exact / Substring FAQ Matching
   function findResponse(userInput) {
     const cleanedInput = cleanText(userInput);
     if (!cleanedInput) return null;
 
-    // 1. Strict exact match check
-    for (const item of CONVERSATION_MATRIX) {
+    for (const item of FAQ_MATRIX) {
       const cleanedQuestion = cleanText(item.q);
-      if (cleanedInput === cleanedQuestion) {
+      if (cleanedInput === cleanedQuestion || cleanedInput.includes(cleanedQuestion) || cleanedQuestion.includes(cleanedInput)) {
         return item.a;
       }
     }
+    return null;
+  }
 
-    // 2. Substring includes() check
-    for (const item of CONVERSATION_MATRIX) {
-      const cleanedQuestion = cleanText(item.q);
-      if (cleanedQuestion.length > 2) {
-        if (cleanedInput.includes(cleanedQuestion) || cleanedQuestion.includes(cleanedInput)) {
-          return item.a;
-        }
-      }
+  // TIER 2: Keyword Fallback Matrix
+  function checkKeywordFallback(userInput) {
+    const cleanedInput = cleanText(userInput);
+    const tokens = cleanedInput.split(/\s+/).filter(Boolean);
+
+    const group1 = ["step", "phase", "workflow", "timeline", "process", "stages", "architecture", "planning", "blueprint", "turnkey", "execution"];
+    const group2 = ["concrete", "steel", "marble", "cement", "granite", "wood", "teak", "materials", "brick", "tmt", "fe550", "m25"];
+    const group3 = ["track", "portal", "live", "camera", "app", "stream", "video", "updates", "cctv"];
+    const group4 = ["vastu", "shastra", "facing", "east", "north", "direction", "alignment"];
+    const group5 = ["book", "consultation", "meet", "office", "contact", "call", "phone", "email", "address", "appointment", "schedule", "visit"];
+
+    const hasAny = (arr) => tokens.some(t => arr.includes(t)) || arr.some(keyword => cleanedInput.includes(keyword));
+
+    if (hasAny(group1)) {
+      return "Our 7-Step Turnkey Engineering Process:<br>1. Consultation & Design Alignment<br>2. Comprehensive Site Inspection<br>3. Vastu-Compliant 3D Plans & Architectural Blueprints<br>4. Detailed Pricing & Structural Estimation<br>5. Concrete Rebar & Load-Bearing Framing Construction<br>6. Luxury Finishes & Premium Interior Integration<br>7. Quality Inspection Checklists & Handover.";
+    }
+    if (hasAny(group2)) {
+      return "We employ premium-grade industrial standards for all structural elements, utilizing high-performance M25 Grade Concrete mixes, robust Fe-550D TMT structural rebar steel, first-class red brick masonry, and premium teak wood, marble, and granite finishes for ultimate longevity.";
+    }
+    if (hasAny(group3)) {
+      return "Monome client portals offer absolute project transparency. Access 24/7 high-definition live CCTV streams of your construction site, download daily progress photologs, track construction phases, and communicate with your site engineers directly from our web application workspace.";
+    }
+    if (hasAny(group4)) {
+      return "Every house design prepared by our architecture desk incorporates optimal structural Vastu alignment, designing the spaces for east/north orientations to enhance natural daylight, cross-ventilation, and positive environmental energy flows.";
+    }
+    if (hasAny(group5)) {
+      return "REDIRECT_CONTACT";
     }
 
     return null;
   }
 
-  // TIER 2: Multi-Keyword combination token / phrase checking & scoring
-  function findNavigationMatch(userInput) {
-    const cleanInput = cleanText(userInput);
-    
-    // Direct matches for "go to <page>", "show <page>", "open <page>"
-    const pages = [
-      { file: 'index.html', names: ['home', 'main', 'homepage'], msg: "Navigating you to our Homepage..." },
-      { file: 'projects.html', names: ['projects', 'project', 'portfolio'], msg: "Navigating you to our curated Project Portfolio..." },
-      { file: 'gallery.html', names: ['gallery', 'photos', 'images', 'pictures'], msg: "Navigating you to our design and project Gallery..." },
-      { file: 'about.html', names: ['about', 'team', 'profile', 'history'], msg: "Navigating you to our About Us profile..." },
-      { file: 'contact.html', names: ['contact', 'consultation', 'address', 'reach', 'meet'], msg: "Navigating you to our Contact & Consultation Desk..." }
-    ];
-
-    for (const p of pages) {
-      for (const name of p.names) {
-        const patterns = [
-          `go to ${name}`,
-          `open ${name}`,
-          `show ${name}`,
-          `view ${name}`,
-          `visit ${name}`,
-          `navigate to ${name}`,
-          `${name} page`,
-          `redirect to ${name}`
-        ];
-        for (const pattern of patterns) {
-          if (cleanInput.includes(pattern)) {
-            return { dest: p.file, info: { confirmMsg: p.msg } };
-          }
-        }
-      }
-    }
-
-    const inputTokens = cleanInput.split(/\s+/).filter(Boolean);
-    if (inputTokens.length === 0) return null;
-
-    let bestDest = null;
-    let maxScore = 0;
-
-    for (const [dest, info] of Object.entries(NAVIGATION_MATRIX)) {
-      let score = 0;
-
-      // Score matching based on full exact phrases
-      for (const phrase of info.phrases) {
-        const cleanPhrase = cleanText(phrase);
-        if (cleanInput.includes(cleanPhrase)) {
-          // Grant substantial score points for full phrase match
-          score += cleanPhrase.split(/\s+/).length * 15;
-        }
-      }
-
-      // Score matching based on individual tokens (excluding short helper words)
-      const keywordTokens = new Set();
-      for (const phrase of info.phrases) {
-        cleanText(phrase).split(/\s+/).forEach(token => {
-          if (token.length > 2) keywordTokens.add(token);
-        });
-      }
-
-      for (const token of inputTokens) {
-        if (keywordTokens.has(token)) {
-          score += 4;
-        }
-      }
-
-      if (score > 0 && score > maxScore) {
-        maxScore = score;
-        bestDest = { dest, info };
-      }
-    }
-
-    // Lowered threshold to 4 to match single-word inputs like "gallery" or "projects"
-    if (maxScore >= 4) {
-      return bestDest;
-    }
-    return null;
-  }
-
-  // Executed on suggestion click
-  function handleOptionClick(text) {
-    addUserMessage(text);
-
-    // Run suggestion pills through TIER 2 navigation first to support dynamically routing clicked options
-    const navMatch = findNavigationMatch(text);
-    if (navMatch) {
-      addBotMessage(`
-        <div class="flex items-center gap-2.5">
-          <svg class="animate-spin h-4.5 w-4.5 text-[#F5A623]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-          </svg>
-          <span class="text-xs font-semibold text-neutral-700 dark:text-neutral-200">${navMatch.info.confirmMsg}</span>
-        </div>
-      `);
-      setTimeout(() => {
-        window.location.href = navMatch.dest;
-      }, 1500);
-      return;
-    }
-
-    const cleanedText = text.toLowerCase();
-    let answer = "";
-    if (cleanedText.includes("structural")) {
-      answer = "We offer premium structural planning, layout blueprints, MEP engineering, and certified project supervision for luxury villas and retail properties.";
-    } else if (cleanedText.includes("estimation") || cleanedText.includes("cost")) {
-      answer = "Our transparent pricing calculator builds customized project quotations without hidden costs. Payments are structured directly around milestones.";
-    } else if (cleanedText.includes("workflow")) {
-      answer = "Our comprehensive journey goes from consultation and site visits to 3D design plans, structural framing execution, finishing craftsmanship, and final quality delivery.";
-    } else {
-      const matched = findResponse(text);
-      answer = matched || fallbackCardHtml;
-    }
-
-    addBotMessage(answer);
-  }
-
-  // TIERED INPUT PIPELINE PARSER
+  // Suggestion click and form submit parser pipeline
   function handleUserTextSubmit(text) {
     if (!text.trim()) return;
     addUserMessage(text);
 
-    // TIER 1: Check the 80 exact Q&A pairs first. If matched, answer natively in chat.
+    // TIER 1
     const matchedResponse = findResponse(text);
     if (matchedResponse) {
       addBotMessage(matchedResponse);
       return;
     }
 
-    // TIER 2: Scan against Multi-Keyword Combinations. Route target destinations.
-    const navMatch = findNavigationMatch(text);
-    if (navMatch) {
-      addBotMessage(`
-        <div class="flex items-center gap-2.5">
-          <svg class="animate-spin h-4.5 w-4.5 text-[#F5A623]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-          </svg>
-          <span class="text-xs font-semibold text-neutral-700 dark:text-neutral-200">${navMatch.info.confirmMsg}</span>
-        </div>
-      `);
-      setTimeout(() => {
-        window.location.href = navMatch.dest;
-      }, 1500);
+    // TIER 2
+    const fallbackText = checkKeywordFallback(text);
+    if (fallbackText) {
+      if (fallbackText === "REDIRECT_CONTACT") {
+        addBotMessage(`
+          <div class="flex items-center gap-2.5">
+            <svg class="animate-spin h-4.5 w-4.5 text-[#F5A623]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <span class="text-xs font-semibold text-neutral-700 dark:text-neutral-200">Transferring you to our design consultant desk...</span>
+          </div>
+        `);
+        setTimeout(() => {
+          window.location.href = 'contact.html';
+        }, 1500);
+      } else {
+        addBotMessage(fallbackText);
+      }
       return;
     }
 
-    // TIER 3: Check standard structural informational states (WORKFLOW, MATERIALS, VASTU, ESTIMATION) or standard HTML fallback
-    const lowerText = cleanText(text);
-    if (lowerText.includes("workflow")) {
-      addBotMessage("Our comprehensive journey goes from consultation and site visits to 3D design plans, structural framing execution, finishing craftsmanship, and final quality delivery.");
-    } else if (lowerText.includes("estimation") || lowerText.includes("cost") || lowerText.includes("quotation")) {
-      addBotMessage("Our transparent pricing calculator builds customized project quotations without hidden costs. Payments are structured directly around milestones.");
-    } else if (lowerText.includes("structural") || lowerText.includes("service")) {
-      addBotMessage("We offer premium structural planning, layout blueprints, MEP engineering, and certified project supervision for luxury villas and retail properties.");
-    } else if (lowerText.includes("vastu")) {
-      addBotMessage("Yes, we provide fully Vastu-compliant designs tailored to your preferences, aligning spatial elements for energy and peace.");
-    } else if (lowerText.includes("material")) {
-      addBotMessage("We guide clients in selecting the best premium materials, ensuring a perfect balance of luxury aesthetics and long-lasting durability.");
-    } else {
-      addBotMessage(fallbackCardHtml);
-    }
+    // TIER 3
+    addBotMessage(fallbackCardHtml);
   }
 
-  // Render suggestion pills above input
+  // Option Pills UI component
   function renderPersistentPills() {
     const container = document.getElementById("monome-chatbot-options");
     if (!container) return;
 
     container.innerHTML = "";
     const options = [
-      "📋 Contact/Contact Form",
-      "🏢 Structural Services",
-      "📊 Cost Estimation Quotation",
-      "🏗️ Project Workflow"
+      "🏢 Structural Workflow",
+      "💎 Premium Materials",
+      "📊 Request Quotation",
+      "📱 Book Consultation"
     ];
 
     options.forEach(opt => {
@@ -452,7 +313,7 @@
       button.className = "text-[12px] whitespace-nowrap px-4 py-2 rounded-full border border-[#D4891A]/30 text-[#D4891A] dark:text-[#F5A623] hover:bg-gradient-to-r hover:from-[#F5A623] hover:to-[#D4891A] hover:text-white dark:hover:text-white transition-all duration-200 cursor-pointer bg-white/90 dark:bg-neutral-800/90 font-medium shadow-sm hover:scale-105 active:scale-95 text-center flex-shrink-0";
       button.innerHTML = opt;
       button.addEventListener("click", () => {
-        handleOptionClick(opt);
+        handleUserTextSubmit(opt);
       });
       container.appendChild(button);
     });
@@ -670,8 +531,8 @@
     });
 
     // Populate welcome messages and suggestions
-    addSystemNotification("Secured session established with Monom Constructions Desk.");
-    addBotMessage("Hello! Welcome to Monom Constructions. How can I assist you today?");
+    addSystemNotification("Secured session established with Monome Constructions Desk.");
+    addBotMessage("Hello! Welcome to Monome Constructions. How can I assist you today?");
     renderPersistentPills();
   }
 

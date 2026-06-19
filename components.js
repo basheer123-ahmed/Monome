@@ -450,7 +450,7 @@ window.MonomeComponents = {
 
     <!-- ─── CHATBOT LAUNCHER & WINDOW CONTAINER ─── -->
     <div id="monome-chatbot-root"></div>
-    <script type="module" src="chatbot.js?v=6"></script>
+    <script type="module" src="chatbot.js?v=8"></script>
 `;
   }
 };
