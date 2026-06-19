@@ -6,12 +6,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ─── 1. Loading Screen ───
   const loadingScreen = document.getElementById('loading-screen');
-  setTimeout(() => {
-    if (loadingScreen) {
+  
+  const hideLoader = () => {
+    if (loadingScreen && loadingScreen.style.opacity !== '0') {
+      loadingScreen.style.transition = 'opacity 0.5s ease, visibility 0.5s ease';
       loadingScreen.style.opacity = '0';
-      loadingScreen.style.visibility = 'hidden';
+      setTimeout(() => {
+        loadingScreen.style.visibility = 'hidden';
+      }, 500);
     }
-  }, 2200);
+  };
+  
+  if (homeBackgroundVideo) {
+    let videoStarted = false;
+    homeBackgroundVideo.addEventListener('playing', () => {
+      if (!videoStarted) {
+        videoStarted = true;
+        setTimeout(hideLoader, 200); // Allow brief frame decode gap
+      }
+    });
+    
+    // Safety fallback: if video hasn't played in 1200ms, hide the loader anyway
+    setTimeout(() => {
+      if (!videoStarted) {
+        hideLoader();
+      }
+    }, 1200);
+  } else {
+    // Normal loader exit for pages without videos
+    setTimeout(hideLoader, 350);
+  }
 
   // ─── 2. Dark Mode Toggle ───
   const darkToggleBtn = document.getElementById('dark-mode-toggle');
@@ -672,6 +696,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('.reveal-on-scroll').forEach(el => {
     revealObserver.observe(el);
+  });
+
+  // ─── 15. Smooth Image Loading with Fallbacks ───
+  const smoothImages = document.querySelectorAll('img');
+  const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80&auto=format&fit=crop';
+
+  smoothImages.forEach(img => {
+    if (img.dataset.smoothLoaded) return;
+    img.dataset.smoothLoaded = 'true';
+
+    // Apply absolute styling to ensure smooth opacity transition
+    img.classList.add('transition-opacity', 'duration-700', 'opacity-0');
+
+    const handleLoad = () => {
+      img.classList.remove('opacity-0');
+    };
+
+    const triggerFallback = () => {
+      if (!img.dataset.fallbackTriggered) {
+        img.dataset.fallbackTriggered = 'true';
+        img.src = FALLBACK_IMAGE;
+      } else {
+        img.classList.remove('opacity-0');
+      }
+    };
+
+    if (img.complete) {
+      if (img.naturalWidth > 0) {
+        handleLoad();
+      } else {
+        triggerFallback();
+      }
+    } else {
+      img.addEventListener('load', () => {
+        if (img.naturalWidth > 0) {
+          handleLoad();
+        } else {
+          triggerFallback();
+        }
+      });
+      img.addEventListener('error', () => {
+        triggerFallback();
+      });
+    }
   });
 });
 

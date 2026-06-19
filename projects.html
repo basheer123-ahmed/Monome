@@ -14,6 +14,10 @@
     })();
   </script>
     <meta charset="UTF-8" />
+    <!-- Prevent caching of HTML to ensure changes load immediately -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <link rel="icon" type="image/svg+xml" href="https://img.icons8.com/color/48/construction.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="MONOME Constructions – Premium Construction, Architecture & Interior Design. Crafting spaces that inspire across India." />
@@ -158,11 +162,11 @@
           </div>
 
           <!-- Grid -->
-          <div class="masonry-grid" id="projects-grid">
+          <div class="grid grid-cols-1 md:grid-cols-3 auto-rows-[240px] gap-6" id="projects-grid">
             <!-- Project 1 -->
-            <div class="masonry-item project-item" data-category="Villas">
-              <div class="relative overflow-hidden rounded-2xl aspect-[3/4]">
-                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700&q=80&auto=format&fit=crop" alt="Azure Residences" class="w-full h-full object-cover" />
+            <div class="project-item group relative overflow-hidden rounded-2xl md:col-span-1 md:row-span-2" data-category="Villas">
+              <div class="relative overflow-hidden w-full h-full">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700&q=80&auto=format&fit=crop" alt="Azure Residences" class="w-full h-full object-cover" loading="lazy" />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
                 <div class="absolute inset-x-0 bottom-0 p-5 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                   <span class="tag mb-2 inline-block text-xs">Luxury Villa</span>
@@ -179,9 +183,9 @@
             </div>
 
             <!-- Project 2 -->
-            <div class="masonry-item project-item" data-category="Commercial">
-              <div class="relative overflow-hidden rounded-2xl aspect-[4/3]">
-                <img src="https://images.unsplash.com/photo-1598971861713-54ad16a7e72e?w=700&q=80&auto=format&fit=crop" alt="Skyline Towers" class="w-full h-full object-cover" />
+            <div class="project-item group relative overflow-hidden rounded-2xl md:col-span-2 md:row-span-1" data-category="Commercial">
+              <div class="relative overflow-hidden w-full h-full">
+                <img src="https://images.unsplash.com/photo-1554469384-e58fac16e23a?w=700&q=80&auto=format&fit=crop" alt="Skyline Towers" class="w-full h-full object-cover" loading="lazy" />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
                 <div class="absolute inset-x-0 bottom-0 p-5 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                   <span class="tag mb-2 inline-block text-xs">Corporate HQ</span>
@@ -198,9 +202,9 @@
             </div>
 
             <!-- Project 3 -->
-            <div class="masonry-item project-item" data-category="Apartments">
-              <div class="relative overflow-hidden rounded-2xl aspect-[4/3]">
-                <img src="https://images.unsplash.com/photo-1570162602740-512aa504187e?w=700&q=80&auto=format&fit=crop" alt="The Pebble Court" class="w-full h-full object-cover" />
+            <div class="project-item group relative overflow-hidden rounded-2xl md:col-span-1 md:row-span-1" data-category="Apartments">
+              <div class="relative overflow-hidden w-full h-full">
+                <img src="https://images.unsplash.com/photo-1515263487990-61b07816b324?w=700&q=80&auto=format&fit=crop" alt="The Pebble Court" class="w-full h-full object-cover" loading="lazy" />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
                 <div class="absolute inset-x-0 bottom-0 p-5 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                   <span class="tag mb-2 inline-block text-xs">Residential</span>
@@ -217,9 +221,9 @@
             </div>
 
             <!-- Project 4 -->
-            <div class="masonry-item project-item" data-category="Villas">
-              <div class="relative overflow-hidden rounded-2xl aspect-[3/4]">
-                <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=700&q=80&auto=format&fit=crop" alt="Prestige Crest" class="w-full h-full object-cover" />
+            <div class="project-item group relative overflow-hidden rounded-2xl md:col-span-1 md:row-span-1" data-category="Villas">
+              <div class="relative overflow-hidden w-full h-full">
+                <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=700&q=80&auto=format&fit=crop" alt="Prestige Crest" class="w-full h-full object-cover" loading="lazy" />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
                 <div class="absolute inset-x-0 bottom-0 p-5 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                   <span class="tag mb-2 inline-block text-xs">Premium Villa</span>
@@ -236,9 +240,9 @@
             </div>
 
             <!-- Project 5 -->
-            <div class="masonry-item project-item" data-category="Apartments">
-              <div class="relative overflow-hidden rounded-2xl aspect-[4/3]">
-                <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=700&q=80&auto=format&fit=crop" alt="Amber Heights" class="w-full h-full object-cover" />
+            <div class="project-item group relative overflow-hidden rounded-2xl md:col-span-1 md:row-span-2" data-category="Apartments">
+              <div class="relative overflow-hidden w-full h-full">
+                <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=700&q=80&auto=format&fit=crop" alt="Amber Heights" class="w-full h-full object-cover" loading="lazy" />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
                 <div class="absolute inset-x-0 bottom-0 p-5 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                   <span class="tag mb-2 inline-block text-xs">High-Rise</span>
@@ -255,9 +259,9 @@
             </div>
 
             <!-- Project 6 -->
-            <div class="masonry-item project-item" data-category="Interiors">
-              <div class="relative overflow-hidden rounded-2xl aspect-[3/4]">
-                <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=700&q=80&auto=format&fit=crop" alt="Crystal Interiors" class="w-full h-full object-cover" />
+            <div class="project-item group relative overflow-hidden rounded-2xl md:col-span-1 md:row-span-1" data-category="Interiors">
+              <div class="relative overflow-hidden w-full h-full">
+                <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=700&q=80&auto=format&fit=crop" alt="Crystal Interiors" class="w-full h-full object-cover" loading="lazy" />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
                 <div class="absolute inset-x-0 bottom-0 p-5 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                   <span class="tag mb-2 inline-block text-xs">Interior Design</span>
@@ -274,9 +278,9 @@
             </div>
 
             <!-- Project 7 -->
-            <div class="masonry-item project-item" data-category="Commercial">
-              <div class="relative overflow-hidden rounded-2xl aspect-[4/3]">
-                <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=700&q=80&auto=format&fit=crop" alt="The Heritage Mall" class="w-full h-full object-cover" />
+            <div class="project-item group relative overflow-hidden rounded-2xl md:col-span-1 md:row-span-1" data-category="Commercial">
+              <div class="relative overflow-hidden w-full h-full">
+                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=700&q=80&auto=format&fit=crop" alt="The Heritage Mall" class="w-full h-full object-cover" loading="lazy" />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
                 <div class="absolute inset-x-0 bottom-0 p-5 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                   <span class="tag mb-2 inline-block text-xs">Commercial</span>
@@ -293,9 +297,9 @@
             </div>
 
             <!-- Project 8 -->
-            <div class="masonry-item project-item" data-category="Villas">
-              <div class="relative overflow-hidden rounded-2xl aspect-[4/3]">
-                <img src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=700&q=80&auto=format&fit=crop" alt="Serenity Villa" class="w-full h-full object-cover" />
+            <div class="project-item group relative overflow-hidden rounded-2xl md:col-span-2 md:row-span-1" data-category="Villas">
+              <div class="relative overflow-hidden w-full h-full">
+                <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=700&q=80&auto=format&fit=crop" alt="Serenity Villa" class="w-full h-full object-cover" loading="lazy" />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
                 <div class="absolute inset-x-0 bottom-0 p-5 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                   <span class="tag mb-2 inline-block text-xs">Beachside Villa</span>
@@ -334,6 +338,6 @@
     </script>
 
     <!-- Custom Script File -->
-    <script src="script.js"></script>
+    <script src="script.js?v=3"></script>
   </body>
 </html>
