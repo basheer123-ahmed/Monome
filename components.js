@@ -120,7 +120,7 @@ window.MonomeComponents = {
   footer() {
     return `
     <!-- ─── FOOTER SECTION ─── -->
-    <footer class="relative overflow-hidden mt-10">
+    <footer class="relative overflow-hidden mt-0">
       <!-- Wave divider -->
       <div class="relative bg-luxury h-16">
         <svg viewBox="0 0 1440 64" class="absolute bottom-0 w-full" preserveAspectRatio="none">
@@ -436,15 +436,20 @@ window.MonomeComponents = {
 
     <!-- ─── LIGHTBOX MODAL ─── -->
     <div id="lightbox" class="lightbox-overlay hidden">
-      <div class="relative max-w-4xl w-full mx-4 rounded-3xl overflow-hidden bg-black/40">
-        <img id="lightbox-img" src="" alt="Lightbox image" class="w-full max-h-[75vh] object-cover" />
-        <div class="absolute inset-x-0 bottom-0 glass p-6">
+      <div class="relative max-w-4xl w-full mx-4 rounded-3xl overflow-hidden bg-[#FAF8F3] dark:bg-[#0f1117] flex flex-col shadow-2xl">
+        <!-- Close Button -->
+        <button id="lightbox-close" class="absolute top-4 right-4 w-10 h-10 glass rounded-full flex items-center justify-center hover:bg-brand-orange hover:text-white transition-colors z-20 animate-fade-in" aria-label="Close image">
+          <i data-lucide="x" class="w-5 h-5 text-neutral-700 dark:text-neutral-200"></i>
+        </button>
+        <!-- Image Area -->
+        <div class="relative w-full bg-black/95 flex items-center justify-center py-4">
+          <img id="lightbox-img" src="" alt="Lightbox image" class="max-w-full max-h-[60vh] sm:max-h-[70vh] object-contain block mx-auto" />
+        </div>
+        <!-- Details Area -->
+        <div class="p-6 border-t border-neutral-200/30 dark:border-white/10 bg-[#FAF8F3] dark:bg-[#0f1117]">
           <span class="tag mb-2 inline-block" id="lightbox-tag">Gallery Item</span>
           <h3 class="font-inter font-700 text-xl text-neutral-800 dark:text-white" id="lightbox-title">Item Title</h3>
         </div>
-        <button id="lightbox-close" class="absolute top-4 right-4 w-9 h-9 glass rounded-full flex items-center justify-center hover:bg-brand-orange hover:text-white transition-colors" aria-label="Close image">
-          <i data-lucide="x" class="w-5 h-5 text-neutral-700 dark:text-neutral-200"></i>
-        </button>
       </div>
     </div>
 

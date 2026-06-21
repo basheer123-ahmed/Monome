@@ -425,15 +425,49 @@ document.addEventListener('DOMContentLoaded', () => {
   const lightboxTitle = document.getElementById('lightbox-title');
   const lightboxClose = document.getElementById('lightbox-close');
 
+  const updateFilterButtonStates = (activeFilter, allFilters) => {
+    allFilters.forEach(f => {
+      f.classList.remove('bg-brand-orange', 'text-white', 'shadow-luxury');
+      f.classList.add('glass', 'text-neutral-600', 'dark:text-neutral-300', 'hover:text-brand-orange');
+    });
+    activeFilter.classList.add('bg-brand-orange', 'text-white', 'shadow-luxury');
+    activeFilter.classList.remove('glass', 'text-neutral-600', 'dark:text-neutral-300', 'hover:text-brand-orange');
+  };
+
+  const openLightbox = (imgEl, titleText, categoryText) => {
+    if (!lightbox || !lightboxImg || !imgEl) return;
+    
+    // Set cursor to wait as immediate feedback
+    document.body.style.cursor = 'wait';
+    imgEl.style.cursor = 'wait';
+    
+    const tempImg = new Image();
+    tempImg.onload = () => {
+      document.body.style.cursor = '';
+      imgEl.style.cursor = '';
+      lightboxImg.src = tempImg.src;
+      if (lightboxTitle) lightboxTitle.textContent = titleText;
+      const lightboxTag = document.getElementById('lightbox-tag');
+      if (lightboxTag) lightboxTag.textContent = categoryText || 'Gallery Item';
+      lightbox.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    };
+    tempImg.onerror = () => {
+      document.body.style.cursor = '';
+      imgEl.style.cursor = '';
+      lightboxImg.src = imgEl.src;
+      if (lightboxTitle) lightboxTitle.textContent = titleText;
+      const lightboxTag = document.getElementById('lightbox-tag');
+      if (lightboxTag) lightboxTag.textContent = categoryText || 'Gallery Item';
+      lightbox.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    };
+    tempImg.src = imgEl.src;
+  };
+
   projectFilters.forEach(filter => {
     filter.addEventListener('click', () => {
-      // Toggle active states
-      projectFilters.forEach(f => {
-        f.classList.remove('bg-brand-orange', 'text-white');
-        f.classList.add('glass');
-      });
-      filter.classList.add('bg-brand-orange', 'text-white');
-      filter.classList.remove('glass');
+      updateFilterButtonStates(filter, projectFilters);
 
       const category = filter.getAttribute('data-category');
       projectItems.forEach(item => {
@@ -453,11 +487,9 @@ document.addEventListener('DOMContentLoaded', () => {
     item.addEventListener('click', () => {
       const img = item.querySelector('img');
       const title = item.querySelector('h4');
-      if (lightbox && lightboxImg && img) {
-        lightboxImg.src = img.src;
-        if (lightboxTitle && title) lightboxTitle.textContent = title.textContent;
-        lightbox.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
+      const category = item.getAttribute('data-category');
+      if (img) {
+        openLightbox(img, title ? title.textContent : 'Project', category || 'Project');
       }
     });
   });
@@ -486,13 +518,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   galleryFilters.forEach(filter => {
     filter.addEventListener('click', () => {
-      // Toggle active states
-      galleryFilters.forEach(f => {
-        f.classList.remove('bg-brand-orange', 'text-white');
-        f.classList.add('glass');
-      });
-      filter.classList.add('bg-brand-orange', 'text-white');
-      filter.classList.remove('glass');
+      updateFilterButtonStates(filter, galleryFilters);
 
       const category = filter.getAttribute('data-category');
       galleryItems.forEach(item => {
@@ -510,12 +536,10 @@ document.addEventListener('DOMContentLoaded', () => {
   galleryItems.forEach(item => {
     item.addEventListener('click', () => {
       const img = item.querySelector('img');
-      const title = item.querySelector('h4') || { textContent: 'Gallery Item' };
-      if (lightbox && lightboxImg && img) {
-        lightboxImg.src = img.src;
-        if (lightboxTitle) lightboxTitle.textContent = title.textContent;
-        lightbox.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
+      const title = item.querySelector('h4');
+      const category = item.getAttribute('data-category');
+      if (img) {
+        openLightbox(img, title ? title.textContent : 'Gallery Item', category || 'Gallery Item');
       }
     });
   });
@@ -682,7 +706,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ─── 15. Smooth Image Loading with Fallbacks ───
-  const smoothImages = document.querySelectorAll('img');
+  const smoothImages = document.querySelectorAll('img:not(#lightbox-img)');
   const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80&auto=format&fit=crop';
 
   smoothImages.forEach(img => {
