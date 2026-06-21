@@ -403,7 +403,7 @@ input[type="range"]::-webkit-slider-thumb {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
 }
 
 .dark .loading-screen {

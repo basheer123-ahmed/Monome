@@ -18,7 +18,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <link rel="icon" type="image/svg+xml" href="https://img.icons8.com/color/48/construction.png" />
+    <link rel="icon" type="image/png" href="assets/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preload" href="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80&auto=format&fit=crop&fm=webp" as="image" type="image/webp" />
     <link rel="preload" href="tailwind.js" as="script" />
@@ -198,8 +198,11 @@
         
         const screen = document.getElementById('loading-screen');
         screen.addEventListener('click', function() {
+          screen.style.transition = 'opacity 0.1s ease, visibility 0.1s ease';
           screen.style.opacity = '0';
-          screen.style.visibility = 'hidden';
+          setTimeout(() => {
+            screen.style.visibility = 'hidden';
+          }, 100);
           if (window.startTypewriterNow) {
             window.startTypewriterNow();
           }
@@ -688,7 +691,7 @@
                       <p class="font-bold text-sm text-neutral-800 dark:text-neutral-200">Standard</p>
                       <p class="text-[10px] text-neutral-400 mt-0.5">Quality essentials, robust framework</p>
                     </div>
-                    <span class="block text-brand-orange text-xs font-semibold mt-3">₹ 1,800/sq.ft</span>
+                    <span class="block text-brand-orange text-xs font-semibold mt-3">₹ 2,100/sq.ft</span>
                   </label>
                   <!-- Option Premium (Checked) -->
                   <label class="border-2 border-brand-orange bg-brand-orange/5 rounded-2xl p-4 cursor-pointer hover:border-brand-orange transition-all flex flex-col justify-between">
@@ -697,7 +700,7 @@
                       <p class="font-bold text-sm text-neutral-800 dark:text-neutral-200">Premium</p>
                       <p class="text-[10px] text-neutral-400 mt-0.5">High-grade fixtures, premium finishes</p>
                     </div>
-                    <span class="block text-brand-orange text-xs font-semibold mt-3">₹ 2,800/sq.ft</span>
+                    <span class="block text-brand-orange text-xs font-semibold mt-3">₹ 2,300/sq.ft</span>
                   </label>
                   <!-- Option Luxury -->
                   <label class="border-2 border-neutral-200 dark:border-neutral-700 rounded-2xl p-4 cursor-pointer hover:border-brand-orange/50 transition-all flex flex-col justify-between">
@@ -706,7 +709,7 @@
                       <p class="font-bold text-sm text-neutral-800 dark:text-neutral-200">Luxury</p>
                       <p class="text-[10px] text-neutral-400 mt-0.5">Artisan woodwork, luxury automation</p>
                     </div>
-                    <span class="block text-brand-orange text-xs font-semibold mt-3">₹ 4,500/sq.ft</span>
+                    <span class="block text-brand-orange text-xs font-semibold mt-3">₹ 2,500/sq.ft</span>
                   </label>
                 </div>
               </div>
@@ -940,7 +943,7 @@
               </button>
               <div id="faq-a1" class="faq-panel max-h-0 overflow-hidden transition-all duration-500">
                 <div class="px-5 pt-2 pb-4 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                  Multiply the built-up area (sq.ft) by the rate per sq.ft based on your material spec: Standard ≈ ₹1,800/sqft, Premium ≈ ₹2,800/sqft, Luxury ≈ ₹4,500/sqft. Add 8% for design fees and 10% for MEP services. Our Chat Cost Estimator in the chatbot can calculate this for you instantly.
+                  Multiply the built-up area (sq.ft) by the rate per sq.ft based on your material spec: Standard ≈ ₹2,100/sqft, Premium ≈ ₹2,300/sqft, Luxury ≈ ₹2,500/sqft. Add 8% for design fees and 10% for MEP services. Our Chat Cost Estimator in the chatbot can calculate this for you instantly.
                 </div>
               </div>
             </div>
@@ -1586,8 +1589,8 @@
           }
         }
 
-        // Start typewriter after loading screen fades out (350ms)
-        var typewriterTimeout = setTimeout(typeNext, 450);
+        // Start typewriter after loading screen starts to fade out (200ms)
+        var typewriterTimeout = setTimeout(typeNext, 200);
         window.startTypewriterNow = function() {
           if (typewriterTimeout) {
             clearTimeout(typewriterTimeout);

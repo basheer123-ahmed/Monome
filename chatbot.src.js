@@ -221,6 +221,25 @@
     const cleanedInput = cleanText(userInput);
     if (!cleanedInput) return null;
 
+    // Define top-priority conversational sentiment arrays
+    const greetings = ["hi", "hai", "hello", "helo", "hey", "yo", "good morning"];
+    const pleasantries = ["nice", "cool", "great", "awesome", "ok", "okay", "perfect", "got it"];
+
+    // Top-priority direct matching for these arrays
+    if (greetings.includes(cleanedInput)) {
+      // Find matching greeting response or fallback to default greeting
+      for (const item of FAQ_MATRIX) {
+        if (cleanText(item.q) === cleanedInput) {
+          return item.a;
+        }
+      }
+      return "Hello! Welcome to Monome Constructions. How can I assist you today?";
+    }
+
+    if (pleasantries.includes(cleanedInput)) {
+      return "Great! Let me know if you have any questions about our projects, structural workflow, materials, or pricing estimation.";
+    }
+
     // Exact or direct inclusion check
     for (const item of FAQ_MATRIX) {
       const cleanedQuestion = cleanText(item.q);
@@ -232,7 +251,7 @@
     // Levenshtein typo fallback gate
     for (const item of FAQ_MATRIX) {
       const cleanedQuestion = cleanText(item.q);
-      const maxDist = (cleanedInput.length <= 3 || cleanedQuestion.length <= 3) ? 1 : 2;
+      const maxDist = cleanedQuestion.length <= 3 ? 1 : 2;
       
       if (Math.abs(cleanedInput.length - cleanedQuestion.length) <= maxDist) {
         const dist = computeLevenshteinDistance(cleanedInput, cleanedQuestion);
@@ -299,27 +318,6 @@
   function handleUserTextSubmit(text) {
     if (!text.trim()) return;
     addUserMessage(text);
-
-    // Entry-point Interceptor Pipeline
-    const normalized = text.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"']/g, "").trim();
-    const greetings = ["hi", "hai", "hello", "helo", "hey", "yo", "good morning", "good afternoon", "good evening"];
-    const sentiments = ["nice", "cool", "great", "awesome", "ok", "okay", "perfect", "got it", "understood", "sure"];
-
-    // 1. Global Greeting Normalizer
-    const isGreeting = greetings.some(g => normalized === g || normalized.split(/\s+/).includes(g) || (g.includes(" ") && normalized.includes(g)));
-    if (isGreeting) {
-      addBotMessage("Hello! Welcome to Monome Constructions. How can I assist you today?");
-      renderStatePills();
-      return;
-    }
-
-    // 2. Conversational Sentiment Dictionary
-    const isSentiment = sentiments.some(s => normalized === s || normalized.split(/\s+/).includes(s));
-    if (isSentiment) {
-      addBotMessage("Wonderful! We always strive for perfection at Monome Constructions. Let me know if you want to explore our structural workflows, premium building materials, or request a custom quotation!");
-      renderStatePills();
-      return;
-    }
 
     // TIER 1: FAQ Check
     const matchedResponse = findResponse(text);

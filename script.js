@@ -9,33 +9,16 @@ document.addEventListener('DOMContentLoaded', () => {
   
   const hideLoader = () => {
     if (loadingScreen && loadingScreen.style.opacity !== '0') {
-      loadingScreen.style.transition = 'opacity 0.5s ease, visibility 0.5s ease';
+      loadingScreen.style.transition = 'opacity 0.15s ease, visibility 0.15s ease';
       loadingScreen.style.opacity = '0';
       setTimeout(() => {
         loadingScreen.style.visibility = 'hidden';
-      }, 500);
+      }, 150);
     }
   };
   
-  if (homeBackgroundVideo) {
-    let videoStarted = false;
-    homeBackgroundVideo.addEventListener('playing', () => {
-      if (!videoStarted) {
-        videoStarted = true;
-        setTimeout(hideLoader, 200); // Allow brief frame decode gap
-      }
-    });
-    
-    // Safety fallback: if video hasn't played in 1200ms, hide the loader anyway
-    setTimeout(() => {
-      if (!videoStarted) {
-        hideLoader();
-      }
-    }, 1200);
-  } else {
-    // Normal loader exit for pages without videos
-    setTimeout(hideLoader, 350);
-  }
+  // Show the loader briefly for a premium feel, then hide it quickly after 150ms
+  setTimeout(hideLoader, 150);
 
   // ─── 2. Dark Mode Toggle ───
   const darkToggleBtn = document.getElementById('dark-mode-toggle');
@@ -355,9 +338,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const totalCostEl = document.getElementById('est-total');
 
   const RATES = {
-    standard: 1800,
-    premium: 2800,
-    luxury: 4500
+    standard: 2100,
+    premium: 2300,
+    luxury: 2500
   };
 
   const formatINR = (num) => {
@@ -413,7 +396,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Calculations
       const builtArea = plotSize * 0.65 * floors;
-      const rate = RATES[selectedMaterial] || 2800;
+      const rate = RATES[selectedMaterial] || 2300;
       const baseCost = builtArea * rate;
       const designFee = baseCost * 0.08;
       const electricPlumbing = baseCost * 0.10;
