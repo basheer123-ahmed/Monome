@@ -637,8 +637,370 @@
 
 
       <!-- ═══════════════════════════════════════════════
-           SECTION: COST ESTIMATOR
+           SECTION: SIGNATURE MASTERPIECES (3D CAROUSEL)
       ═══════════════════════════════════════════════ -->
+      <section id="designs-carousel-section" class="py-24 bg-luxury relative overflow-hidden">
+        <!-- Decorative background elements -->
+        <div class="absolute inset-0 bg-gradient-to-tr from-cream-100 via-transparent to-cream-50 dark:from-neutral-900/50 dark:to-transparent pointer-events-none"></div>
+        <div class="absolute -left-20 top-1/4 w-96 h-96 rounded-full bg-pastel-blue/20 blur-3xl pointer-events-none"></div>
+        <div class="absolute -right-20 bottom-1/4 w-96 h-96 rounded-full bg-pastel-peach/20 blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-8 relative">
+          <!-- Header -->
+          <div class="text-center max-w-2xl mx-auto mb-16 reveal-on-scroll">
+            <span class="section-label text-brand-orange font-semibold uppercase tracking-wider text-xs">Exquisite Spaces</span>
+            <h2 class="section-title text-4xl md:text-5xl mt-3 mb-5 font-poppins font-bold">
+              Signature <span class="text-gradient">Masterpieces</span>
+            </h2>
+            <p class="section-subtitle text-neutral-600 dark:text-neutral-400">
+              A curated showcase of our most breathtaking completed designs, crafted with precision and premium aesthetics.
+            </p>
+          </div>
+
+          <!-- 3D Carousel Viewport -->
+          <div class="relative w-full h-[480px] sm:h-[520px] flex items-center justify-center perspective-1000 select-none overflow-hidden" id="carousel-viewport">
+            <div class="w-full h-full max-w-[1200px] relative transform-style-3d" id="coverflow-track">
+              
+              <!-- Card 1: Brand Orange -->
+              <div class="coverflow-item stamp-card cursor-pointer" data-index="0" style="--stamp-color: #F5A623;">
+                <div class="stamp-inner">
+                  <div class="relative overflow-hidden w-full h-full flex-grow">
+                    <img src="assets/gallery/media__1782038409495.jpg" alt="The Pebble Court" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-5 text-white">
+                      <span class="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider mb-2" style="background: rgba(245, 166, 35, 0.15); border: 1px solid rgba(245, 166, 35, 0.3); color: #F5A623;">Apartments</span>
+                      <h3 class="font-inter font-bold text-lg leading-tight">The Pebble Court</h3>
+                      <p class="text-xs text-white/70 mt-1 flex items-center gap-1"><i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Chennai, Tamil Nadu</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 2: Brand Orange Dark -->
+              <div class="coverflow-item stamp-card cursor-pointer" data-index="1" style="--stamp-color: #D4891A;">
+                <div class="stamp-inner">
+                  <div class="relative overflow-hidden w-full h-full flex-grow">
+                    <img src="assets/gallery/media__1782038323912.jpg" alt="Crystal Interiors" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-5 text-white">
+                      <span class="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider mb-2" style="background: rgba(212, 137, 26, 0.15); border: 1px solid rgba(212, 137, 26, 0.3); color: #D4891A;">Interiors</span>
+                      <h3 class="font-inter font-bold text-lg leading-tight">Crystal Interiors</h3>
+                      <p class="text-xs text-white/70 mt-1 flex items-center gap-1"><i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Delhi, NCR</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 3: Brand Orange Light -->
+              <div class="coverflow-item stamp-card cursor-pointer" data-index="2" style="--stamp-color: #F7B84B;">
+                <div class="stamp-inner">
+                  <div class="relative overflow-hidden w-full h-full flex-grow">
+                    <img src="assets/gallery/project_new_2.jpg" alt="Elanza Residency" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-5 text-white">
+                      <span class="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider mb-2" style="background: rgba(247, 184, 75, 0.15); border: 1px solid rgba(247, 184, 75, 0.3); color: #F7B84B;">Villas</span>
+                      <h3 class="font-inter font-bold text-lg leading-tight">Elanza Residency</h3>
+                      <p class="text-xs text-white/70 mt-1 flex items-center gap-1"><i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Kochi, Kerala</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 4: Pastel Peach -->
+              <div class="coverflow-item stamp-card cursor-pointer" data-index="3" style="--stamp-color: #E4C8B8;">
+                <div class="stamp-inner">
+                  <div class="relative overflow-hidden w-full h-full flex-grow">
+                    <img src="assets/gallery/project_new_7.jpg" alt="Luxe Lounge" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-5 text-white">
+                      <span class="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider mb-2" style="background: rgba(228, 200, 184, 0.2); border: 1px solid rgba(228, 200, 184, 0.4); color: #C49F8C;">Interiors</span>
+                      <h3 class="font-inter font-bold text-lg leading-tight">Luxe Lounge</h3>
+                      <p class="text-xs text-white/70 mt-1 flex items-center gap-1"><i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Mumbai, Maharashtra</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 5: Pastel Lavender -->
+              <div class="coverflow-item stamp-card cursor-pointer" data-index="4" style="--stamp-color: #D4B8E4;">
+                <div class="stamp-inner">
+                  <div class="relative overflow-hidden w-full h-full flex-grow">
+                    <img src="assets/gallery/project_new_8.jpg" alt="Minimal Kitchen" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-5 text-white">
+                      <span class="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider mb-2" style="background: rgba(212, 184, 228, 0.2); border: 1px solid rgba(212, 184, 228, 0.4); color: #B48CC4;">Interiors</span>
+                      <h3 class="font-inter font-bold text-lg leading-tight">Minimal Kitchen</h3>
+                      <p class="text-xs text-white/70 mt-1 flex items-center gap-1"><i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Hyderabad, Telangana</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 6: Cream 400 -->
+              <div class="coverflow-item stamp-card cursor-pointer" data-index="5" style="--stamp-color: #DDD0BC;">
+                <div class="stamp-inner">
+                  <div class="relative overflow-hidden w-full h-full flex-grow">
+                    <img src="assets/gallery/project_new_1.jpg" alt="Oasis Villa" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-5 text-white">
+                      <span class="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider mb-2" style="background: rgba(221, 208, 188, 0.2); border: 1px solid rgba(221, 208, 188, 0.4); color: #BDB09E;">Villas</span>
+                      <h3 class="font-inter font-bold text-lg leading-tight">Oasis Villa</h3>
+                      <p class="text-xs text-white/70 mt-1 flex items-center gap-1"><i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Alibaug, Maharashtra</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Controls (Arrows & Indicators) -->
+          <div class="flex flex-col items-center gap-6 -mt-8 relative z-20">
+            <div class="flex items-center gap-4">
+              <button id="carousel-prev" class="w-12 h-12 rounded-full border border-neutral-300 dark:border-neutral-700 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md flex items-center justify-center hover:bg-brand-orange hover:border-brand-orange hover:text-white dark:hover:bg-brand-orange dark:hover:border-brand-orange dark:hover:text-white transition-all shadow-md group cursor-pointer" aria-label="Previous slide">
+                <i data-lucide="chevron-left" class="w-6 h-6 transition-transform group-hover:-translate-x-0.5"></i>
+              </button>
+              <button id="carousel-next" class="w-12 h-12 rounded-full border border-neutral-300 dark:border-neutral-700 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md flex items-center justify-center hover:bg-brand-orange hover:border-brand-orange hover:text-white dark:hover:bg-brand-orange dark:hover:border-brand-orange dark:hover:text-white transition-all shadow-md group cursor-pointer" aria-label="Next slide">
+                <i data-lucide="chevron-right" class="w-6 h-6 transition-transform group-hover:translate-x-0.5"></i>
+              </button>
+            </div>
+            
+            <!-- Indicators -->
+            <div class="flex items-center gap-2" id="carousel-dots">
+              <!-- Dynamically populated via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Modular CSS overrides for the carousel -->
+        <style>
+          #coverflow-track {
+            perspective: 1200px;
+            height: 100%;
+          }
+          #coverflow-track .coverflow-item {
+            top: 50% !important;
+            left: 50% !important;
+            width: 310px;
+            height: 410px;
+            transform: translate(-50%, -50%);
+            position: absolute;
+            border-radius: 6px;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.4s ease, z-index 0.4s step-end;
+          }
+          @media (max-width: 640px) {
+            #coverflow-track .coverflow-item {
+              width: 240px;
+              height: 330px;
+            }
+          }
+          .stamp-inner img {
+            user-select: none;
+            pointer-events: none;
+          }
+        </style>
+
+        <script>
+          (function() {
+            const track = document.getElementById('coverflow-track');
+            if (!track) return;
+            const items = Array.from(track.querySelectorAll('.coverflow-item'));
+            const prevBtn = document.getElementById('carousel-prev');
+            const nextBtn = document.getElementById('carousel-next');
+            const dotsContainer = document.getElementById('carousel-dots');
+            const viewport = document.getElementById('carousel-viewport');
+            
+            const N = items.length;
+            let activeIdx = 0;
+            let autoplayTimer = null;
+            let startX = 0;
+            let isDragging = false;
+
+            // Create indicators
+            items.forEach((_, i) => {
+              const dot = document.createElement('button');
+              dot.className = `w-2.5 h-2.5 rounded-full transition-all duration-300 ${i === 0 ? 'bg-brand-orange w-6' : 'bg-neutral-300 dark:bg-neutral-700 hover:bg-neutral-400 dark:hover:bg-neutral-500'}`;
+              dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+              dot.addEventListener('click', () => {
+                goToSlide(i);
+                resetAutoplay();
+              });
+              dotsContainer.appendChild(dot);
+            });
+
+            const dots = Array.from(dotsContainer.querySelectorAll('button'));
+
+            function updateCarousel() {
+              const isMobile = window.innerWidth < 640;
+              const offset = isMobile ? 70 : 170;
+              const rotateYVal = isMobile ? 30 : 40;
+              const translateZVal = isMobile ? 80 : 160;
+
+              items.forEach((item, i) => {
+                let diff = i - activeIdx;
+                
+                // Normalize difference to support wrap-around circular list
+                if (diff < -N/2) diff += N;
+                if (diff > N/2) diff -= N;
+                
+                // For N=6, the diff ranges from -2 to 3.
+                if (diff === 3) {
+                  diff = 3;
+                }
+
+                const absDiff = Math.abs(diff);
+                let tx = diff * offset;
+                let tz = 0;
+                let ry = 0;
+                let scale = 1;
+                let opacity = 1;
+                
+                if (diff === 0) {
+                  // Active slide
+                  tz = translateZVal;
+                  ry = 0;
+                  scale = 1.05;
+                  opacity = 1;
+                } else {
+                  // Left or Right slides
+                  tz = 0;
+                  ry = diff > 0 ? -rotateYVal : rotateYVal;
+                  scale = 0.85;
+                  
+                  if (absDiff >= 2) {
+                    // Further out slides
+                    opacity = absDiff > 2 ? 0 : 0.4;
+                    if (absDiff > 2) {
+                      // Far slides are pushed further out and hidden
+                      tx = diff > 0 ? 2.5 * offset : -2.5 * offset;
+                    }
+                  } else {
+                    opacity = 0.75;
+                  }
+                }
+
+                // Apply 3D properties
+                item.style.transform = `translate(-50%, -50%) translateX(${tx}px) translateZ(${tz}px) rotateY(${ry}deg) scale(${scale})`;
+                item.style.opacity = opacity;
+                
+                // Handle zIndex dynamically to ensure correct overlapping
+                item.style.zIndex = 20 - Math.round(absDiff * 5);
+
+                // Toggle accessibility classes
+                if (diff === 0) {
+                  item.setAttribute('aria-hidden', 'false');
+                  item.style.pointerEvents = 'auto';
+                } else {
+                  item.setAttribute('aria-hidden', 'true');
+                  item.style.pointerEvents = 'auto';
+                }
+              });
+
+              // Update indicators
+              dots.forEach((dot, i) => {
+                if (i === activeIdx) {
+                  dot.className = 'w-6 h-2.5 rounded-full bg-brand-orange transition-all duration-300';
+                } else {
+                  dot.className = 'w-2.5 h-2.5 rounded-full bg-neutral-300 dark:bg-neutral-700 hover:bg-neutral-400 dark:hover:bg-neutral-500 transition-all duration-300';
+                }
+              });
+            }
+
+            function goToSlide(idx) {
+              activeIdx = (idx + N) % N;
+              updateCarousel();
+            }
+
+            // LEFT TO RIGHT Autoplay animation
+            function startAutoplay() {
+              if (autoplayTimer) clearInterval(autoplayTimer);
+              autoplayTimer = setInterval(() => {
+                goToSlide(activeIdx - 1);
+              }, 2200);
+            }
+
+            function stopAutoplay() {
+              if (autoplayTimer) {
+                clearInterval(autoplayTimer);
+                autoplayTimer = null;
+              }
+            }
+
+            function resetAutoplay() {
+              stopAutoplay();
+              startAutoplay();
+            }
+
+            // Event Listeners
+            prevBtn.addEventListener('click', () => {
+              goToSlide(activeIdx + 1);
+              resetAutoplay();
+            });
+
+            nextBtn.addEventListener('click', () => {
+              goToSlide(activeIdx - 1);
+              resetAutoplay();
+            });
+
+            // Cards click-to-focus
+            items.forEach((item, i) => {
+              item.addEventListener('click', (e) => {
+                if (i !== activeIdx) {
+                  e.preventDefault();
+                  goToSlide(i);
+                  resetAutoplay();
+                }
+              });
+            });
+
+            // Autoplay control on hover
+            viewport.addEventListener('mouseenter', stopAutoplay);
+            viewport.addEventListener('mouseleave', startAutoplay);
+
+            // Touch swiping
+            viewport.addEventListener('touchstart', (e) => {
+              startX = e.touches[0].clientX;
+              isDragging = true;
+              stopAutoplay();
+            }, { passive: true });
+
+            viewport.addEventListener('touchend', (e) => {
+              if (!isDragging) return;
+              isDragging = false;
+              const endX = e.changedTouches[0].clientX;
+              const diffX = endX - startX;
+              if (Math.abs(diffX) > 50) {
+                if (diffX > 0) {
+                  // Swipe right -> show previous card (left-to-right transition)
+                  goToSlide(activeIdx + 1);
+                } else {
+                  // Swipe left -> show next card
+                  goToSlide(activeIdx - 1);
+                }
+              }
+              startAutoplay();
+            }, { passive: true });
+
+            // Handle resizing
+            window.addEventListener('resize', updateCarousel);
+
+            // Initial render and start
+            updateCarousel();
+            startAutoplay();
+
+            // Initialize Lucide icons inside this section if needed
+            if (window.lucide) {
+              window.lucide.createIcons({
+                attrs: {
+                  class: 'lucide'
+                },
+                nameAttr: 'data-lucide'
+              });
+            }
+          })();
+        </script>
+      </section>
       <section id="cost-estimator" class="py-28 relative overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-br from-cream-100 via-cream-50 to-cream-100 dark:from-neutral-950 dark:to-neutral-900"></div>
         <div class="absolute top-0 right-0 w-80 h-80 rounded-full bg-pastel-peach/25 blur-3xl pointer-events-none"></div>
@@ -683,7 +1045,16 @@
               <!-- Quality Selection -->
               <div class="space-y-3">
                 <label class="block text-sm font-semibold text-neutral-700 dark:text-neutral-300">Material Quality &amp; Specifications</label>
-                <div class="grid sm:grid-cols-3 gap-3">
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                  <!-- Option Budgetory -->
+                  <label class="border-2 border-neutral-200 dark:border-neutral-700 rounded-2xl p-4 cursor-pointer hover:border-brand-orange/50 transition-all flex flex-col justify-between">
+                    <input type="radio" name="material-quality" value="budgetory" class="hidden" />
+                    <div>
+                      <p class="font-bold text-sm text-neutral-800 dark:text-neutral-200">Budgetory</p>
+                      <p class="text-[10px] text-neutral-400 mt-0.5">Essential materials, solid structure</p>
+                    </div>
+                    <span class="block text-brand-orange text-xs font-semibold mt-3">₹ 1,900/sq.ft</span>
+                  </label>
                   <!-- Option Standard -->
                   <label class="border-2 border-neutral-200 dark:border-neutral-700 rounded-2xl p-4 cursor-pointer hover:border-brand-orange/50 transition-all flex flex-col justify-between">
                     <input type="radio" name="material-quality" value="standard" class="hidden" />
@@ -1664,6 +2035,6 @@
     </script>
 
     <!-- Custom Script File -->
-    <script src="script.js?v=5"></script>
+    <script src="script.js?v=6"></script>
   </body>
 </html>

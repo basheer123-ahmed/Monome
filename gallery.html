@@ -161,231 +161,348 @@
             <button class="gallery-filter-btn px-5 py-2 rounded-full text-sm font-semibold font-poppins transition-all duration-300 glass text-neutral-600 dark:text-neutral-300 hover:text-brand-orange" data-category="Architecture">Architecture</button>
           </div>
 
-          <!-- Gallery Masonry Grid -->
-          <div class="grid grid-cols-1 md:grid-cols-3 auto-rows-[240px] gap-6" id="gallery-grid">
-            <!-- Item 1 -->
-            <div class="gallery-item group relative overflow-hidden rounded-2xl md:col-span-1 md:row-span-1" data-category="Interiors">
-              <div class="relative overflow-hidden w-full h-full">
-                <img src="assets/gallery/luxury_interior.png" alt="Luxury penthouse interior" loading="lazy" class="w-full h-full object-cover" />
-                <h4 class="hidden">Luxury Penthouse Living Room</h4>
-                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-500 flex items-center justify-center">
-                  <div class="w-12 h-12 glass rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <i data-lucide="zoom-in" class="text-white w-5.5 h-5.5"></i>
+          <!-- Gallery Masonry Grid - CSS Columns approach for zero gaps -->
+          <style>
+            #gallery-grid {
+              columns: 3;
+              column-gap: 1.25rem;
+            }
+            @media (max-width: 768px) {
+              #gallery-grid { columns: 1; }
+            }
+            @media (min-width: 769px) and (max-width: 1024px) {
+              #gallery-grid { columns: 2; }
+            }
+            .gallery-item {
+              break-inside: avoid;
+              display: block;
+              margin-bottom: 1.25rem;
+            }
+            .gallery-item img {
+              width: 100%;
+              height: auto;
+              display: block;
+            }
+            /* Balanced aspect ratios — tall=portrait, short=landscape */
+            .gallery-item.tall img { aspect-ratio: 2/3; object-fit: cover; }
+            .gallery-item.short img { aspect-ratio: 3/2; object-fit: cover; }
+          </style>
+          <div id="gallery-grid">
+            <!-- Item 1 [Col1] TALL -->
+            <div class="gallery-item tall group relative overflow-hidden rounded-2xl hover:shadow-luxury-hover hover:-translate-y-1.5 transition-all duration-500 cursor-pointer" data-category="Exteriors">
+              <div class="relative overflow-hidden w-full">
+                <img src="assets/gallery/media__1782038409495.jpg" alt="Completed Multi-Story Residence" loading="lazy" class="w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-110" />
+                <div class="absolute inset-0 bg-black/50 backdrop-blur-[3px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-4 text-center">
+                  <div class="w-10 h-10 glass rounded-full flex items-center justify-center mb-3 transform scale-90 group-hover:scale-100 transition-transform duration-500">
+                    <i data-lucide="zoom-in" class="text-white w-5 h-5"></i>
                   </div>
+                  <h4 class="font-inter font-semibold text-white text-sm translate-y-2 group-hover:translate-y-0 transition-transform duration-500">Completed Multi-Story Residence</h4>
+                  <span class="text-[10px] text-brand-orange font-bold uppercase tracking-wider mt-1 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 delay-75">Exteriors</span>
                 </div>
-                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-700 dark:text-neutral-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Interiors</div>
+                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-800 dark:text-neutral-200 shadow-sm backdrop-blur-md">Exteriors</div>
               </div>
             </div>
 
-            <!-- Item 2 -->
-            <div class="gallery-item group relative overflow-hidden rounded-2xl md:col-span-1 md:row-span-2" data-category="Exteriors">
-              <div class="relative overflow-hidden w-full h-full">
-                <img src="assets/gallery/media__1782038409495.jpg" alt="Completed modern house facade" loading="lazy" class="w-full h-full object-cover object-top" />
-                <h4 class="hidden">Completed Multi-Story Residence</h4>
-                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-500 flex items-center justify-center">
-                  <div class="w-12 h-12 glass rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <i data-lucide="zoom-in" class="text-white w-5.5 h-5.5"></i>
+            <!-- Item 2 [Col2] SHORT -->
+            <div class="gallery-item short group relative overflow-hidden rounded-2xl hover:shadow-luxury-hover hover:-translate-y-1.5 transition-all duration-500 cursor-pointer" data-category="Interiors">
+              <div class="relative overflow-hidden w-full">
+                <img src="assets/gallery/luxury_interior.png" alt="Luxury Penthouse Living Room" loading="lazy" class="w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
+                <div class="absolute inset-0 bg-black/50 backdrop-blur-[3px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-4 text-center">
+                  <div class="w-10 h-10 glass rounded-full flex items-center justify-center mb-3 transform scale-90 group-hover:scale-100 transition-transform duration-500">
+                    <i data-lucide="zoom-in" class="text-white w-5 h-5"></i>
                   </div>
+                  <h4 class="font-inter font-semibold text-white text-sm translate-y-2 group-hover:translate-y-0 transition-transform duration-500">Luxury Penthouse Living Room</h4>
+                  <span class="text-[10px] text-brand-orange font-bold uppercase tracking-wider mt-1 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 delay-75">Interiors</span>
                 </div>
-                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-700 dark:text-neutral-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Exteriors</div>
+                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-800 dark:text-neutral-200 shadow-sm backdrop-blur-md">Interiors</div>
               </div>
             </div>
 
-            <!-- Item 3 -->
-            <div class="gallery-item group relative overflow-hidden rounded-2xl md:col-span-1 md:row-span-2" data-category="Interiors">
-              <div class="relative overflow-hidden w-full h-full">
-                <img src="assets/gallery/media__1782038323912.jpg" alt="Interior glass staircase looking up" loading="lazy" class="w-full h-full object-cover" />
-                <h4 class="hidden">Modern Glass Staircase</h4>
-                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-500 flex items-center justify-center">
-                  <div class="w-12 h-12 glass rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <i data-lucide="zoom-in" class="text-white w-5.5 h-5.5"></i>
+            <!-- Item 3 [Col3] SHORT -->
+            <div class="gallery-item short group relative overflow-hidden rounded-2xl hover:shadow-luxury-hover hover:-translate-y-1.5 transition-all duration-500 cursor-pointer" data-category="Architecture">
+              <div class="relative overflow-hidden w-full">
+                <img src="assets/gallery/architectural_render_5.png" alt="Modern Art Gallery Concept" loading="lazy" class="w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
+                <div class="absolute inset-0 bg-black/50 backdrop-blur-[3px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-4 text-center">
+                  <div class="w-10 h-10 glass rounded-full flex items-center justify-center mb-3 transform scale-90 group-hover:scale-100 transition-transform duration-500">
+                    <i data-lucide="zoom-in" class="text-white w-5 h-5"></i>
                   </div>
+                  <h4 class="font-inter font-semibold text-white text-sm translate-y-2 group-hover:translate-y-0 transition-transform duration-500">Modern Art Gallery Concept</h4>
+                  <span class="text-[10px] text-brand-orange font-bold uppercase tracking-wider mt-1 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 delay-75">Architecture</span>
                 </div>
-                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-700 dark:text-neutral-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Interiors</div>
+                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-800 dark:text-neutral-200 shadow-sm backdrop-blur-md">Architecture</div>
               </div>
             </div>
 
-            <!-- Item 4 -->
-            <div class="gallery-item group relative overflow-hidden rounded-2xl md:col-span-1 md:row-span-1" data-category="Exteriors">
-              <div class="relative overflow-hidden w-full h-full">
-                <img src="assets/gallery/luxury_exterior.png" alt="Luxury modern villa exterior" loading="lazy" class="w-full h-full object-cover" />
-                <h4 class="hidden">Luxury Modern Villa</h4>
-                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-500 flex items-center justify-center">
-                  <div class="w-12 h-12 glass rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <i data-lucide="zoom-in" class="text-white w-5.5 h-5.5"></i>
+            <!-- Item 4 - short -->
+            <div class="gallery-item short group relative overflow-hidden rounded-2xl hover:shadow-luxury-hover hover:-translate-y-1.5 transition-all duration-500 cursor-pointer" data-category="Exteriors">
+              <div class="relative overflow-hidden w-full">
+                <img src="assets/gallery/luxury_exterior.png" alt="Luxury modern villa exterior" loading="lazy" class="w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
+                <div class="absolute inset-0 bg-black/50 backdrop-blur-[3px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-4 text-center">
+                  <div class="w-10 h-10 glass rounded-full flex items-center justify-center mb-3 transform scale-90 group-hover:scale-100 transition-transform duration-500">
+                    <i data-lucide="zoom-in" class="text-white w-5 h-5"></i>
                   </div>
+                  <h4 class="font-inter font-semibold text-white text-sm translate-y-2 group-hover:translate-y-0 transition-transform duration-500">Luxury Modern Villa</h4>
+                  <span class="text-[10px] text-brand-orange font-bold uppercase tracking-wider mt-1 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 delay-75">Exteriors</span>
                 </div>
-                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-700 dark:text-neutral-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Exteriors</div>
+                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-800 dark:text-neutral-200 shadow-sm backdrop-blur-md">Exteriors</div>
               </div>
             </div>
 
-            <!-- Item 5 -->
-            <div class="gallery-item group relative overflow-hidden rounded-2xl md:col-span-1 md:row-span-1" data-category="Architecture">
-              <div class="relative overflow-hidden w-full h-full">
-                <img src="assets/gallery/media__1782038347456.jpg" alt="3D architectural rendering" loading="lazy" class="w-full h-full object-cover" />
-                <h4 class="hidden">Architectural Elevation Concept</h4>
-                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-500 flex items-center justify-center">
-                  <div class="w-12 h-12 glass rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <i data-lucide="zoom-in" class="text-white w-5.5 h-5.5"></i>
+            <!-- Item 5 [Col2] TALL -->
+            <div class="gallery-item tall group relative overflow-hidden rounded-2xl hover:shadow-luxury-hover hover:-translate-y-1.5 transition-all duration-500 cursor-pointer" data-category="Interiors">
+              <div class="relative overflow-hidden w-full">
+                <img src="assets/gallery/media__1782038323912.jpg" alt="Modern Glass Staircase" loading="lazy" class="w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
+                <div class="absolute inset-0 bg-black/50 backdrop-blur-[3px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-4 text-center">
+                  <div class="w-10 h-10 glass rounded-full flex items-center justify-center mb-3 transform scale-90 group-hover:scale-100 transition-transform duration-500">
+                    <i data-lucide="zoom-in" class="text-white w-5 h-5"></i>
                   </div>
+                  <h4 class="font-inter font-semibold text-white text-sm translate-y-2 group-hover:translate-y-0 transition-transform duration-500">Modern Glass Staircase</h4>
+                  <span class="text-[10px] text-brand-orange font-bold uppercase tracking-wider mt-1 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 delay-75">Interiors</span>
                 </div>
-                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-700 dark:text-neutral-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Architecture</div>
+                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-800 dark:text-neutral-200 shadow-sm backdrop-blur-md">Interiors</div>
               </div>
             </div>
 
-            <!-- Item 6 -->
-            <div class="gallery-item group relative overflow-hidden rounded-2xl md:col-span-1 md:row-span-2" data-category="Construction">
-              <div class="relative overflow-hidden w-full h-full">
-                <img src="assets/gallery/media__1782038836398.jpg" alt="Excavated foundation pits and columns" loading="lazy" class="w-full h-full object-cover" />
-                <h4 class="hidden">Excavated Foundation Columns</h4>
-                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-500 flex items-center justify-center">
-                  <div class="w-12 h-12 glass rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <i data-lucide="zoom-in" class="text-white w-5.5 h-5.5"></i>
+            <!-- Item 6 [Col3] TALL -->
+            <div class="gallery-item tall group relative overflow-hidden rounded-2xl hover:shadow-luxury-hover hover:-translate-y-1.5 transition-all duration-500 cursor-pointer" data-category="Architecture">
+              <div class="relative overflow-hidden w-full">
+                <img src="assets/gallery/architectural_render_3.png" alt="Premium Modern Luxury Residence" loading="lazy" class="w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
+                <div class="absolute inset-0 bg-black/50 backdrop-blur-[3px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-4 text-center">
+                  <div class="w-10 h-10 glass rounded-full flex items-center justify-center mb-3 transform scale-90 group-hover:scale-100 transition-transform duration-500">
+                    <i data-lucide="zoom-in" class="text-white w-5 h-5"></i>
                   </div>
+                  <h4 class="font-inter font-semibold text-white text-sm translate-y-2 group-hover:translate-y-0 transition-transform duration-500">Premium Modern Luxury Residence</h4>
+                  <span class="text-[10px] text-brand-orange font-bold uppercase tracking-wider mt-1 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 delay-75">Architecture</span>
                 </div>
-                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-700 dark:text-neutral-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Construction</div>
+                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-800 dark:text-neutral-200 shadow-sm backdrop-blur-md">Architecture</div>
               </div>
             </div>
 
-            <!-- Item 7 -->
-            <div class="gallery-item group relative overflow-hidden rounded-2xl md:col-span-1 md:row-span-1" data-category="Interiors">
-              <div class="relative overflow-hidden w-full h-full">
-                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80&auto=format&fit=crop" alt="Premium home open plan interior" loading="lazy" class="w-full h-full object-cover" />
-                <h4 class="hidden">Premium Modern Open-Plan Interior</h4>
-                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-500 flex items-center justify-center">
-                  <div class="w-12 h-12 glass rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <i data-lucide="zoom-in" class="text-white w-5.5 h-5.5"></i>
+            <!-- Item 7 [Col1] SHORT -->
+            <div class="gallery-item short group relative overflow-hidden rounded-2xl hover:shadow-luxury-hover hover:-translate-y-1.5 transition-all duration-500 cursor-pointer" data-category="Interiors">
+              <div class="relative overflow-hidden w-full">
+                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80&auto=format&fit=crop" alt="Premium Modern Open-Plan Interior" loading="lazy" class="w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
+                <div class="absolute inset-0 bg-black/50 backdrop-blur-[3px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-4 text-center">
+                  <div class="w-10 h-10 glass rounded-full flex items-center justify-center mb-3 transform scale-90 group-hover:scale-100 transition-transform duration-500">
+                    <i data-lucide="zoom-in" class="text-white w-5 h-5"></i>
                   </div>
+                  <h4 class="font-inter font-semibold text-white text-sm translate-y-2 group-hover:translate-y-0 transition-transform duration-500">Premium Modern Open-Plan Interior</h4>
+                  <span class="text-[10px] text-brand-orange font-bold uppercase tracking-wider mt-1 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 delay-75">Interiors</span>
                 </div>
-                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-700 dark:text-neutral-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Interiors</div>
+                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-800 dark:text-neutral-200 shadow-sm backdrop-blur-md">Interiors</div>
               </div>
             </div>
 
-            <!-- Item 8 -->
-            <div class="gallery-item group relative overflow-hidden rounded-2xl md:col-span-1 md:row-span-2" data-category="Architecture">
-              <div class="relative overflow-hidden w-full h-full">
-                <img src="assets/gallery/architectural_render_2.png" alt="Modern minimalist residential design rendering" loading="lazy" class="w-full h-full object-cover" />
-                <h4 class="hidden">Modernist Villa Elevation</h4>
-                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-500 flex items-center justify-center">
-                  <div class="w-12 h-12 glass rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <i data-lucide="zoom-in" class="text-white w-5.5 h-5.5"></i>
+            <!-- Item 8 [Col2] SHORT -->
+            <div class="gallery-item short group relative overflow-hidden rounded-2xl hover:shadow-luxury-hover hover:-translate-y-1.5 transition-all duration-500 cursor-pointer" data-category="Architecture">
+              <div class="relative overflow-hidden w-full">
+                <img src="assets/gallery/media__1782038347456.jpg" alt="Architectural Elevation Concept" loading="lazy" class="w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
+                <div class="absolute inset-0 bg-black/50 backdrop-blur-[3px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-4 text-center">
+                  <div class="w-10 h-10 glass rounded-full flex items-center justify-center mb-3 transform scale-90 group-hover:scale-100 transition-transform duration-500">
+                    <i data-lucide="zoom-in" class="text-white w-5 h-5"></i>
                   </div>
+                  <h4 class="font-inter font-semibold text-white text-sm translate-y-2 group-hover:translate-y-0 transition-transform duration-500">Architectural Elevation Concept</h4>
+                  <span class="text-[10px] text-brand-orange font-bold uppercase tracking-wider mt-1 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 delay-75">Architecture</span>
                 </div>
-                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-700 dark:text-neutral-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Architecture</div>
+                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibond text-neutral-800 dark:text-neutral-200 shadow-sm backdrop-blur-md">Architecture</div>
               </div>
             </div>
 
-            <!-- Item 9 -->
-            <div class="gallery-item group relative overflow-hidden rounded-2xl md:col-span-1 md:row-span-2" data-category="Architecture">
-              <div class="relative overflow-hidden w-full h-full">
-                <img src="assets/gallery/architectural_render_3.png" alt="Premium modern luxury residence at twilight" loading="lazy" class="w-full h-full object-cover" />
-                <h4 class="hidden">Premium Modern Luxury Residence</h4>
-                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-500 flex items-center justify-center">
-                  <div class="w-12 h-12 glass rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <i data-lucide="zoom-in" class="text-white w-5.5 h-5.5"></i>
+            <!-- Item 9 [Col3] SHORT -->
+            <div class="gallery-item short group relative overflow-hidden rounded-2xl hover:shadow-luxury-hover hover:-translate-y-1.5 transition-all duration-500 cursor-pointer" data-category="Construction">
+              <div class="relative overflow-hidden w-full">
+                <img src="assets/gallery/media__1782038305349.jpg" alt="Concrete Building Frame" loading="lazy" class="w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
+                <div class="absolute inset-0 bg-black/50 backdrop-blur-[3px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-4 text-center">
+                  <div class="w-10 h-10 glass rounded-full flex items-center justify-center mb-3 transform scale-90 group-hover:scale-100 transition-transform duration-500">
+                    <i data-lucide="zoom-in" class="text-white w-5 h-5"></i>
                   </div>
+                  <h4 class="font-inter font-semibold text-white text-sm translate-y-2 group-hover:translate-y-0 transition-transform duration-500">Concrete Building Frame</h4>
+                  <span class="text-[10px] text-brand-orange font-bold uppercase tracking-wider mt-1 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 delay-75">Construction</span>
                 </div>
-                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-700 dark:text-neutral-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Architecture</div>
+                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-800 dark:text-neutral-200 shadow-sm backdrop-blur-md">Construction</div>
               </div>
             </div>
 
-            <!-- Item 10 -->
-            <div class="gallery-item group relative overflow-hidden rounded-2xl md:col-span-1 md:row-span-1" data-category="Construction">
-              <div class="relative overflow-hidden w-full h-full">
-                <img src="assets/gallery/media__1782038305349.jpg" alt="Concrete building frame under construction" loading="lazy" class="w-full h-full object-cover" />
-                <h4 class="hidden">Concrete Building Frame</h4>
-                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-500 flex items-center justify-center">
-                  <div class="w-12 h-12 glass rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <i data-lucide="zoom-in" class="text-white w-5.5 h-5.5"></i>
+            <!-- Item 10 [Col1] TALL -->
+            <div class="gallery-item tall group relative overflow-hidden rounded-2xl hover:shadow-luxury-hover hover:-translate-y-1.5 transition-all duration-500 cursor-pointer" data-category="Exteriors">
+              <div class="relative overflow-hidden w-full">
+                <img src="assets/gallery/project_new_1.jpg" alt="Oceanfront Residence Facade" loading="lazy" class="w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
+                <div class="absolute inset-0 bg-black/50 backdrop-blur-[3px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-4 text-center">
+                  <div class="w-10 h-10 glass rounded-full flex items-center justify-center mb-3 transform scale-90 group-hover:scale-100 transition-transform duration-500">
+                    <i data-lucide="zoom-in" class="text-white w-5 h-5"></i>
                   </div>
+                  <h4 class="font-inter font-semibold text-white text-sm translate-y-2 group-hover:translate-y-0 transition-transform duration-500">Oceanfront Residence Facade</h4>
+                  <span class="text-[10px] text-brand-orange font-bold uppercase tracking-wider mt-1 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 delay-75">Exteriors</span>
                 </div>
-                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-700 dark:text-neutral-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Construction</div>
+                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-800 dark:text-neutral-200 shadow-sm backdrop-blur-md">Exteriors</div>
               </div>
             </div>
 
-            <!-- Item 11 -->
-            <div class="gallery-item group relative overflow-hidden rounded-2xl md:col-span-1 md:row-span-1" data-category="Exteriors">
-              <div class="relative overflow-hidden w-full h-full">
-                <img src="assets/gallery/luxury_exterior_simple.png" alt="Simple luxury architectural building exterior" loading="lazy" class="w-full h-full object-cover" />
-                <h4 class="hidden">Minimalist Luxury Facade</h4>
-                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-500 flex items-center justify-center">
-                  <div class="w-12 h-12 glass rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <i data-lucide="zoom-in" class="text-white w-5.5 h-5.5"></i>
+            <!-- Item 11 [Col2] TALL -->
+            <div class="gallery-item tall group relative overflow-hidden rounded-2xl hover:shadow-luxury-hover hover:-translate-y-1.5 transition-all duration-500 cursor-pointer" data-category="Construction">
+              <div class="relative overflow-hidden w-full">
+                <img src="assets/gallery/media__1782038836398.jpg" alt="Excavated Foundation Columns" loading="lazy" class="w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
+                <div class="absolute inset-0 bg-black/50 backdrop-blur-[3px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-4 text-center">
+                  <div class="w-10 h-10 glass rounded-full flex items-center justify-center mb-3 transform scale-90 group-hover:scale-100 transition-transform duration-500">
+                    <i data-lucide="zoom-in" class="text-white w-5 h-5"></i>
                   </div>
+                  <h4 class="font-inter font-semibold text-white text-sm translate-y-2 group-hover:translate-y-0 transition-transform duration-500">Excavated Foundation Columns</h4>
+                  <span class="text-[10px] text-brand-orange font-bold uppercase tracking-wider mt-1 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 delay-75">Construction</span>
                 </div>
-                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-700 dark:text-neutral-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Exteriors</div>
+                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-800 dark:text-neutral-200 shadow-sm backdrop-blur-md">Construction</div>
               </div>
             </div>
 
-            <!-- Item 12 -->
-            <div class="gallery-item group relative overflow-hidden rounded-2xl md:col-span-1 md:row-span-1" data-category="Construction">
-              <div class="relative overflow-hidden w-full h-full">
-                <img src="assets/gallery/media__1782038368140.jpg" alt="Slab reinforcement steel rebars" loading="lazy" class="w-full h-full object-cover" />
-                <h4 class="hidden">Slab Reinforcement Work</h4>
-                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-500 flex items-center justify-center">
-                  <div class="w-12 h-12 glass rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <i data-lucide="zoom-in" class="text-white w-5.5 h-5.5"></i>
+            <!-- Item 12 [Col3] TALL -->
+            <div class="gallery-item tall group relative overflow-hidden rounded-2xl hover:shadow-luxury-hover hover:-translate-y-1.5 transition-all duration-500 cursor-pointer" data-category="Architecture">
+              <div class="relative overflow-hidden w-full">
+                <img src="assets/gallery/architectural_render_2.png" alt="Modernist Villa Elevation" loading="lazy" class="w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
+                <div class="absolute inset-0 bg-black/50 backdrop-blur-[3px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-4 text-center">
+                  <div class="w-10 h-10 glass rounded-full flex items-center justify-center mb-3 transform scale-90 group-hover:scale-100 transition-transform duration-500">
+                    <i data-lucide="zoom-in" class="text-white w-5 h-5"></i>
                   </div>
+                  <h4 class="font-inter font-semibold text-white text-sm translate-y-2 group-hover:translate-y-0 transition-transform duration-500">Modernist Villa Elevation</h4>
+                  <span class="text-[10px] text-brand-orange font-bold uppercase tracking-wider mt-1 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 delay-75">Architecture</span>
                 </div>
-                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-700 dark:text-neutral-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Construction</div>
+                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-800 dark:text-neutral-200 shadow-sm backdrop-blur-md">Architecture</div>
               </div>
             </div>
 
-            <!-- Item 13 -->
-            <div class="gallery-item group relative overflow-hidden rounded-2xl md:col-span-1 md:row-span-1" data-category="Construction">
-              <div class="relative overflow-hidden w-full h-full">
-                <img src="assets/gallery/media__1782039666829.jpg" alt="Mason wall construction with blockwork" loading="lazy" class="w-full h-full object-cover" />
-                <h4 class="hidden">Active Block Wall Masonry</h4>
-                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-500 flex items-center justify-center">
-                  <div class="w-12 h-12 glass rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <i data-lucide="zoom-in" class="text-white w-5.5 h-5.5"></i>
+            <!-- Item 13 [Col1] SHORT -->
+            <div class="gallery-item short group relative overflow-hidden rounded-2xl hover:shadow-luxury-hover hover:-translate-y-1.5 transition-all duration-500 cursor-pointer" data-category="Construction">
+              <div class="relative overflow-hidden w-full">
+                <img src="assets/gallery/media__1782038368140.jpg" alt="Slab Reinforcement Work" loading="lazy" class="w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
+                <div class="absolute inset-0 bg-black/50 backdrop-blur-[3px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-4 text-center">
+                  <div class="w-10 h-10 glass rounded-full flex items-center justify-center mb-3 transform scale-90 group-hover:scale-100 transition-transform duration-500">
+                    <i data-lucide="zoom-in" class="text-white w-5 h-5"></i>
                   </div>
+                  <h4 class="font-inter font-semibold text-white text-sm translate-y-2 group-hover:translate-y-0 transition-transform duration-500">Slab Reinforcement Work</h4>
+                  <span class="text-[10px] text-brand-orange font-bold uppercase tracking-wider mt-1 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 delay-75">Construction</span>
                 </div>
-                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-700 dark:text-neutral-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Construction</div>
+                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-800 dark:text-neutral-200 shadow-sm backdrop-blur-md">Construction</div>
               </div>
             </div>
 
-            <!-- Item 14 -->
-            <div class="gallery-item group relative overflow-hidden rounded-2xl md:col-span-1 md:row-span-1" data-category="Construction">
-              <div class="relative overflow-hidden w-full h-full">
-                <img src="assets/gallery/media__1782038992187.jpg" alt="Slab shuttering work with wooden props" loading="lazy" class="w-full h-full object-cover" />
-                <h4 class="hidden">Wooden Props Shuttering Support</h4>
-                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-500 flex items-center justify-center">
-                  <div class="w-12 h-12 glass rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <i data-lucide="zoom-in" class="text-white w-5.5 h-5.5"></i>
+            <!-- Item 14 [Col2] SHORT -->
+            <div class="gallery-item short group relative overflow-hidden rounded-2xl hover:shadow-luxury-hover hover:-translate-y-1.5 transition-all duration-500 cursor-pointer" data-category="Exteriors">
+              <div class="relative overflow-hidden w-full">
+                <img src="assets/gallery/project_new_2.jpg" alt="Contemporary Villa Gardens" loading="lazy" class="w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
+                <div class="absolute inset-0 bg-black/50 backdrop-blur-[3px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-4 text-center">
+                  <div class="w-10 h-10 glass rounded-full flex items-center justify-center mb-3 transform scale-90 group-hover:scale-100 transition-transform duration-500">
+                    <i data-lucide="zoom-in" class="text-white w-5 h-5"></i>
                   </div>
+                  <h4 class="font-inter font-semibold text-white text-sm translate-y-2 group-hover:translate-y-0 transition-transform duration-500">Contemporary Villa Gardens</h4>
+                  <span class="text-[10px] text-brand-orange font-bold uppercase tracking-wider mt-1 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 delay-75">Exteriors</span>
                 </div>
-                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-700 dark:text-neutral-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Construction</div>
+                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-800 dark:text-neutral-200 shadow-sm backdrop-blur-md">Exteriors</div>
               </div>
             </div>
 
-            <!-- Item 16 -->
-            <div class="gallery-item group relative overflow-hidden rounded-2xl md:col-span-1 md:row-span-1" data-category="Exteriors">
-              <div class="relative overflow-hidden w-full h-full">
-                <img src="assets/gallery/luxury_exterior_simple_2.png" alt="Minimalist luxury villa exterior with warm lighting" loading="lazy" class="w-full h-full object-cover" />
-                <h4 class="hidden">Minimalist Luxury Villa</h4>
-                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-500 flex items-center justify-center">
-                  <div class="w-12 h-12 glass rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <i data-lucide="zoom-in" class="text-white w-5.5 h-5.5"></i>
+            <!-- Item 15 [Col3] SHORT -->
+            <div class="gallery-item short group relative overflow-hidden rounded-2xl hover:shadow-luxury-hover hover:-translate-y-1.5 transition-all duration-500 cursor-pointer" data-category="Exteriors">
+              <div class="relative overflow-hidden w-full">
+                <img src="assets/gallery/luxury_exterior_simple.png" alt="Minimalist Luxury Facade" loading="lazy" class="w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
+                <div class="absolute inset-0 bg-black/50 backdrop-blur-[3px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-4 text-center">
+                  <div class="w-10 h-10 glass rounded-full flex items-center justify-center mb-3 transform scale-90 group-hover:scale-100 transition-transform duration-500">
+                    <i data-lucide="zoom-in" class="text-white w-5 h-5"></i>
                   </div>
+                  <h4 class="font-inter font-semibold text-white text-sm translate-y-2 group-hover:translate-y-0 transition-transform duration-500">Minimalist Luxury Facade</h4>
+                  <span class="text-[10px] text-brand-orange font-bold uppercase tracking-wider mt-1 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 delay-75">Exteriors</span>
                 </div>
-                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-700 dark:text-neutral-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Exteriors</div>
+                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-800 dark:text-neutral-200 shadow-sm backdrop-blur-md">Exteriors</div>
               </div>
             </div>
 
-            <!-- Item 17 -->
-            <div class="gallery-item group relative overflow-hidden rounded-2xl md:col-span-1 md:row-span-1" data-category="Architecture">
-              <div class="relative overflow-hidden w-full h-full">
-                <img src="assets/gallery/architectural_render_5.png" alt="Dramatic modern architectural rendering of a glass gallery building" loading="lazy" class="w-full h-full object-cover" />
-                <h4 class="hidden">Modern Art Gallery Concept</h4>
-                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-500 flex items-center justify-center">
-                  <div class="w-12 h-12 glass rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <i data-lucide="zoom-in" class="text-white w-5.5 h-5.5"></i>
+            <!-- Item 16 [Col1] SHORT -->
+            <div class="gallery-item short group relative overflow-hidden rounded-2xl hover:shadow-luxury-hover hover:-translate-y-1.5 transition-all duration-500 cursor-pointer" data-category="Construction">
+              <div class="relative overflow-hidden w-full">
+                <img src="assets/gallery/media__1782039666829.jpg" alt="Active Block Wall Masonry" loading="lazy" class="w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
+                <div class="absolute inset-0 bg-black/50 backdrop-blur-[3px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-4 text-center">
+                  <div class="w-10 h-10 glass rounded-full flex items-center justify-center mb-3 transform scale-90 group-hover:scale-100 transition-transform duration-500">
+                    <i data-lucide="zoom-in" class="text-white w-5 h-5"></i>
                   </div>
+                  <h4 class="font-inter font-semibold text-white text-sm translate-y-2 group-hover:translate-y-0 transition-transform duration-500">Active Block Wall Masonry</h4>
+                  <span class="text-[10px] text-brand-orange font-bold uppercase tracking-wider mt-1 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 delay-75">Construction</span>
                 </div>
-                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-700 dark:text-neutral-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Architecture</div>
+                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-800 dark:text-neutral-200 shadow-sm backdrop-blur-md">Construction</div>
               </div>
             </div>
+
+            <!-- Item 17 [Col2] TALL -->
+            <div class="gallery-item tall group relative overflow-hidden rounded-2xl hover:shadow-luxury-hover hover:-translate-y-1.5 transition-all duration-500 cursor-pointer" data-category="Architecture">
+              <div class="relative overflow-hidden w-full">
+                <img src="assets/gallery/project_new_6.jpg" alt="Mixed-Use Development Render" loading="lazy" class="w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
+                <div class="absolute inset-0 bg-black/50 backdrop-blur-[3px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-4 text-center">
+                  <div class="w-10 h-10 glass rounded-full flex items-center justify-center mb-3 transform scale-90 group-hover:scale-100 transition-transform duration-500">
+                    <i data-lucide="zoom-in" class="text-white w-5 h-5"></i>
+                  </div>
+                  <h4 class="font-inter font-semibold text-white text-sm translate-y-2 group-hover:translate-y-0 transition-transform duration-500">Mixed-Use Development Render</h4>
+                  <span class="text-[10px] text-brand-orange font-bold uppercase tracking-wider mt-1 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 delay-75">Architecture</span>
+                </div>
+                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-800 dark:text-neutral-200 shadow-sm backdrop-blur-md">Architecture</div>
+              </div>
+            </div>
+
+            <!-- Item 18 [Col3] TALL -->
+            <div class="gallery-item tall group relative overflow-hidden rounded-2xl hover:shadow-luxury-hover hover:-translate-y-1.5 transition-all duration-500 cursor-pointer" data-category="Interiors">
+              <div class="relative overflow-hidden w-full">
+                <img src="assets/gallery/project_new_8.jpg" alt="Ultra-Modern Minimalist Kitchen" loading="lazy" class="w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
+                <div class="absolute inset-0 bg-black/50 backdrop-blur-[3px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-4 text-center">
+                  <div class="w-10 h-10 glass rounded-full flex items-center justify-center mb-3 transform scale-90 group-hover:scale-100 transition-transform duration-500">
+                    <i data-lucide="zoom-in" class="text-white w-5 h-5"></i>
+                  </div>
+                  <h4 class="font-inter font-semibold text-white text-sm translate-y-2 group-hover:translate-y-0 transition-transform duration-500">Ultra-Modern Minimalist Kitchen</h4>
+                  <span class="text-[10px] text-brand-orange font-bold uppercase tracking-wider mt-1 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 delay-75">Interiors</span>
+                </div>
+                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-800 dark:text-neutral-200 shadow-sm backdrop-blur-md">Interiors</div>
+              </div>
+            </div>
+
+            <!-- Item 19 [Col1] TALL -->
+            <div class="gallery-item tall group relative overflow-hidden rounded-2xl hover:shadow-luxury-hover hover:-translate-y-1.5 transition-all duration-500 cursor-pointer" data-category="Construction">
+              <div class="relative overflow-hidden w-full">
+                <img src="assets/gallery/project_new_3.jpg" alt="Foundation Piling Process" loading="lazy" class="w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
+                <div class="absolute inset-0 bg-black/50 backdrop-blur-[3px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-4 text-center">
+                  <div class="w-10 h-10 glass rounded-full flex items-center justify-center mb-3 transform scale-90 group-hover:scale-100 transition-transform duration-500">
+                    <i data-lucide="zoom-in" class="text-white w-5 h-5"></i>
+                  </div>
+                  <h4 class="font-inter font-semibold text-white text-sm translate-y-2 group-hover:translate-y-0 transition-transform duration-500">Foundation Piling Process</h4>
+                  <span class="text-[10px] text-brand-orange font-bold uppercase tracking-wider mt-1 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 delay-75">Construction</span>
+                </div>
+                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-800 dark:text-neutral-200 shadow-sm backdrop-blur-md">Construction</div>
+              </div>
+            </div>
+
+            <!-- Item 20 [Col2] SHORT -->
+            <div class="gallery-item short group relative overflow-hidden rounded-2xl hover:shadow-luxury-hover hover:-translate-y-1.5 transition-all duration-500 cursor-pointer" data-category="Construction">
+              <div class="relative overflow-hidden w-full">
+                <img src="assets/gallery/media__1782038992187.jpg" alt="Wooden Props Shuttering Support" loading="lazy" class="w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
+                <div class="absolute inset-0 bg-black/50 backdrop-blur-[3px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-4 text-center">
+                  <div class="w-10 h-10 glass rounded-full flex items-center justify-center mb-3 transform scale-90 group-hover:scale-100 transition-transform duration-500">
+                    <i data-lucide="zoom-in" class="text-white w-5 h-5"></i>
+                  </div>
+                  <h4 class="font-inter font-semibold text-white text-sm translate-y-2 group-hover:translate-y-0 transition-transform duration-500">Wooden Props Shuttering Support</h4>
+                  <span class="text-[10px] text-brand-orange font-bold uppercase tracking-wider mt-1 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 delay-75">Construction</span>
+                </div>
+                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-800 dark:text-neutral-200 shadow-sm backdrop-blur-md">Construction</div>
+              </div>
+            </div>
+
+            <!-- Item 21 [Col3] SHORT -->
+            <div class="gallery-item short group relative overflow-hidden rounded-2xl hover:shadow-luxury-hover hover:-translate-y-1.5 transition-all duration-500 cursor-pointer" data-category="Exteriors">
+              <div class="relative overflow-hidden w-full">
+                <img src="assets/gallery/luxury_exterior_simple_2.png" alt="Minimalist Luxury Villa" loading="lazy" class="w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
+                <div class="absolute inset-0 bg-black/50 backdrop-blur-[3px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-4 text-center">
+                  <div class="w-10 h-10 glass rounded-full flex items-center justify-center mb-3 transform scale-90 group-hover:scale-100 transition-transform duration-500">
+                    <i data-lucide="zoom-in" class="text-white w-5 h-5"></i>
+                  </div>
+                  <h4 class="font-inter font-semibold text-white text-sm translate-y-2 group-hover:translate-y-0 transition-transform duration-500">Minimalist Luxury Villa</h4>
+                  <span class="text-[10px] text-brand-orange font-bold uppercase tracking-wider mt-1 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 delay-75">Exteriors</span>
+                </div>
+                <div class="absolute top-3 right-3 glass rounded-full px-2.5 py-1 text-[10px] font-semibold text-neutral-800 dark:text-neutral-200 shadow-sm backdrop-blur-md">Exteriors</div>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
@@ -405,6 +522,6 @@
     </script>
 
     <!-- Custom Script File -->
-    <script src="script.js?v=3"></script>
+    <script src="script.js?v=6"></script>
   </body>
 </html>

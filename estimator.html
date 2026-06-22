@@ -177,7 +177,16 @@
               <!-- Quality Selection -->
               <div class="space-y-3">
                 <label class="block text-sm font-semibold text-neutral-700 dark:text-neutral-300">Material Quality &amp; Specifications</label>
-                <div class="grid sm:grid-cols-3 gap-3">
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                  <!-- Option Budgetory -->
+                  <label class="border-2 border-neutral-200 dark:border-neutral-700 rounded-2xl p-4 cursor-pointer hover:border-brand-orange/50 transition-all flex flex-col justify-between">
+                    <input type="radio" name="material-quality" value="budgetory" class="hidden" />
+                    <div>
+                      <p class="font-bold text-sm text-neutral-800 dark:text-neutral-200">Budgetory</p>
+                      <p class="text-[10px] text-neutral-400 mt-0.5">Essential materials, solid structure</p>
+                    </div>
+                    <span class="block text-brand-orange text-xs font-semibold mt-3">₹ 1,900/sq.ft</span>
+                  </label>
                   <!-- Option Standard -->
                   <label class="border-2 border-neutral-200 dark:border-neutral-700 rounded-2xl p-4 cursor-pointer hover:border-brand-orange/50 transition-all flex flex-col justify-between">
                     <input type="radio" name="material-quality" value="standard" class="hidden" />
@@ -276,6 +285,6 @@
     </script>
 
     <!-- Custom Script File -->
-    <script src="script.js?v=3"></script>
+    <script src="script.js?v=6"></script>
   </body>
 </html>

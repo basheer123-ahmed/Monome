@@ -145,7 +145,7 @@
     { q: "do you provide contracts", a: "Yes, all projects are supported by proper agreements." },
     { q: "do you provide warranties", a: "Warranty details depend on project scope and agreement terms." },
     { q: "what happens after project completion", a: "We hand over the completed project and provide support if needed." },
-    { q: "do you offer maintenance services", a: "Yes, maintenance services can be provided upon request." },
+    { q: "do offer maintenance services", a: "Yes, maintenance services can be provided upon request." },
     { q: "what are your working hours", a: "Please contact our team for business hours." },
     { q: "do you provide customer support", a: "Yes, our team is available to assist clients." },
     { q: "can i request a callback", a: "Yes, please share your contact details and our team will reach out." },
@@ -233,7 +233,7 @@
     for (const item of FAQ_MATRIX) {
       const cleanedQuestion = cleanText(item.q);
       const maxDist = (cleanedInput.length <= 3 || cleanedQuestion.length <= 3) ? 1 : 2;
-      
+
       if (Math.abs(cleanedInput.length - cleanedQuestion.length) <= maxDist) {
         const dist = computeLevenshteinDistance(cleanedInput, cleanedQuestion);
         if (dist <= maxDist) {
@@ -300,23 +300,34 @@
     if (!text.trim()) return;
     addUserMessage(text);
 
-    // Entry-point Interceptor Pipeline
+    // Advanced Token Intersection Pre-Processor Engine
     const normalized = text.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"']/g, "").trim();
-    const greetings = ["hi", "hai", "hello", "helo", "hey", "yo", "good morning", "good afternoon", "good evening"];
-    const sentiments = ["nice", "cool", "great", "awesome", "ok", "okay", "perfect", "got it", "understood", "sure"];
+    const inputTokens = normalized.split(/\s+/).filter(Boolean);
 
-    // 1. Global Greeting Normalizer
-    const isGreeting = greetings.some(g => normalized === g || normalized.split(/\s+/).includes(g) || (g.includes(" ") && normalized.includes(g)));
-    if (isGreeting) {
+    const greetings = ["hi", "hai", "hello", "helo", "hey", "yo", "good morning", "good afternoon", "good evening"];
+    const sentiments = ["nice", "cool", "great", "awesome", "ok", "okay", "perfect", "got it", "understood", "sure", "fine", "wow", "excellent"];
+    const gratitude = ["thanks", "thank you", "ty", "appreciate", "appreciated"];
+
+    // 1. Intelligent Greeting Router via Token Intersection
+    const containsGreeting = inputTokens.some(token => greetings.includes(token)) || greetings.some(g => normalized === g);
+    if (containsGreeting && inputTokens.length <= 4) { // Clamped to avoid hitting when mixed in complex structural questions
       addBotMessage("Hello! Welcome to Monome Constructions. How can I assist you today?");
       renderStatePills();
       return;
     }
 
-    // 2. Conversational Sentiment Dictionary
-    const isSentiment = sentiments.some(s => normalized === s || normalized.split(/\s+/).includes(s));
-    if (isSentiment) {
+    // 2. Intelligent Sentiment Router via Token Intersection
+    const containsSentiment = inputTokens.some(token => sentiments.includes(token));
+    if (containsSentiment && inputTokens.length <= 4) {
       addBotMessage("Wonderful! We always strive for perfection at Monome Constructions. Let me know if you want to explore our structural workflows, premium building materials, or request a custom quotation!");
+      renderStatePills();
+      return;
+    }
+
+    // 3. Intelligent Gratitude Router
+    const containsGratitude = inputTokens.some(token => gratitude.includes(token)) || normalized.includes("thank you");
+    if (containsGratitude) {
+      addBotMessage("You're very welcome! It is our pleasure. Let me know if you have any other questions about our luxury builds or services.");
       renderStatePills();
       return;
     }
@@ -522,7 +533,7 @@
         <div class="bg-gradient-to-r from-[#F5A623] to-[#D4891A] p-4 flex items-center justify-between text-white shadow-md relative">
           <div class="flex items-center gap-3">
             <div class="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center border border-white/20">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <svg xmlns="http://www.w3.org/2000/xl" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
               </svg>
             </div>

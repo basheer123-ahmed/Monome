@@ -338,6 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const totalCostEl = document.getElementById('est-total');
 
   const RATES = {
+    budgetory: 1900,
     standard: 2100,
     premium: 2300,
     luxury: 2500

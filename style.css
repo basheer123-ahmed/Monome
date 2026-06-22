@@ -577,4 +577,39 @@ input[type="range"]::-webkit-slider-thumb {
   animation: fadeIn 0.5s ease-out forwards;
 }
 
+/* ─── 3D Cover Flow Carousel ─────────────────────── */
+.perspective-1000 {
+  perspective: 1000px;
+}
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+.coverflow-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  backface-visibility: hidden;
+  transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.6s ease, z-index 0.6s step-end;
+  will-change: transform, opacity;
+}
+
+.stamp-card {
+  background: white;
+  border: 12px solid var(--stamp-color, #F5A623);
+  border-image: radial-gradient(circle, transparent 4px, var(--stamp-color, #F5A623) 5px) 12 round;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+
+.dark .stamp-card {
+  background: #181a20;
+}
+
+.stamp-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
 
