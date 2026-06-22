@@ -428,7 +428,7 @@ window.MonomeComponents = {
   extras() {
     return `
     <!-- ─── BACK TO TOP BUTTON ─── -->
-    <button id="back-to-top" style="padding: 0;" class="fixed bottom-24 right-7 z-50 w-12 h-12 rounded-full btn-primary flex items-center justify-center shadow-lg opacity-0 pointer-events-none translate-y-4 transition-all duration-300 hover:scale-110 active:scale-95" aria-label="Back to top">
+    <button id="back-to-top" style="padding: 0;" class="fixed bottom-44 right-7 z-50 w-12 h-12 rounded-full btn-primary flex items-center justify-center shadow-lg opacity-0 pointer-events-none translate-y-4 transition-all duration-300 hover:scale-110 active:scale-95" aria-label="Back to top">
       <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M12 19V5M5 12l7-7 7 7"/>
       </svg>
