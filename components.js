@@ -447,8 +447,7 @@ window.MonomeComponents = {
         </div>
         <!-- Details Area -->
         <div class="p-6 border-t border-neutral-200/30 dark:border-white/10 bg-[#FAF8F3] dark:bg-[#0f1117]">
-          <span class="tag mb-2 inline-block" id="lightbox-tag">Gallery Item</span>
-          <h3 class="font-inter font-700 text-xl text-neutral-800 dark:text-white" id="lightbox-title">Item Title</h3>
+          <span class="tag inline-block" id="lightbox-tag">Gallery Item</span>
         </div>
       </div>
     </div>
