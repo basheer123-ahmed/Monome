@@ -180,13 +180,25 @@ import { ChatController } from './chatController.js';
 
     const timeString = formatTime(new Date());
     const bubble = document.createElement("div");
-    bubble.className = "flex justify-start animate-bubble-in";
-    bubble.innerHTML = `
-      <div class="bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100 rounded-2xl rounded-tl-none px-4 py-2.5 max-w-[78%] text-[13px] leading-relaxed shadow-sm relative border border-neutral-200/40 dark:border-neutral-700/40">
-        <div>${messageHtml}</div>
-        <span class="text-[9px] text-neutral-400 dark:text-neutral-500 mt-1 block">${timeString}</span>
-      </div>
-    `;
+    bubble.className = "flex justify-start animate-bubble-in w-full";
+    
+    const isSupportCard = messageHtml.includes("support-card-wrapper") || messageHtml.includes("support-card");
+
+    if (isSupportCard) {
+      bubble.innerHTML = `
+        <div class="w-full text-neutral-800 dark:text-neutral-100 rounded-2xl max-w-[95%] text-[13px] leading-relaxed relative">
+          <div>${messageHtml}</div>
+          <span class="text-[9px] text-neutral-400 dark:text-neutral-500 mt-1 block pl-2">${timeString}</span>
+        </div>
+      `;
+    } else {
+      bubble.innerHTML = `
+        <div class="bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100 rounded-2xl rounded-tl-none px-4 py-2.5 max-w-[78%] text-[13px] leading-relaxed shadow-sm relative border border-neutral-200/40 dark:border-neutral-700/40">
+          <div>${messageHtml}</div>
+          <span class="text-[9px] text-neutral-400 dark:text-neutral-500 mt-1 block">${timeString}</span>
+        </div>
+      `;
+    }
     msgContainer.appendChild(bubble);
     scrollChatToBottom();
   }

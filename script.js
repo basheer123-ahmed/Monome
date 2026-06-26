@@ -1,24 +1,43 @@
 document.addEventListener('DOMContentLoaded', () => {
   const homeBackgroundVideo = document.getElementById('home-background-video');
-  if (homeBackgroundVideo) {
-    homeBackgroundVideo.playbackRate = 0.6;
-  }
 
-  // ─── 1. Loading Screen ───
+  // ─── 1. Loading Screen & Video Playback Synchronization ───
   const loadingScreen = document.getElementById('loading-screen');
   
   const hideLoader = () => {
     if (loadingScreen && loadingScreen.style.opacity !== '0') {
-      loadingScreen.style.transition = 'opacity 0.15s ease, visibility 0.15s ease';
+      loadingScreen.style.transition = 'opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), visibility 0.6s ease';
       loadingScreen.style.opacity = '0';
       setTimeout(() => {
         loadingScreen.style.visibility = 'hidden';
-      }, 150);
+      }, 600);
     }
   };
   
-  // Show the loader briefly for a premium feel, then hide it quickly after 150ms
-  setTimeout(hideLoader, 150);
+  if (homeBackgroundVideo) {
+    homeBackgroundVideo.playbackRate = 0.6;
+    
+    let loaderHidden = false;
+    
+    // Smooth transition: hide the loading screen only when the video actually starts playing
+    homeBackgroundVideo.addEventListener('playing', () => {
+      if (!loaderHidden) {
+        loaderHidden = true;
+        hideLoader();
+      }
+    });
+    
+    // Safety Fallback: hide loader after 3.5 seconds if autoplay is blocked or slow to load
+    setTimeout(() => {
+      if (!loaderHidden) {
+        loaderHidden = true;
+        hideLoader();
+      }
+    }, 3500);
+  } else {
+    // If no background video, fade out loader after a premium delay of 500ms
+    setTimeout(hideLoader, 500);
+  }
 
   // ─── 2. Dark Mode Toggle ───
   const darkToggleBtn = document.getElementById('dark-mode-toggle');

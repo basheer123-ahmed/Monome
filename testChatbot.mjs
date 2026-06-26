@@ -27,6 +27,11 @@ const testCases = [
   { query: "what is your name", expectedIntent: "bot_identity" },
   { query: "identity of this bot", expectedIntent: "bot_identity" },
 
+  { query: "ok", expectedIntent: "acknowledgement" },
+  { query: "okay", expectedIntent: "acknowledgement" },
+  { query: "got it", expectedIntent: "acknowledgement" },
+  { query: "nice", expectedIntent: "acknowledgement" },
+  
   // --- Company info & Operations (21-30) ---
   { query: "about monome", expectedIntent: "about_monome" },
   { query: "tell me about your company", expectedIntent: "about_monome" },
@@ -245,26 +250,59 @@ function runTests() {
     console.log("❌ Context Memory Flow Tests Failed.\n");
   }
 
-  // --- Fallback Limit Test ---
-  console.log("Running Fallback Limit Flow Tests...");
+  // --- Fallback & Support Card Flow Tests ---
+  console.log("Running Fallback & Support Card Flow Tests...");
   controller.contextMemory.reset();
   controller.fallbackCount = 0;
+  controller.lastQueryWasEngineering = false;
 
-  // Query 1 unrelated
+  // Case A: General Fallback triggering Support Card immediately
   let f1 = controller.processMessage("What is the speed of light?");
-  // Query 2 unrelated
-  let f2 = controller.processMessage("Tell me a funny joke");
-  // Query 3 unrelated -> should trigger FALLBACK_LIMIT (contain contact redirect button)
-  let f3 = controller.processMessage("Who is the prime minister");
+  const hasContactUs = f1 && f1.value && f1.value.includes("Contact Us");
+  const hasStandardMsg = f1 && f1.value && f1.value.includes("requires project-specific guidance from one of our construction experts");
 
-  const hasRedirectContact = f3 && f3.value && f3.value.includes("Go To Contact Page");
-
-  if (hasRedirectContact) {
+  if (hasContactUs && hasStandardMsg) {
     passed++;
-    console.log("✅ Fallback Limit Flow Test Passed.\n");
+    console.log("✅ General Fallback Support Card Test Passed.\n");
   } else {
     failed++;
-    console.log("❌ Fallback Limit Flow Test Failed. Received:\n", f3 ? f3.value : "null", "\n");
+    console.log("❌ General Fallback Support Card Test Failed. Received:\n", f1 ? f1.value : "null", "\n");
+  }
+
+  // Case B: Highly specific engineering question bypasses normal matcher
+  let spec = controller.processMessage("Give me beam design calculations for my project");
+  const hasSpecContact = spec && spec.value && spec.value.includes("Contact Us");
+  const hasStandardMsgSpec = spec && spec.value && spec.value.includes("requires project-specific guidance from one of our construction experts");
+
+  if (hasSpecContact && hasStandardMsgSpec) {
+    passed++;
+    console.log("✅ Highly Specific Engineering Fallback Test Passed.\n");
+  } else {
+    failed++;
+    console.log("❌ Highly Specific Engineering Fallback Test Failed. Received:\n", spec ? spec.value : "null", "\n");
+  }
+
+  // Case C: Repeated Engineering check with consecutive engineering query
+  let spec2 = controller.processMessage("Show me column reinforcement details");
+  const hasRepeatedMsg2 = spec2 && spec2.value && spec2.value.includes("specialized engineering topic");
+
+  if (hasRepeatedMsg2) {
+    passed++;
+    console.log("✅ Repeated Engineering Personalization Test Passed.\n");
+  } else {
+    failed++;
+    console.log("❌ Repeated Engineering Personalization Test Failed. Received:\n", spec2 ? spec2.value : "null", "\n");
+  }
+
+  // Case D: Reset of fallback tracking on successful query
+  let greet = controller.processMessage("hi");
+  const isGreeting = greet && greet.intentId === "greetings";
+  if (isGreeting && !controller.lastQueryWasEngineering) {
+    passed++;
+    console.log("✅ Fallback tracking reset on success Test Passed.\n");
+  } else {
+    failed++;
+    console.log("❌ Fallback tracking reset on success Test Failed. Received:\n", greet ? greet.intentId : "null", "\n");
   }
 
   // --- Summary ---

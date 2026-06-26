@@ -41,6 +41,19 @@ export const intents = [
     suggested_followups: ["🏢 Main Menu", "📊 Cost Estimate"]
   },
   {
+    id: "acknowledgement",
+    keywords: {
+      primary: ["ok", "okay", "got it", "gotit", "cool", "nice", "fine", "sure", "noted", "great", "perfect"],
+      secondary: ["understand", "thanks", "assistant"],
+      support: ["please", "help"]
+    },
+    synonyms: ["acknowledge", "agree"],
+    common_misspellings: ["k", "kk", "okey", "okayy"],
+    threshold: 8,
+    answer: "Great! Let me know if you have any questions about our projects, structural workflow, materials, or pricing estimation.",
+    suggested_followups: ["🏢 Main Menu", "📊 Cost Estimate"]
+  },
+  {
     id: "bot_identity",
     keywords: {
       primary: ["who", "identity", "bot", "name", "assistant", "what are you", "who_are_you", "what_is_your_name"],
