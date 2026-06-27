@@ -27,8 +27,8 @@ export function computeLevenshteinDistance(s1, s2) {
 export function correctSpelling(token) {
   const t = token.toLowerCase();
 
-  // If token is very short (<= 3 chars), do not perform fuzzy matching to avoid false corrections
-  if (t.length <= 3) return t;
+  // If token is very short (<= 3 chars) or too long (> 20 chars), do not perform fuzzy matching to avoid performance overhead
+  if (t.length <= 3 || t.length > 20) return t;
 
   // If the word exists exactly in our global vocabulary, keep it as is
   if (globalVocabulary.includes(t)) {
