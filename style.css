@@ -447,7 +447,7 @@ input[type="range"]::-webkit-slider-thumb {
 /* ─── Testimonials ───────────────────────────────── */
 .testimonial-card {
   flex-shrink: 0;
-  width: 380px;
+  width: min(380px, calc(100vw - 2rem));
   background: rgba(255,255,255,0.6);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255,255,255,0.7);
@@ -613,3 +613,54 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 
+/* ─── Mobile Responsive Overrides ────────────────── */
+@media (max-width: 640px) {
+  /* Reduce section vertical padding on small screens */
+  section.py-24 {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+  section.py-28 {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  /* Prevent floating decorative blobs from causing overflow */
+  .floating-shape {
+    display: none;
+  }
+
+  /* Hero section: ensure comfortable min-height on mobile */
+  #home {
+    min-height: 600px;
+  }
+
+  /* Testimonial card responsive width */
+  .testimonial-card {
+    width: calc(100vw - 2rem);
+    padding: 1.25rem;
+  }
+
+  /* Article card image height reduction */
+  .h-36 {
+    height: 7rem;
+  }
+
+  /* Stat dividers: reduce left padding on mobile */
+  .border-l.border-white\/10.pl-8 {
+    padding-left: 1rem;
+  }
+
+  /* Modal padding on mobile */
+  .glass-card.rounded-3xl.p-8 {
+    padding: 1.25rem;
+  }
+}
+
+/* ─── Tablet Responsive Overrides ──────────────────── */
+@media (min-width: 641px) and (max-width: 1023px) {
+  /* Ensure service cards don't get too tall on tablet */
+  .service-card {
+    padding: 1.5rem;
+  }
+}

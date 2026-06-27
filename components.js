@@ -133,7 +133,7 @@ window.MonomeComponents = {
         <canvas id="footer-confetti-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-30"></canvas>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-8 pt-16 pb-10 relative z-10">
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-14">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 mb-14">
             
             <!-- Brand Column -->
             <div class="space-y-6">
