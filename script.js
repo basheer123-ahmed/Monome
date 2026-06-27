@@ -316,28 +316,41 @@ document.addEventListener('DOMContentLoaded', () => {
     const onStart = (e) => {
       isDraggingSlider = true;
       sliderContainer.style.cursor = 'grabbing';
+      
       const clientX = e.touches ? e.touches[0].clientX : e.clientX;
       updateSliderPosition(clientX);
+
+      // Register temporary drag tracking handlers
+      if (e.touches) {
+        window.addEventListener('touchmove', onMove, { passive: true });
+        window.addEventListener('touchend', onEnd);
+      } else {
+        window.addEventListener('mousemove', onMove);
+        window.addEventListener('mouseup', onEnd);
+      }
     };
 
     const onMove = (e) => {
       if (!isDraggingSlider) return;
       const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      updateSliderPosition(clientX);
+      window.requestAnimationFrame(() => updateSliderPosition(clientX));
     };
 
     const onEnd = () => {
       isDraggingSlider = false;
-      if (sliderContainer) sliderContainer.style.cursor = 'ew-resize';
+      sliderContainer.style.cursor = 'ew-resize';
+      
+      // Cleanup drag handlers from memory
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseup', onEnd);
+      window.removeEventListener('touchmove', onMove);
+      window.removeEventListener('touchend', onEnd);
     };
 
+    // Statically prevent touch-drag default scrolling conflicts
+    sliderContainer.style.touchAction = 'pan-y';
     sliderContainer.addEventListener('mousedown', onStart);
-    window.addEventListener('mousemove', onMove);
-    window.addEventListener('mouseup', onEnd);
-
     sliderContainer.addEventListener('touchstart', onStart, { passive: true });
-    window.addEventListener('touchmove', onMove, { passive: true });
-    window.addEventListener('touchend', onEnd);
   }
 
 
@@ -632,32 +645,86 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  // ─── 11. Contact Form Submit Mock ───
+  // ─── 11. Contact Form Submit controller ───
   const contactForm = document.getElementById('contact-form');
   const formSuccess = document.getElementById('form-success');
   const submitBtnText = document.getElementById('submit-btn-text');
   const submitSpinner = document.getElementById('submit-spinner');
 
+  // Input Sanitizer to block basic XSS script payloads
+  const sanitizeInput = (val) => {
+    if (!val) return '';
+    return val.replace(/<[^>]*>/g, '').trim();
+  };
+
   if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       
+      const formData = new FormData(contactForm);
+      const name = sanitizeInput(formData.get('name'));
+      const email = sanitizeInput(formData.get('email'));
+      const phone = sanitizeInput(formData.get('phone'));
+      const service = sanitizeInput(formData.get('service'));
+      const message = sanitizeInput(formData.get('message'));
+
+      // Validate required fields
+      if (!name || !email || !message) {
+        alert('Please fill out all required fields.');
+        return;
+      }
+
+      // Simple email validation regex
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        alert('Please enter a valid email address.');
+        return;
+      }
+
+      // UI Loading state
       if (submitBtnText) submitBtnText.textContent = 'Sending Message...';
       if (submitSpinner) submitSpinner.classList.remove('hidden');
 
-      // Simulating network delay
-      setTimeout(() => {
+      // Production endpoint integration (scaffolded to fallback to mock gracefully)
+      const API_ENDPOINT = window.MONOME_CONTACT_API || '';
+
+      try {
+        if (API_ENDPOINT) {
+          // Promise wrapper to enforce a 10s network timeout limit
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+          const response = await fetch(API_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, phone, service, message }),
+            signal: controller.signal
+          });
+          clearTimeout(timeoutId);
+
+          if (!response.ok) throw new Error('API submission failed');
+        } else {
+          // Simulation fallback for development/static environments
+          await new Promise((resolve) => setTimeout(resolve, 1200));
+        }
+
+        // Clean UI on Success
         contactForm.reset();
-        if (submitSpinner) submitSpinner.classList.add('hidden');
-        if (submitBtnText) submitBtnText.textContent = 'Submit Inquiry';
-        
         if (formSuccess) {
           formSuccess.classList.remove('hidden');
-          setTimeout(() => {
-            formSuccess.classList.add('hidden');
-          }, 5000);
+          // Hide success message after 5 seconds
+          setTimeout(() => formSuccess.classList.add('hidden'), 5000);
         }
-      }, 1500);
+      } catch (err) {
+        console.error('Contact Form error:', err);
+        alert(err.name === 'AbortError' 
+          ? 'Network request timed out. Please check your internet connection and try again.' 
+          : 'Failed to send message. Please contact us directly at monomeconstructions@zohomail.in.'
+        );
+      } finally {
+        if (submitSpinner) submitSpinner.classList.add('hidden');
+        if (submitBtnText) submitBtnText.textContent = 'Submit Inquiry';
+      }
     });
   }
 
@@ -667,14 +734,59 @@ document.addEventListener('DOMContentLoaded', () => {
   const newsletterSuccess = document.getElementById('newsletter-success');
 
   if (newsletterForm) {
-    newsletterForm.addEventListener('submit', (e) => {
+    newsletterForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      if (newsletterSuccess) {
-        newsletterSuccess.classList.remove('hidden');
-        newsletterForm.reset();
-        setTimeout(() => {
-          newsletterSuccess.classList.add('hidden');
-        }, 4000);
+      const emailInput = newsletterForm.querySelector('input[type="email"]');
+      if (!emailInput) return;
+
+      const email = sanitizeInput(emailInput.value);
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        alert('Please enter a valid email address.');
+        return;
+      }
+
+      const newsletterBtn = newsletterForm.querySelector('button[type="submit"]');
+      const originalBtnHtml = newsletterBtn ? newsletterBtn.innerHTML : '';
+      if (newsletterBtn) {
+        newsletterBtn.disabled = true;
+        newsletterBtn.innerHTML = 'Subscribing...';
+      }
+
+      const API_ENDPOINT = window.MONOME_NEWSLETTER_API || '';
+
+      try {
+        if (API_ENDPOINT) {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 8000);
+
+          const response = await fetch(API_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email }),
+            signal: controller.signal
+          });
+          clearTimeout(timeoutId);
+
+          if (!response.ok) throw new Error('Subscription failed');
+        } else {
+          await new Promise((resolve) => setTimeout(resolve, 800));
+        }
+
+        if (newsletterSuccess) {
+          newsletterSuccess.classList.remove('hidden');
+          newsletterForm.reset();
+          setTimeout(() => {
+            newsletterSuccess.classList.add('hidden');
+          }, 4000);
+        }
+      } catch (err) {
+        console.error('Newsletter error:', err);
+        alert('Failed to subscribe. Please try again later.');
+      } finally {
+        if (newsletterBtn) {
+          newsletterBtn.disabled = false;
+          newsletterBtn.innerHTML = originalBtnHtml;
+        }
       }
     });
   }
@@ -763,5 +875,96 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   });
+
+  // ─── 16. Accessible Modal Focus Management & Keyboard Actions ───
+  const modals = document.querySelectorAll('[id^="modal-k"]');
+  let lastActiveElement = null;
+
+  const openModal = (modalId) => {
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
+    lastActiveElement = document.activeElement;
+    modal.classList.remove('hidden');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('role', 'dialog');
+    document.body.style.overflow = 'hidden';
+    
+    // Focus the close button or first interactive element
+    const focusable = modal.querySelectorAll('button, a, [tabindex="0"]');
+    if (focusable.length > 0) {
+      focusable[0].focus();
+    }
+  };
+
+  const closeModal = (modal) => {
+    if (!modal) return;
+    modal.classList.add('hidden');
+    modal.removeAttribute('aria-modal');
+    modal.removeAttribute('role');
+    document.body.style.overflow = '';
+    if (lastActiveElement) {
+      lastActiveElement.focus();
+    }
+  };
+
+  // Global key listeners for focus trapping & Escape key
+  window.addEventListener('keydown', (e) => {
+    const activeModal = Array.from(modals).find(m => !m.classList.contains('hidden'));
+    if (!activeModal) return;
+
+    if (e.key === 'Escape') {
+      closeModal(activeModal);
+    }
+
+    if (e.key === 'Tab') {
+      const focusables = activeModal.querySelectorAll('button, [tabindex="0"], a, input, select, textarea');
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+
+      if (e.shiftKey) { // Shift + Tab
+        if (document.activeElement === first) {
+          last.focus();
+          e.preventDefault();
+        }
+      } else { // Tab
+        if (document.activeElement === last) {
+          first.focus();
+          e.preventDefault();
+        }
+      }
+    }
+  });
+
+  // Intercept trigger article actions (Enterprise standard key hook)
+  document.querySelectorAll('article[onclick*="modal-k"]').forEach(article => {
+    article.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const onclickAttr = article.getAttribute('onclick') || '';
+        const match = onclickAttr.match(/modal-k\d/);
+        if (match) {
+          openModal(match[0]);
+        }
+      }
+    });
+  });
+
+  // Override close click handler to programmatically restore focus
+  modals.forEach(modal => {
+    const closeBtn = modal.querySelector('button[onclick*="hidden"]');
+    if (closeBtn) {
+      // Remove inline onclick to handle it through script controller safely
+      closeBtn.removeAttribute('onclick');
+      closeBtn.addEventListener('click', () => closeModal(modal));
+    }
+    // Handle click outside modal window
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal(modal);
+      }
+    });
+  });
 });
+
 
