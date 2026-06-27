@@ -7,7 +7,7 @@ window.MonomeComponents = {
     
     let prefetchTag = '';
     if (currentPage !== 'index.html') {
-      prefetchTag = '\n    <link rel="prefetch" href="public/home-background-v2.mp4?v=2" as="video" type="video/mp4" />';
+      prefetchTag = '\n    <link rel="prefetch" href="public/Keep_it_indian_style_and_backg.mp4?v=1" as="video" type="video/mp4" />';
     }
     
     const isActive = (pageName) => {
