@@ -163,11 +163,25 @@ export function stemWord(word) {
   return w;
 }
 
+// Robust Emoji Stripping helper with modern Unicode property escapes and legacy fallback
+let emojiRegex;
+try {
+  // Use a string parameter to prevent compilation errors in older JS parsers
+  emojiRegex = new RegExp('\\p{Extended_Pictographic}', 'gu');
+} catch (e) {
+  emojiRegex = /[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD00-\uDFFF]/g;
+}
+
+export function stripEmojis(text) {
+  if (!text) return "";
+  return text.replace(emojiRegex, "");
+}
+
 export function normalizeAndTokenize(text) {
   if (!text) return [];
 
-  // 1. Lowercase conversion
-  let cleaned = text.toLowerCase();
+  // 1. Emoji stripping and Lowercase conversion
+  let cleaned = stripEmojis(text).toLowerCase();
 
   // 2. Punctuation removal (replace with space to keep words separated, excluding underscore)
   cleaned = cleaned.replace(/[.,\/#!$%\^&\*;:{}=\-`~()?"']/g, " ");

@@ -4,6 +4,7 @@
  */
 
 import { ChatController } from './chatController.js';
+import { stripEmojis } from './normalizer.js';
 
 (function () {
   // Inject style block dynamically for scoped luxury UI enhancements
@@ -59,6 +60,13 @@ import { ChatController } from './chatController.js';
     .suggestion-scroll::-webkit-scrollbar {
       display: none;
     }
+    @keyframes typing-dot-bounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+      30% { transform: translateY(-4px); opacity: 1; }
+    }
+    .animate-typing-dot {
+      animation: typing-dot-bounce 1.2s ease-in-out infinite;
+    }
   `;
 
   const styleSheet = document.createElement("style");
@@ -78,6 +86,78 @@ import { ChatController } from './chatController.js';
 
   let activePills = [...defaultPills];
   let isOpen = false;
+  let lastSubmitTime = 0;
+  let isBotResponding = false;
+  const SUBMIT_COOLDOWN_MS = 150;
+  const MAX_CHAT_MESSAGES = 150;
+
+  /** @param {string} str - Raw string to escape for safe HTML insertion */
+  function escapeHTML(str) {
+    if (typeof str !== 'string') return '';
+    return str
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  /** @param {string} htmlString - HTML string to sanitize against XSS */
+  function sanitizeHTML(htmlString) {
+    if (typeof window === 'undefined' || !window.document) return htmlString;
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = htmlString;
+
+    const allowedTags = new Set([
+      'div', 'span', 'p', 'br', 'strong', 'em', 'ul', 'ol', 'li', 'a',
+      'svg', 'path', 'circle', 'rect', 'g', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'button'
+    ]);
+    
+    const allowedAttrs = new Set([
+      'class', 'id', 'href', 'target', 'rel', 'viewbox', 'fill', 'cx', 'cy', 'r', 'x', 'y', 'width', 'height', 'rx', 'ry', 'stroke', 'stroke-width', 'stroke-linecap', 'stroke-linejoin', 'd', 'transform', 'xmlns', 'data-action'
+    ]);
+
+    function sanitizeNode(node) {
+      const nodeType = node.nodeType;
+      if (nodeType === Node.TEXT_NODE) return;
+      if (nodeType === Node.ELEMENT_NODE) {
+        const tagName = node.tagName.toLowerCase();
+        if (!allowedTags.has(tagName)) {
+          const parent = node.parentNode;
+          if (parent) {
+            while (node.firstChild) {
+              parent.insertBefore(node.firstChild, node);
+            }
+            parent.removeChild(node);
+          }
+          return;
+        }
+
+        const attrs = Array.from(node.attributes);
+        for (const attr of attrs) {
+          const attrName = attr.name.toLowerCase();
+          if (!allowedAttrs.has(attrName)) {
+            node.removeAttribute(attr.name);
+            continue;
+          }
+
+          if (attrName === 'href') {
+            const val = attr.value.trim().toLowerCase();
+            if (val.startsWith('javascript:') || val.startsWith('data:')) {
+              node.removeAttribute(attr.name);
+            }
+          }
+
+        }
+
+        const children = Array.from(node.childNodes);
+        children.forEach(sanitizeNode);
+      }
+    }
+
+    Array.from(tempDiv.childNodes).forEach(sanitizeNode);
+    return tempDiv.innerHTML;
+  }
 
   // Render option pills in the UI
   function renderStatePills() {
@@ -88,7 +168,9 @@ import { ChatController } from './chatController.js';
     activePills.forEach(pill => {
       const button = document.createElement("button");
       button.className = "text-[12px] whitespace-nowrap px-4 py-2 rounded-full border border-[#D4891A]/30 text-[#D4891A] dark:text-[#F5A623] hover:bg-gradient-to-r hover:from-[#F5A623] hover:to-[#D4891A] hover:text-white dark:hover:text-white transition-all duration-200 cursor-pointer bg-white/90 dark:bg-neutral-800/90 font-medium shadow-sm hover:scale-105 active:scale-95 text-center flex-shrink-0";
-      button.innerHTML = pill.text;
+      
+      // Use textContent instead of innerHTML to prevent XSS injection from state pills
+      button.textContent = pill.text;
       
       button.addEventListener("click", () => {
         if (pill.action) {
@@ -103,60 +185,71 @@ import { ChatController } from './chatController.js';
   }
 
   // Handle user submit and bot matching flow
+  /** @param {string} text - The user's message text */
   function handleUserTextSubmit(text) {
-    if (!text.trim()) return;
+    if (!text.trim() || isBotResponding) return;
+    isBotResponding = true;
     addUserMessage(text);
 
     // Call modular ChatController to analyze intent and retrieve response
     const result = controller.processMessage(text);
 
-    if (result) {
-      if (result.type === "REDIRECT") {
-        addBotMessage(`
-          <div class="flex items-center gap-2.5">
-            <svg class="animate-spin h-4.5 w-4.5 text-[#F5A623]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            <span class="text-xs font-semibold text-neutral-700 dark:text-neutral-200">${result.msg}</span>
-          </div>
-        `);
-        setTimeout(() => {
-          window.location.href = result.page;
-        }, 1500);
-      } else {
-        addBotMessage(result.value);
-      }
+    // Show typing indicator for a natural conversational feel
+    showTypingIndicator();
 
-      // Update active pills based on suggested follow-ups
-      if (result.suggestions && result.suggestions.length > 0) {
-        activePills = result.suggestions.map(s => {
-          // If suggestion starts with an emoji, we can strip it or clean it for query
-          const cleanQuery = s.replace(/[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD00-\uDFFF]/g, "").trim();
-          return {
-            text: s,
-            query: cleanQuery
-          };
-        });
-        
-        // Append a Back to Main Menu shortcut
-        activePills.push({
-          text: "⬅️ Main Menu",
-          action: () => {
-            activePills = [...defaultPills];
-            renderStatePills();
-          }
-        });
+    setTimeout(() => {
+      removeTypingIndicator();
+
+      if (result) {
+        if (result.type === "REDIRECT") {
+          const escapedMsg = escapeHTML(result.msg);
+          addBotMessage(`
+            <div class="flex items-center gap-2.5">
+              <svg class="animate-spin h-4.5 w-4.5 text-[#F5A623]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              <span class="text-xs font-semibold text-neutral-700 dark:text-neutral-200">${escapedMsg}</span>
+            </div>
+          `);
+          setTimeout(() => {
+            window.location.href = result.page;
+          }, 1500);
+        } else {
+          addBotMessage(result.value);
+        }
+
+        // Update active pills based on suggested follow-ups
+        if (result.suggestions && result.suggestions.length > 0) {
+          activePills = result.suggestions.map(s => {
+            const cleanQuery = stripEmojis(s).trim();
+            return {
+              text: s,
+              query: cleanQuery
+            };
+          });
+          
+          // Append a Back to Main Menu shortcut
+          activePills.push({
+            text: "⬅️ Main Menu",
+            action: () => {
+              activePills = [...defaultPills];
+              renderStatePills();
+            }
+          });
+        } else {
+          activePills = [...defaultPills];
+        }
       } else {
         activePills = [...defaultPills];
       }
-    } else {
-      activePills = [...defaultPills];
-    }
 
-    renderStatePills();
+      renderStatePills();
+      isBotResponding = false;
+    }, 400);
   }
 
+  /** @param {string} messageText - Plain text message from the user */
   function addUserMessage(messageText) {
     const msgContainer = document.getElementById("monome-chatbot-messages");
     if (!msgContainer) return;
@@ -167,13 +260,15 @@ import { ChatController } from './chatController.js';
     bubble.innerHTML = `
       <div class="bg-gradient-to-br from-[#F5A623] to-[#D4891A] text-white rounded-2xl rounded-tr-none px-4 py-2.5 max-w-[78%] text-[13px] leading-relaxed shadow-sm relative">
         <p>${escapeHTML(messageText)}</p>
-        <span class="text-[9px] text-white/80 mt-1 block text-right">${timeString}</span>
+        <span class="text-[9px] text-white/80 mt-1 block text-right">${escapeHTML(timeString)}</span>
       </div>
     `;
     msgContainer.appendChild(bubble);
+    pruneOldMessages(MAX_CHAT_MESSAGES);
     scrollChatToBottom();
   }
 
+  /** @param {string} messageHtml - Pre-sanitized HTML response from the bot */
   function addBotMessage(messageHtml) {
     const msgContainer = document.getElementById("monome-chatbot-messages");
     if (!msgContainer) return;
@@ -184,22 +279,26 @@ import { ChatController } from './chatController.js';
     
     const isSupportCard = messageHtml.includes("support-card-wrapper") || messageHtml.includes("support-card");
 
+    const sanitizedHtml = sanitizeHTML(messageHtml);
+    const escapedTime = escapeHTML(timeString);
+
     if (isSupportCard) {
       bubble.innerHTML = `
         <div class="w-full text-neutral-800 dark:text-neutral-100 rounded-2xl max-w-[95%] text-[13px] leading-relaxed relative">
-          <div>${messageHtml}</div>
-          <span class="text-[9px] text-neutral-400 dark:text-neutral-500 mt-1 block pl-2">${timeString}</span>
+          <div>${sanitizedHtml}</div>
+          <span class="text-[9px] text-neutral-400 dark:text-neutral-500 mt-1 block pl-2">${escapedTime}</span>
         </div>
       `;
     } else {
       bubble.innerHTML = `
         <div class="bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100 rounded-2xl rounded-tl-none px-4 py-2.5 max-w-[78%] text-[13px] leading-relaxed shadow-sm relative border border-neutral-200/40 dark:border-neutral-700/40">
-          <div>${messageHtml}</div>
-          <span class="text-[9px] text-neutral-400 dark:text-neutral-500 mt-1 block">${timeString}</span>
+          <div>${sanitizedHtml}</div>
+          <span class="text-[9px] text-neutral-400 dark:text-neutral-500 mt-1 block">${escapedTime}</span>
         </div>
       `;
     }
     msgContainer.appendChild(bubble);
+    pruneOldMessages(MAX_CHAT_MESSAGES);
     scrollChatToBottom();
   }
 
@@ -211,7 +310,7 @@ import { ChatController } from './chatController.js';
     bubble.className = "flex justify-center animate-bubble-in my-2";
     bubble.innerHTML = `
       <div class="bg-neutral-50 dark:bg-neutral-900 border border-neutral-200/40 dark:border-neutral-800/40 text-neutral-400 dark:text-neutral-500 rounded-lg px-3 py-1 text-[11px] leading-relaxed shadow-sm font-mono tracking-wide text-center">
-        ⚡ ${msgText}
+        ⚡ ${escapeHTML(msgText)}
       </div>
     `;
     msgContainer.appendChild(bubble);
@@ -228,6 +327,40 @@ import { ChatController } from './chatController.js';
     }
   }
 
+  /** @param {number} max - Maximum message bubbles to retain in the DOM */
+  function pruneOldMessages(max) {
+    const msgContainer = document.getElementById("monome-chatbot-messages");
+    if (!msgContainer) return;
+    while (msgContainer.children.length > max) {
+      msgContainer.removeChild(msgContainer.firstChild);
+    }
+  }
+
+  function showTypingIndicator() {
+    removeTypingIndicator();
+    const msgContainer = document.getElementById("monome-chatbot-messages");
+    if (!msgContainer) return;
+    const indicator = document.createElement("div");
+    indicator.id = "monome-typing-indicator";
+    indicator.className = "flex justify-start animate-bubble-in";
+    indicator.innerHTML = `
+      <div class="bg-neutral-100 dark:bg-neutral-800 rounded-2xl rounded-tl-none px-4 py-3 shadow-sm border border-neutral-200/40 dark:border-neutral-700/40">
+        <div class="flex gap-1 items-center h-4">
+          <span class="w-1.5 h-1.5 rounded-full animate-typing-dot" style="background:#9ca3af;animation-delay:0ms"></span>
+          <span class="w-1.5 h-1.5 rounded-full animate-typing-dot" style="background:#9ca3af;animation-delay:150ms"></span>
+          <span class="w-1.5 h-1.5 rounded-full animate-typing-dot" style="background:#9ca3af;animation-delay:300ms"></span>
+        </div>
+      </div>
+    `;
+    msgContainer.appendChild(indicator);
+    scrollChatToBottom();
+  }
+
+  function removeTypingIndicator() {
+    const el = document.getElementById("monome-typing-indicator");
+    if (el) el.remove();
+  }
+
   function formatTime(date) {
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -236,15 +369,6 @@ import { ChatController } from './chatController.js';
     hours = hours ? hours : 12;
     minutes = minutes < 10 ? "0" + minutes : minutes;
     return hours + ":" + minutes + " " + ampm;
-  }
-
-  function escapeHTML(str) {
-    return str
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
   }
 
   function initChatbot() {
@@ -261,7 +385,7 @@ import { ChatController } from './chatController.js';
       </a>
 
       <!-- Chatbot launcher -->
-      <button id="monome-chatbot-launcher" class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-gradient-to-br from-[#F5A623] to-[#D4891A] text-white shadow-luxury hover:shadow-luxury-hover hover:scale-110 active:scale-95 transition-all duration-300 flex items-center justify-center cursor-pointer animate-chatbot-bounce" aria-label="Open virtual assistant">
+      <button id="monome-chatbot-launcher" aria-expanded="false" aria-controls="monome-chatbot-window" class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-gradient-to-br from-[#F5A623] to-[#D4891A] text-white shadow-luxury hover:shadow-luxury-hover hover:scale-110 active:scale-95 transition-all duration-300 flex items-center justify-center cursor-pointer animate-chatbot-bounce" aria-label="Open virtual assistant">
         <span id="monome-chatbot-badge" class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-[10px] font-bold text-white shadow-md z-10">1</span>
         <div class="w-11 h-11 rounded-full bg-white dark:bg-neutral-800 flex items-center justify-center overflow-hidden border border-white/80 shadow-md">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-9.5 h-9.5">
@@ -305,7 +429,7 @@ import { ChatController } from './chatController.js';
         </div>
       </button>
 
-      <div id="monome-chatbot-window" class="fixed bottom-[164px] right-6 z-50 w-[92vw] sm:w-[380px] h-[520px] rounded-3xl overflow-hidden glass-card shadow-2xl flex flex-col chatbot-window hidden-scale">
+      <div id="monome-chatbot-window" role="dialog" aria-modal="false" aria-label="MONOME Virtual Assistant" class="fixed bottom-[164px] right-6 z-50 w-[92vw] sm:w-[380px] h-[520px] rounded-3xl overflow-hidden glass-card shadow-2xl flex flex-col chatbot-window hidden-scale">
         <div class="bg-gradient-to-r from-[#F5A623] to-[#D4891A] p-4 flex items-center justify-between text-white shadow-md relative">
           <div class="flex items-center gap-3">
             <div class="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center border border-white/20">
@@ -328,7 +452,7 @@ import { ChatController } from './chatController.js';
           </button>
         </div>
 
-        <div id="monome-chatbot-messages" class="flex-1 overflow-y-auto p-4 space-y-3.5 bg-[#FEFDFB]/95 dark:bg-[#0f1117]/95 chatbot-messages">
+        <div id="monome-chatbot-messages" role="status" aria-live="polite" class="flex-1 overflow-y-auto p-4 space-y-3.5 bg-[#FEFDFB]/95 dark:bg-[#0f1117]/95 chatbot-messages">
         </div>
 
         <div id="monome-chatbot-options-container" class="px-4 py-1 bg-[#FEFDFB]/90 dark:bg-[#0f1117]/90 border-t border-neutral-100 dark:border-neutral-800/60 overflow-hidden">
@@ -336,7 +460,7 @@ import { ChatController } from './chatController.js';
         </div>
 
         <form id="monome-chatbot-form" class="p-3 border-t border-neutral-100 dark:border-neutral-800/80 bg-white dark:bg-[#1a1d23] flex gap-2 items-center">
-          <input type="text" id="monome-chatbot-input" placeholder="Type your question..." class="flex-1 px-4 py-2 rounded-full bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-[13px] text-neutral-800 dark:text-neutral-100 placeholder:text-neutral-400 focus:outline-none focus:border-[#F5A623] focus:ring-1 focus:ring-[#F5A623]/20 transition-all" autocomplete="off" />
+          <input type="text" id="monome-chatbot-input" placeholder="Type your question..." class="flex-1 px-4 py-2 rounded-full bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-[13px] text-neutral-800 dark:text-neutral-100 placeholder:text-neutral-400 focus:outline-none focus:border-[#F5A623] focus:ring-1 focus:ring-[#F5A623]/20 transition-all" autocomplete="off" aria-label="Chat input message" />
           <button type="submit" class="w-9 h-9 rounded-full bg-[#F5A623] text-white flex items-center justify-center hover:bg-[#D4891A] hover:scale-105 active:scale-95 transition-all cursor-pointer shadow-md" aria-label="Send message">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 transform rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
@@ -354,35 +478,96 @@ import { ChatController } from './chatController.js';
     const form = document.getElementById("monome-chatbot-form");
     const input = document.getElementById("monome-chatbot-input");
 
+    const openChatbot = () => {
+      isOpen = true;
+      windowPanel.classList.remove("hidden-scale");
+      windowPanel.setAttribute("aria-modal", "true");
+      launcher.classList.remove("animate-chatbot-bounce");
+      if (whatsappLauncher) whatsappLauncher.classList.remove("animate-chatbot-bounce");
+      if (badge) badge.classList.add("hidden");
+      launcher.setAttribute("aria-expanded", "true");
+      setTimeout(() => input.focus(), 150);
+    };
+
+    const closeChatbot = () => {
+      isOpen = false;
+      windowPanel.classList.add("hidden-scale");
+      windowPanel.setAttribute("aria-modal", "false");
+      launcher.classList.add("animate-chatbot-bounce");
+      if (whatsappLauncher) whatsappLauncher.classList.add("animate-chatbot-bounce");
+      launcher.setAttribute("aria-expanded", "false");
+      launcher.focus();
+    };
+
     launcher.addEventListener("click", () => {
-      isOpen = !isOpen;
       if (isOpen) {
-        windowPanel.classList.remove("hidden-scale");
-        launcher.classList.remove("animate-chatbot-bounce");
-        if (whatsappLauncher) whatsappLauncher.classList.remove("animate-chatbot-bounce");
-        if (badge) badge.classList.add("hidden");
-        setTimeout(() => input.focus(), 150);
+        closeChatbot();
       } else {
-        windowPanel.classList.add("hidden-scale");
-        launcher.classList.add("animate-chatbot-bounce");
-        if (whatsappLauncher) whatsappLauncher.classList.add("animate-chatbot-bounce");
+        openChatbot();
       }
     });
 
     closeBtn.addEventListener("click", (e) => {
       e.stopPropagation();
-      isOpen = false;
-      windowPanel.classList.add("hidden-scale");
-      launcher.classList.add("animate-chatbot-bounce");
-      if (whatsappLauncher) whatsappLauncher.classList.add("animate-chatbot-bounce");
+      closeChatbot();
     });
 
     form.addEventListener("submit", (e) => {
       e.preventDefault();
+      const now = Date.now();
+      if (now - lastSubmitTime < SUBMIT_COOLDOWN_MS) return;
+      lastSubmitTime = now;
       const text = input.value.trim();
       if (!text) return;
       input.value = "";
       handleUserTextSubmit(text);
+    });
+
+    // Event delegation for dismissing support cards (replaces inline onclick handlers)
+    const chatMsgContainer = document.getElementById("monome-chatbot-messages");
+    if (chatMsgContainer) {
+      chatMsgContainer.addEventListener("click", (e) => {
+        const dismissBtn = e.target.closest('[data-action="dismiss-card"]');
+        if (!dismissBtn) return;
+        const wrapper = dismissBtn.closest('.support-card-wrapper');
+        if (wrapper) {
+          wrapper.style.opacity = '0';
+          wrapper.style.transform = 'translateY(10px) scale(0.95)';
+          setTimeout(() => wrapper.remove(), 250);
+        }
+      });
+    }
+
+    // Keyboard focus trapping & Escape key handling
+    window.addEventListener("keydown", (e) => {
+      if (!isOpen) return;
+
+      if (e.key === "Escape") {
+        closeChatbot();
+        e.preventDefault();
+        return;
+      }
+
+      if (e.key === "Tab") {
+        const focusable = windowPanel.querySelectorAll(
+          'a[href], button:not([disabled]), input:not([disabled]), [tabindex="0"]'
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            last.focus();
+            e.preventDefault();
+          }
+        } else {
+          if (document.activeElement === last) {
+            first.focus();
+            e.preventDefault();
+          }
+        }
+      }
     });
 
     addSystemNotification("Secured session established with Monome Constructions Desk.");

@@ -26,6 +26,15 @@ document.addEventListener('DOMContentLoaded', () => {
         hideLoader();
       }
     });
+
+    // Graceful fallback if background video loading fails
+    homeBackgroundVideo.addEventListener('error', () => {
+      console.warn("Home background video failed to load. Falling back to default layout.");
+      if (!loaderHidden) {
+        loaderHidden = true;
+        hideLoader();
+      }
+    });
     
     // Safety Fallback: hide loader after 3.5 seconds if autoplay is blocked or slow to load
     setTimeout(() => {
@@ -314,6 +323,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Mouse and Touch events
     const onStart = (e) => {
+      if (isDraggingSlider) return;
       isDraggingSlider = true;
       sliderContainer.style.cursor = 'grabbing';
       

@@ -107,7 +107,7 @@ export class ChatController {
               </div>
             </a>
             <!-- Continue Chatting -->
-            <button onclick="const wrapper = this.closest('.support-card-wrapper'); if (wrapper) { wrapper.style.opacity = '0'; wrapper.style.transform = 'translateY(10px) scale(0.95)'; setTimeout(() => wrapper.remove(), 250); }" class="flex sm:flex-col items-center gap-3 sm:gap-1.5 p-3 sm:p-2.5 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200/50 dark:border-neutral-700/50 hover:border-[#D4891A]/50 dark:hover:border-[#F5A623]/50 hover:scale-[1.02] active:scale-[0.98] transition-all group shadow-sm cursor-pointer text-center border-none w-full outline-none">
+            <button data-action="dismiss-card" class="flex sm:flex-col items-center gap-3 sm:gap-1.5 p-3 sm:p-2.5 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200/50 dark:border-neutral-700/50 hover:border-[#D4891A]/50 dark:hover:border-[#F5A623]/50 hover:scale-[1.02] active:scale-[0.98] transition-all group shadow-sm cursor-pointer text-center border-none w-full outline-none">
               <span class="text-xl sm:mb-0.5 filter drop-shadow-sm group-hover:scale-110 transition-transform duration-300">↩</span>
               <div class="text-left sm:text-center">
                 <span class="font-bold text-[11px] text-neutral-800 dark:text-white group-hover:text-[#D4891A] dark:group-hover:text-[#F5A623] transition-colors block">Continue Chatting</span>

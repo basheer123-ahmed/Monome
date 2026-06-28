@@ -3,27 +3,62 @@
 import { globalVocabulary, getCanonicalConcept } from './synonyms.js';
 import { normalizeAndTokenize, stemWord, STOP_WORDS } from './normalizer.js';
 
-export function computeLevenshteinDistance(s1, s2) {
-  const costs = [];
-  for (let i = 0; i <= s1.length; i++) {
-    let lastValue = i;
-    for (let j = 0; j <= s2.length; j++) {
-      if (i === 0) {
-        costs[j] = j;
-      } else if (j > 0) {
-        let newValue = costs[j - 1];
-        if (s1.charAt(i - 1) !== s2.charAt(j - 1)) {
-          newValue = Math.min(Math.min(newValue, lastValue), costs[j]) + 1;
-        }
-        costs[j - 1] = lastValue;
-        lastValue = newValue;
-      }
+// Spelling correction cache to avoid redundant distance calculations
+const correctionCache = new Map();
+
+// Grouped vocabulary by token length for O(1) bucket retrieval
+let vocabularyByLength = null;
+
+function initVocabularyBuckets() {
+  vocabularyByLength = {};
+  for (const word of globalVocabulary) {
+    const len = word.length;
+    if (!vocabularyByLength[len]) {
+      vocabularyByLength[len] = [];
     }
-    if (i > 0) costs[s2.length] = lastValue;
+    vocabularyByLength[len].push(word);
   }
-  return costs[s2.length];
 }
 
+/**
+ * Computes Levenshtein distance between two strings with an early-exit threshold limit.
+ * If the distance exceeds maxDist, the computation halts early.
+ */
+export function computeLevenshteinDistance(s1, s2, maxDist = Infinity) {
+  const len1 = s1.length;
+  const len2 = s2.length;
+  if (Math.abs(len1 - len2) > maxDist) return maxDist + 1;
+
+  let prevRow = Array.from({ length: len2 + 1 }, (_, i) => i);
+  let currRow = new Array(len2 + 1);
+
+  for (let i = 1; i <= len1; i++) {
+    currRow[0] = i;
+    let minRowVal = i;
+    for (let j = 1; j <= len2; j++) {
+      const cost = s1.charAt(i - 1) === s2.charAt(j - 1) ? 0 : 1;
+      currRow[j] = Math.min(
+        currRow[j - 1] + 1,
+        prevRow[j] + 1,
+        prevRow[j - 1] + cost
+      );
+      if (currRow[j] < minRowVal) {
+        minRowVal = currRow[j];
+      }
+    }
+    if (minRowVal > maxDist) {
+      return maxDist + 1;
+    }
+    const temp = prevRow;
+    prevRow = currRow;
+    currRow = temp;
+  }
+  return prevRow[len2];
+}
+
+/**
+ * Performs spell correction using cached and length-bucketed vocabulary lookups.
+ */
 export function correctSpelling(token) {
   const t = token.toLowerCase();
 
@@ -35,21 +70,39 @@ export function correctSpelling(token) {
     return t;
   }
 
+  // Return cached result if available
+  if (correctionCache.has(t)) {
+    return correctionCache.get(t);
+  }
+
+  if (!vocabularyByLength) {
+    initVocabularyBuckets();
+  }
+
   // Find the closest vocabulary word within threshold
   const maxAllowedDist = t.length <= 5 ? 1 : 2;
   let closestWord = t;
   let minDistance = Infinity;
 
-  for (const vocabWord of globalVocabulary) {
-    if (Math.abs(t.length - vocabWord.length) > maxAllowedDist) continue;
-    
-    const dist = computeLevenshteinDistance(t, vocabWord);
-    if (dist <= maxAllowedDist && dist < minDistance) {
-      minDistance = dist;
-      closestWord = vocabWord;
+  const len = t.length;
+  const minLen = Math.max(1, len - maxAllowedDist);
+  const maxLen = len + maxAllowedDist;
+
+  for (let l = minLen; l <= maxLen; l++) {
+    const bucket = vocabularyByLength[l];
+    if (!bucket) continue;
+
+    for (const vocabWord of bucket) {
+      const threshold = Math.min(maxAllowedDist, minDistance - 1);
+      const dist = computeLevenshteinDistance(t, vocabWord, threshold);
+      if (dist <= threshold && dist < minDistance) {
+        minDistance = dist;
+        closestWord = vocabWord;
+      }
     }
   }
 
+  correctionCache.set(t, closestWord);
   return closestWord;
 }
 
