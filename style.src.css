@@ -668,3 +668,15 @@ input[type="range"]::-webkit-slider-thumb {
     padding: 1.5rem;
   }
 }
+
+/* Ensure hero text doesn't merge with any kind of background (light, dark, or video frames) */
+#home .section-title {
+  color: #ffffff !important;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.7)) drop-shadow(0 1px 3px rgba(0, 0, 0, 0.9));
+}
+
+#home .section-subtitle {
+  color: rgba(255, 255, 255, 0.9) !important;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6)) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.8));
+}
+
